@@ -1,5 +1,5 @@
 .burger {
-  /* border: 1px solid white; */
+  max-width: 600px;
   height: auto;
   margin: auto;
 }
@@ -11,15 +11,51 @@
 }
 
 .burger_menu {
-  margin: 0auto;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: space-evenly;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .ingredients {
-    width: 100%;
-    height: 700px;
-    border: 1px solid red;
-    
+  max-width: 600px;
+  height: 700px;
+  overflow-y: scroll;
+  margin-top: 40px;
+}
+
+.ingredients_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ingredients_title {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0 0 24px 0;
+}
+
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.ingredients_sauce {
+  margin-top: 48px;
+}
+
+.ingredients_filling {
+  margin-top: 48px;
 }
