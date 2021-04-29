@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 
 function App() {
   const [isTooglePopup, setIsTooglePopup] = React.useState(false);
@@ -34,7 +35,7 @@ function App() {
       />
       <section id="main" className={styles.main}>
         <BurgerIngredients />
-        <BurgerIngredients />
+        <BurgerConstructor />
       </section>
     </>
   );

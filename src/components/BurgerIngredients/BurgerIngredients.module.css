@@ -1,7 +1,7 @@
 .burger {
   max-width: 600px;
   height: auto;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .burger_header {
@@ -21,7 +21,7 @@
 
 .ingredients {
   max-width: 600px;
-  height: 700px;
+  height: 70vh;
   overflow-y: scroll;
   margin-top: 40px;
 }

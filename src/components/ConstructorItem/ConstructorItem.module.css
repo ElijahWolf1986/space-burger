@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 32px 16px 0;
+  max-width: 536px;
+  max-height: 48px;
+  background-color: #1C1C21;
+  border-radius: 40px;
+  
+}
+
+/* .container_bun {
+    border-radius: 88px 88px 40px 40px;
+} */
+
+.container_ingredient_info {
+    display: flex;
+    align-items: center;
+}
+
+.container_ingredient_info_empty {
+    margin-left: 24px;
+}
+
+.container_ingredient_name {
+  max-width: 254px;
+  max-height: 48px;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0 20px;
+}
+
+.container_ingredient_image {
+  max-width: 80px;
+  max-height: 40px;
+}
+
+.container_ingredient_price {
+  display: flex;
+  align-items: center;
+}
+
+.container_ingredient_price_value {
+  font-size: 28px;
+  line-height: 24px;
+  font-family: Iceland;
+  margin: 0 8px 0 0;
+}
+
+.container_button_delete {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  background-image: url("../../images/Constructor/trash_icon.png");
+  border: none;
+  cursor: pointer;
+  margin: 0 0 0 20px;
+}
+
+.container_drag_icon {
+    cursor:  pointer;
+
+}
+
+.container_lock_icon {
+    margin: 0 0 0 20px;
+}

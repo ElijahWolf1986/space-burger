@@ -6,7 +6,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Data from "../../utils/data";
 
 function BurgerIngredients() {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = React.useState("one"); 
 
   //   const history = useHistory(); // Была попытка организовть якорную ссылку, но ничего не вышло ()
   //   const turnToFilling = () => {
@@ -65,10 +65,7 @@ function BurgerIngredients() {
           <div className={styles.ingredients_list}>
             {sauceArr.map((item) => {
               return (
-                <Ingredient
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
+                <Ingredient {...item}
                 />
               );
             })}
