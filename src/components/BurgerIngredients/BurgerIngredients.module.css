@@ -1,0 +1,25 @@
+.burger {
+  /* border: 1px solid white; */
+  height: auto;
+  margin: auto;
+}
+
+.burger_header {
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.burger_menu {
+  margin: 0auto;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.ingredients {
+    width: 100%;
+    height: 700px;
+    border: 1px solid red;
+    
+}
