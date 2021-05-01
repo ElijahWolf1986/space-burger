@@ -1,31 +1,28 @@
-
 .constructor {
-    /* position: relative; */
-  }
+  margin: auto;
+}
 
 .constructor_ingredients {
   width: 600px;
-  height: 70vh;
+  height: 50vh;
   overflow-y: scroll;
   margin: 0 auto;
 }
 
 .constructor_bun {
-    max-width: 536px;
-    background-color: #1C1C21;
-    margin:  0 auto;   
-   
+  max-width: 536px;
+  background-color: #1c1c21;
+  margin: 0 auto;
 }
 
 .constructor_bun_top {
-    
-    border-radius: 88px 88px 40px 40px;
-    margin: 100px auto 0 auto;
-    padding: 0;
+  border-radius: 88px 88px 40px 40px;
+  margin: 80px auto 0 auto;
+  padding: 0;
 }
 
 .constructor_bun_bottom {
-    border-radius: 40px 40px 88px 88px;
+  border-radius: 40px 40px 88px 88px;
 }
 
 .constructor_item {
@@ -48,10 +45,7 @@
   background: #8585ad;
 }
 
-
-
 .constructor_total {
-  /* margin: 20px 20px; */
   position: relative;
   display: flex;
   align-items: center;
@@ -62,9 +56,9 @@
   font-family: Iceland;
   font-weight: normal;
   font-size: 48px;
-  line-height: 36px;
+  line-height: 6px;
 }
 
 .constructor_currency_icon {
-    margin: 0 40px 0 8px;
+  margin: 0 40px 0 8px;
 }

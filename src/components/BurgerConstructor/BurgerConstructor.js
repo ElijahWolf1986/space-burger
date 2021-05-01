@@ -8,7 +8,8 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerConstructor() { // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
+function BurgerConstructor() {
+  // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
   const ingredArr = Data.filter((item) => {
     return item.type !== "bun";
   });
@@ -16,15 +17,14 @@ function BurgerConstructor() { // отбираем все ингредиенты
     return item.type === "bun";
   });
 
-  // console.log(whatIsBun)
-
   const total = 610;
 
   return (
     <section className={styles.constructor}>
-
-    <div className={`${styles.constructor_bun} ${styles.constructor_bun_top}`}>
-      <ConstructorItem {...whatIsBun} />
+      <div
+        className={`${styles.constructor_bun} ${styles.constructor_bun_top}`}
+      >
+        <ConstructorItem {...whatIsBun} />
       </div>
 
       {/* Тут отрисовываем ингредиенты внутри списка */}
@@ -32,7 +32,7 @@ function BurgerConstructor() { // отбираем все ингредиенты
         <ul className={styles.constructor_list}>
           {ingredArr.map((item) => {
             return (
-              <li className={styles.constructor_item}>
+              <li className={styles.constructor_item} key={item._id}>
                 {" "}
                 <ConstructorItem {...item} />{" "}
               </li>
@@ -41,21 +41,22 @@ function BurgerConstructor() { // отбираем все ингредиенты
         </ul>
       </div>
 
-      <div className={`${styles.constructor_bun} ${styles.constructor_bun_bottom}`}>
-      <ConstructorItem {...whatIsBun} />
+      <div
+        className={`${styles.constructor_bun} ${styles.constructor_bun_bottom}`}
+      >
+        <ConstructorItem {...whatIsBun} />
       </div>
 
       <div className={styles.constructor_total}>
         {/* Тут подсчитываем и выводим общую стоимость заказа */}
-        <p className={styles.constructor_count}> {total}  </p>
+        <p className={styles.constructor_count}> {total} </p>
         <div className={styles.constructor_currency_icon}>
-        <CurrencyIcon type="primary" />
+          <CurrencyIcon type="primary" />
         </div>
         <Button type="primary" size="large">
           Оформить заказ
         </Button>
       </div>
-
     </section>
   );
 }

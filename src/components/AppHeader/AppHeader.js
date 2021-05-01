@@ -6,17 +6,15 @@ import {
   BurgerIcon,
   ListIcon,
   ProfileIcon,
-  Tab,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function AppHeader(props) {
-  const [current, setCurrent] = React.useState("one");
+  // const [current, setCurrent] = React.useState("one");
 
   return (
     <section className={styles.header_section}>
       <header className={styles.header}>
         <menu className={styles.menu}>
-
           {/* <Tab value="one" active={current === "one"} onClick={setCurrent}> // "это дичь! Эти табы я использовать не буду, из-за них настроить мобильные версии не вариант, проще свою логику прописать!"
           <div className={styles.tab}>
 
@@ -48,10 +46,12 @@ function AppHeader(props) {
           </ul>
         </menu>
 
-        <a href="#" className={styles.logo}>
+        <a href="localhost:3000" className={styles.logo}>
           <Logo />
         </a>
-        <a href="#" className={styles.logo_mobile} />
+        <a href="localhost:3000" className={styles.logo_mobile}>
+          {" "}
+        </a>
         <button
           id="toogle-menu"
           className={styles.toogle_menu}
@@ -68,14 +68,14 @@ function AppHeader(props) {
           />
         )}
 
-        <profile className={styles.profile}>
+        <div className={styles.profile}>
           <ProfileIcon type="secondary" />
           <p
             className={`${styles.profile_title} ${styles.profile_title_active}`}
           >
             Личный кабинет
           </p>
-        </profile>
+        </div>
       </header>
     </section>
   );

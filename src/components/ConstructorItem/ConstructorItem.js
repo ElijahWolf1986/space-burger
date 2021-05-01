@@ -10,9 +10,11 @@ import styles from "./ConstructorItem.module.css";
 
 function ConstructorItem(props) {
   return (
-    <section className={`${styles.container} p-2 ${
+    <section
+      className={`${styles.container} p-2 ${
         props.type === "bun" && styles.container_bun
-      }`}>
+      }`} 
+    >
       <div
         className={`${styles.container_ingredient_info} ${
           props.in_stock === "false" && styles.container_ingredient_info_empty
