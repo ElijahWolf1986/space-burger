@@ -1,0 +1,162 @@
+.header_section {
+  height: 88px;
+  background-color: #1c1c21;
+  display: flex;
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  width: 1280px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px auto;
+  padding: 0 40px;
+}
+
+.logo {
+  margin-right: 10%;
+}
+
+.logo_mobile {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background-image: url("../../images/Header/logo-mobile.png");
+}
+
+.toogle_menu {
+  display: none;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  background-image: url("../../images/Header/toogle-menu.png");
+  border: none;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.menu_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.menu_item {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
+  margin-left: 9px;
+  padding: 0 20px;
+}
+
+.menu_title {
+  margin-left: 8px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.menu_title_active {
+  color: #8585ad;
+}
+
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
+  cursor: pointer;
+}
+
+.profile_title {
+  margin-left: 8px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.profile_title_active {
+  color: #8585ad;
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+  .menu_title {
+    font-size: 10px;
+    line-height: 14px;
+  }
+  .header {
+    padding: 0 25px;
+  }
+}
+
+@media screen and (min-width: 880px) and (max-width: 999px) {
+  .menu_title {
+    display: none;
+  }
+  .logo {
+    margin-right: 0;
+  }
+  .header {
+    padding: 0 20px;
+  }
+}
+
+@media screen and (min-width: 550px) and (max-width: 879px) {
+  .menu_item {
+    display: none;
+  }
+  .logo {
+    margin-right: 0;
+  }
+  .profile {
+    display: none;
+  }
+  .toogle_menu {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  .header {
+    padding: 0 10px;
+  }
+  .logo {
+    display: none;
+  }
+  .logo_mobile {
+    display: block;
+  }
+  .toogle_menu {
+    display: block;
+  }
+  .menu {
+    display: none;
+  }
+  .profile {
+    display: none;
+  }
+}
+
+/* .tab {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+} */

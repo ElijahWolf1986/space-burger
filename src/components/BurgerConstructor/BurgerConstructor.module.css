@@ -1,0 +1,64 @@
+.constructor {
+  margin: auto;
+}
+
+.constructor_ingredients {
+  width: 600px;
+  height: 50vh;
+  overflow-y: scroll;
+  margin: 0 auto;
+}
+
+.constructor_bun {
+  max-width: 536px;
+  background-color: #1c1c21;
+  margin: 0 auto;
+}
+
+.constructor_bun_top {
+  border-radius: 88px 88px 40px 40px;
+  margin: 80px auto 0 auto;
+  padding: 0;
+}
+
+.constructor_bun_bottom {
+  border-radius: 40px 40px 88px 88px;
+}
+
+.constructor_item {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.constructor_total {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.constructor_count {
+  font-family: Iceland;
+  font-weight: normal;
+  font-size: 48px;
+  line-height: 6px;
+}
+
+.constructor_currency_icon {
+  margin: 0 40px 0 8px;
+}
