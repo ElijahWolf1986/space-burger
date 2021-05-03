@@ -11,20 +11,21 @@ import styles from "./ConstructorItem.module.css";
 function ConstructorItem(props) {
   return (
     <section
-      className={`${styles.container} p-2 ${
-        props.type === "bun" && styles.container_bun
-      }`} 
+      className={`${styles.container} p-2 `} 
     >
       <div
-        className={`${styles.container_ingredient_info} ${
-          props.in_stock === "false" && styles.container_ingredient_info_empty
-        }`}
+        // className={`${styles.container_ingredient_info} ${
+        //   props.bunLock !== undefined && styles.container_ingredient_info_empty
+        // }`}
+        className={`${styles.container_ingredient_info} 
+        `}
+
       >
-        {props.in_stock === "true" && (
+        {/* {props.bunLock === undefined && (
           <div className={styles.container_drag_icon}>
             <DragIcon />
           </div>
-        )}
+        )} */}
         <img
           className={styles.container_ingredient_image}
           src={props.image}
@@ -36,7 +37,7 @@ function ConstructorItem(props) {
       <div className={styles.container_ingredient_price}>
         <p className={styles.container_ingredient_price_value}>{props.price}</p>
         <CurrencyIcon />
-        {props.in_stock === "true" ? (
+        {props.bunLock === undefined ? (
           <button className={styles.container_button_delete}></button>
         ) : (
           <div className={styles.container_lock_icon}>

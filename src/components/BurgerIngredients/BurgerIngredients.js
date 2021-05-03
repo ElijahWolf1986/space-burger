@@ -3,9 +3,8 @@ import React from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Data from "../../utils/data";
 
-function BurgerIngredients() {
+function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("one");
 
   //   const history = useHistory(); // Была попытка организовть якорную ссылку, но ничего не вышло ()
@@ -16,13 +15,13 @@ function BurgerIngredients() {
   // const {name, fat, price} = Data;
 
   //   отбор захардкоренных данных
-  const bunArr = Data.filter((item) => {
+  const bunArr = props.ingredientsList.filter((item) => {
     return item.type === "bun";
   });
-  const sauceArr = Data.filter((item) => {
+  const sauceArr = props.ingredientsList.filter((item) => {
     return item.type === "sauce";
   });
-  const fillingArr = Data.filter((item) => {
+  const fillingArr = props.ingredientsList.filter((item) => {
     return item.type === "main";
   });
   //   ************************************

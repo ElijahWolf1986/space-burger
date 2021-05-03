@@ -7,26 +7,46 @@
   height: 50vh;
   overflow-y: scroll;
   margin: 0 auto;
+  border: 1px solid white;
+
 }
 
 .constructor_bun {
-  max-width: 536px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 470px;
   background-color: #1c1c21;
   margin: 0 auto;
+  border: 1px solid white;
+ 
 }
+
 
 .constructor_bun_top {
   border-radius: 88px 88px 40px 40px;
   margin: 80px auto 0 auto;
-  padding: 0;
 }
 
 .constructor_bun_bottom {
   border-radius: 40px 40px 88px 88px;
+  margin: 20px auto 0 auto;
+
+  /* padding: 0 0 0 20px; */
+
+}
+
+
+
+.constructor_list {
+  padding: 0 0 0 24px;
+  width: 568px;
 }
 
 .constructor_item {
   list-style: none;
+  display: flex;
+  align-items: center;
   padding: 0;
   margin: 0;
 }
@@ -61,4 +81,9 @@
 
 .constructor_currency_icon {
   margin: 0 40px 0 8px;
+}
+
+.dragicon {
+  /* margin: 0 0 8px 0; */
+  padding: 0;
 }

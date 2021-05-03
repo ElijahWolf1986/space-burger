@@ -1,19 +1,20 @@
 import React from "react";
 
 import styles from "./BurgerConstructor.module.css";
-import Data from "../../utils/data";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import {
   CurrencyIcon,
   Button,
+  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function BurgerConstructor() {
+function BurgerConstructor(props) {
   // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const ingredArr = Data.filter((item) => {
+  const bunLock = true;
+  const ingredArr = props.ingredientsList.filter((item) => {
     return item.type !== "bun";
   });
-  const whatIsBun = Data.find((item) => {
+  const whatIsBun = props.ingredientsList.find((item) => {
     return item.type === "bun";
   });
 
@@ -21,19 +22,30 @@ function BurgerConstructor() {
 
   return (
     <section className={styles.constructor}>
+
       <div
         className={`${styles.constructor_bun} ${styles.constructor_bun_top}`}
-      >
-        <ConstructorItem {...whatIsBun} />
-      </div>
 
+      >
+
+        <ConstructorItem {...whatIsBun} bunLock={bunLock} />
+        
+       
+        
+      </div>
+      
+      
       {/* Тут отрисовываем ингредиенты внутри списка */}
       <div className={styles.constructor_ingredients}>
+          
         <ul className={styles.constructor_list}>
+
           {ingredArr.map((item) => {
             return (
               <li className={styles.constructor_item} key={item._id}>
                 {" "}
+                <div className={`${styles.dragicon} mb-1`}> <DragIcon /> </div>
+                
                 <ConstructorItem {...item} />{" "}
               </li>
             );
@@ -41,11 +53,11 @@ function BurgerConstructor() {
         </ul>
       </div>
 
-      <div
+      {/* <div
         className={`${styles.constructor_bun} ${styles.constructor_bun_bottom}`}
       >
-        <ConstructorItem {...whatIsBun} />
-      </div>
+        <ConstructorItem {...whatIsBun} bunLock={bunLock} />
+      </div> */}
 
       <div className={styles.constructor_total}>
         {/* Тут подсчитываем и выводим общую стоимость заказа */}
