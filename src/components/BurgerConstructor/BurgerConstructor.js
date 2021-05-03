@@ -1,5 +1,4 @@
 import React from "react";
-
 import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import {
@@ -7,10 +6,15 @@ import {
   Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+BurgerConstructor.propTypes = {
+  ingredientsList: PropTypes.array,
+  createOrder: PropTypes.func,
+};
 
 function BurgerConstructor(props) {
   // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const bunLock = true;
   const ingredArr = props.ingredientsList.filter((item) => {
     return item.type !== "bun";
   });
@@ -48,12 +52,11 @@ function BurgerConstructor(props) {
           <CurrencyIcon type="primary" />
         </div>
         {/* Этот див временный пока не починять кнопку в библиотеке */}
-        <div onClick={props.createOrder}> 
-        <Button type="primary" size="large">
-          Оформить заказ
-        </Button>
+        <div onClick={props.createOrder}>
+          <Button type="primary" size="large">
+            Оформить заказ
+          </Button>
         </div>
-        
       </div>
     </section>
   );

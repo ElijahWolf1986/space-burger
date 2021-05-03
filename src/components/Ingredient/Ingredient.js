@@ -5,6 +5,15 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+Ingredient.propTypes = {
+  ingredient: PropTypes.object,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  onIngredientClick: PropTypes.func,
+}
 
 function Ingredient(props) {
 

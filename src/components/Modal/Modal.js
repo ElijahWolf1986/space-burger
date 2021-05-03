@@ -1,6 +1,14 @@
 import React from "react";
 import styles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import PropTypes from "prop-types";
+
+Modal.propTypes = {
+  onClose: PropTypes.func,
+  isModal: PropTypes.object,
+  header: PropTypes.string,
+  children: PropTypes.object,
+};
 
 function Modal(props) {
   //Компонент вывода ошибки в случае ее возникновения при работе с api

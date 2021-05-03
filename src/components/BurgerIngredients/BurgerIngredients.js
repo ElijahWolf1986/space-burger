@@ -2,6 +2,12 @@ import React from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+BurgerIngredients.propTypes = {
+  ingredientsList: PropTypes.array,
+  selectedIngredient: PropTypes.func,
+};
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("one");

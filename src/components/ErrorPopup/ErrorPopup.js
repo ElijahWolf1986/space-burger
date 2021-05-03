@@ -1,6 +1,13 @@
 import React from "react";
 import styles from "./ErrorPopup.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import PropTypes from "prop-types";
+
+ErrorPopup.propTypes = {
+  onClose: PropTypes.func,
+  status: PropTypes.string,
+  statusText: PropTypes.string,
+};
 
 function ErrorPopup(props) {
   //Компонент вывода ошибки в случае ее возникновения при работе с api

@@ -6,6 +6,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./ConstructorItem.module.css";
+import PropTypes from "prop-types";
+
+ConstructorItem.propTypes = {
+  bunLock: PropTypes.bool,
+  bunLock_top: PropTypes.bool,
+  bunLock_bottom: PropTypes.bool,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+};
 
 function ConstructorItem(props) {
   return (
@@ -14,10 +24,7 @@ function ConstructorItem(props) {
         props.bunLock_top !== undefined && styles.container_bun_top
       } ${props.bunLock_bottom !== undefined && styles.container_bun_bottom}`}
     >
-      <div
-        className={`${styles.container_ingredient_info}`}
-        className={`${styles.container_ingredient_info}`}
-      >
+      <div className={`${styles.container_ingredient_info}`}>
         <img
           className={styles.container_ingredient_image}
           src={props.image}

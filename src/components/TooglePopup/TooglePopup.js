@@ -5,12 +5,19 @@ import {
   BurgerIcon,
   ListIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+TooglePopup.propTypes = {
+  closeAllPopups: PropTypes.func,
+  isTooglePopupPersonal: PropTypes.bool,
+  handleToogleMenuPersonal: PropTypes.func,
+};
 
 function TooglePopup(props) {
   return (
     <section className={styles.popup}>
       <header className={styles.popup_header}>
-        <p className={`${styles.popup_title} text text_type_main-defaul`} t>
+        <p className={`${styles.popup_title} text text_type_main-defaul`}>
           Меню
         </p>
         <button
@@ -32,7 +39,11 @@ function TooglePopup(props) {
               </p>
             </li>
             <button
-              className={`${styles.popup_menu_personal_throw} ${props.isTooglePopupPersonal ? styles.popup_menu_personal_throw_state_opened : styles.popup_menu_personal_throw_state_closed}`}
+              className={`${styles.popup_menu_personal_throw} ${
+                props.isTooglePopupPersonal
+                  ? styles.popup_menu_personal_throw_state_opened
+                  : styles.popup_menu_personal_throw_state_closed
+              }`}
               onClick={props.handleToogleMenuPersonal}
             ></button>
           </div>

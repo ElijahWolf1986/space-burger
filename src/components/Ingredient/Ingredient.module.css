@@ -8,6 +8,7 @@
   max-height: 208px;
   padding: 0 15px;
   margin: 0 0 32px 0;
+  cursor: pointer;
 }
 
 .counter {
