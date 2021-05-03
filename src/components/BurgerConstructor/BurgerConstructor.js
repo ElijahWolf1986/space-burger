@@ -47,9 +47,13 @@ function BurgerConstructor(props) {
         <div className={styles.constructor_currency_icon}>
           <CurrencyIcon type="primary" />
         </div>
+        {/* Этот див временный пока не починять кнопку в библиотеке */}
+        <div onClick={props.createOrder}> 
         <Button type="primary" size="large">
           Оформить заказ
         </Button>
+        </div>
+        
       </div>
     </section>
   );

@@ -7,7 +7,9 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import IngredientsApi from "../../Api";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { URL } from "../../utils/Utils";
+import OrderDetails from "../OrderDetails/OrderDetails";
+import { URL, ORDER } from "../../utils/Utils";
+
 
 function App() {
   const [isTooglePopup, setIsTooglePopup] = React.useState(false);
@@ -18,6 +20,7 @@ function App() {
   const [ingredientsList, setIngredientsList] = React.useState([]);
   const [errApi, setErrApi] = React.useState({});
   const [selectedIngredient, setSelectedIngredient] = React.useState();
+  const [order, setOrder] = React.useState();
 
   const ingredientsApi = new IngredientsApi(URL);
 
@@ -31,6 +34,10 @@ function App() {
     setIsTooglePopupPersonal(!isTooglePopupPersonal);
   }
 
+  function handleClickCreateOrder() {
+    setOrder(ORDER);
+  }
+
   function closeAllPopups() {
     //Закрываем все всплывающие окна
     setIsTooglePopup(false);
@@ -38,6 +45,7 @@ function App() {
     setIsModal(false);
     setErrApi({});
     setSelectedIngredient(undefined);
+    setOrder(undefined);
   }
 
   function handleIngredientClick(selectedIngredient) {
@@ -71,13 +79,17 @@ function App() {
           ingredientsList={ingredientsList}
           selectedIngredient={handleIngredientClick}
         />
-        <BurgerConstructor ingredientsList={ingredientsList} />
+        <BurgerConstructor ingredientsList={ingredientsList} createOrder={handleClickCreateOrder} />
       </section>
 
       <IngredientDetails
         onClose={closeAllPopups}
         ingredient={selectedIngredient}
       />
+        <OrderDetails
+        onClose={closeAllPopups}
+        order={order}
+        />  
 
       <ErrorPopup onClose={closeAllPopups} err={errApi} />
     </>
