@@ -6,7 +6,7 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import IngredientsApi from "../../Api";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
-import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { URL } from "../../utils/Utils";
 
 function App() {
@@ -17,29 +17,39 @@ function App() {
   );
   const [ingredientsList, setIngredientsList] = React.useState([]);
   const [errApi, setErrApi] = React.useState({});
+  const [selectedIngredient, setSelectedIngredient] = React.useState();
 
   const ingredientsApi = new IngredientsApi(URL);
 
-  function handleToogleMenu() { // Меню для мобильных устройств
+  function handleToogleMenu() {
+    // Меню для мобильных устройств
     setIsTooglePopup(true);
   }
 
-  function handleToogleMenuPersonal() { //Меню личного кабинета для мобильных устройств
+  function handleToogleMenuPersonal() {
+    //Меню личного кабинета для мобильных устройств
     setIsTooglePopupPersonal(!isTooglePopupPersonal);
   }
 
-  function closeAllPopups() { //Закрываем все всплывающие окна
+  function closeAllPopups() {
+    //Закрываем все всплывающие окна
     setIsTooglePopup(false);
     setIsTooglePopupPersonal(false);
     setIsModal(false);
     setErrApi({});
+    setSelectedIngredient(undefined);
+  }
+
+  function handleIngredientClick(selectedIngredient) {
+    //Открытие деталей ингредиента
+    setSelectedIngredient(selectedIngredient);
   }
 
   React.useEffect(() => {
     ingredientsApi // Получаем данные с сервера
       .getIngredientList()
       .then((res) => {
-        setIngredientsList(res.data); 
+        setIngredientsList(res.data);
         setErrApi({});
       })
       .catch((err) => {
@@ -57,14 +67,21 @@ function App() {
         handleToogleMenuPersonal={handleToogleMenuPersonal}
       />
       <section id="main" className={styles.main}>
-        <BurgerIngredients ingredientsList={ingredientsList} />
-        <BurgerConstructor ingredientsList={ingredientsList}/>
+        <BurgerIngredients
+          ingredientsList={ingredientsList}
+          selectedIngredient={handleIngredientClick}
+        />
+        <BurgerConstructor ingredientsList={ingredientsList} />
       </section>
-      <Modal onClose={closeAllPopups} isModal={isModal} />
+
+      <IngredientDetails
+        onClose={closeAllPopups}
+        ingredient={selectedIngredient}
+      />
+
       <ErrorPopup onClose={closeAllPopups} err={errApi} />
     </>
   );
 }
 
 export default App;
-

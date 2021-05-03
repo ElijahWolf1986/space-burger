@@ -7,8 +7,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function Ingredient(props) {
+
+  const ingredient = props.ingredient;
+
+  const handleClick = () => {
+    props.onIngredientClick(ingredient);
+
+  }
   return (
-    <section className={styles.ingredient}>
+    <section className={styles.ingredient} onClick={handleClick}>
       <Counter count={1} size="small" />
       <img src={props.image} alt={props.name} />
 

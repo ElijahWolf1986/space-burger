@@ -1,5 +1,6 @@
 .modal {
   display: none;
+  position: relative;
   visibility: hidden;
   opacity: 0;
 }
@@ -21,10 +22,10 @@
 
 .modal_container {
   position: fixed;
-  width: 720px;
+  width: 34%;
   left: 50%;
   top: 21%;
-  margin-left: -360px;
+  margin-left: -17%;
   background-color: #1c1c21;
   border: 1px solid rgba(76, 76, 255, 0.2);
   box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
@@ -42,7 +43,6 @@
 }
 
 .modal_close_icon {
-  margin: 12px 0 0 0;
   width: 24px;
   height: 24px;
   background: none;
@@ -51,4 +51,40 @@
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
+  margin-top: 4px;
+}
+
+@media screen and (min-width: 1220px) and (max-width: 1700px) {
+  .modal_title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1219px) {
+  .modal_title {
+    font-size: 20px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (min-width: 770px) and (max-width: 999px) {
+  .modal_title {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .modal_title {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .modal_close_icon {
+    position: absolute;
+    top: -18px;
+    right: -18px;
+    margin-top: 4px;
+  }
 }

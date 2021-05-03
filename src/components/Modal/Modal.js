@@ -2,43 +2,38 @@ import React from "react";
 import styles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 
-
 function Modal(props) {
-    //Компонент вывода ошибки в случае ее возникновения при работе с api
-    function closeByEsc(evt) {
-      if (evt.keyCode === 27) {
-        props.onClose();
-      }
+  //Компонент вывода ошибки в случае ее возникновения при работе с api
+  function closeByEsc(evt) {
+    if (evt.keyCode === 27) {
+      props.onClose();
     }
-    React.useEffect(() => {
-      document.addEventListener("keydown", closeByEsc, false);
-      return () => {
-        document.removeEventListener("keydown", closeByEsc, false);
-      };
-    }, []);
-  
-    return (
-      <section
-        className={`${styles.modal} ${props.isModal &&
-          styles.modal_active
-        }`}
-      >
-        <ModalOverlay onClose={props.onClose} />
-
-        <div className={styles.modal_container}>
-         <header className={`${styles.modal_header} m-5`}>
-         <h3 className={styles.modal_title}>Детали ингредиента</h3>
-        <button className={styles.modal_close_icon} onClick={props.onClose}>
-          {" "}
-        </button>
-             
-        </header>   
-        
-          {props.children}
-
-        </div>
-      </section>
-    );
   }
-  
-  export default Modal;
+  React.useEffect(() => {
+    document.addEventListener("keydown", closeByEsc, false);
+    return () => {
+      document.removeEventListener("keydown", closeByEsc, false);
+    };
+  }, []);
+
+  return (
+    <section
+      className={`${styles.modal} ${props.isModal && styles.modal_active}`}
+    >
+      <ModalOverlay onClose={props.onClose} />
+
+      <div className={styles.modal_container}>
+        <header className={`${styles.modal_header} m-5`}>
+          <h3 className={styles.modal_title}>{props.header}</h3>
+          <button className={styles.modal_close_icon} onClick={props.onClose}>
+            {" "}
+          </button>
+        </header>
+
+        {props.children}
+      </div>
+    </section>
+  );
+}
+
+export default Modal;

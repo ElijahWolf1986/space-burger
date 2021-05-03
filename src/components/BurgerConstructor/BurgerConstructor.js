@@ -22,43 +22,25 @@ function BurgerConstructor(props) {
 
   return (
     <section className={styles.constructor}>
-
-      <div
-        className={`${styles.constructor_bun} ${styles.constructor_bun_top}`}
-
-      >
-
-        <ConstructorItem {...whatIsBun} bunLock={bunLock} />
-        
-       
-        
-      </div>
-      
-      
+      <ConstructorItem {...whatIsBun} bunLock bunLock_top />
       {/* Тут отрисовываем ингредиенты внутри списка */}
       <div className={styles.constructor_ingredients}>
-          
         <ul className={styles.constructor_list}>
-
           {ingredArr.map((item) => {
             return (
               <li className={styles.constructor_item} key={item._id}>
                 {" "}
-                <div className={`${styles.dragicon} mb-1`}> <DragIcon /> </div>
-                
+                <div className={`${styles.dragicon} mb-1`}>
+                  {" "}
+                  <DragIcon />{" "}
+                </div>
                 <ConstructorItem {...item} />{" "}
               </li>
             );
           })}
         </ul>
       </div>
-
-      {/* <div
-        className={`${styles.constructor_bun} ${styles.constructor_bun_bottom}`}
-      >
-        <ConstructorItem {...whatIsBun} bunLock={bunLock} />
-      </div> */}
-
+      <ConstructorItem {...whatIsBun} bunLock bunLock_bottom />
       <div className={styles.constructor_total}>
         {/* Тут подсчитываем и выводим общую стоимость заказа */}
         <p className={styles.constructor_count}> {total} </p>

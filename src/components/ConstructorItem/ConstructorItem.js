@@ -3,7 +3,6 @@ import React from "react";
 import {
   CurrencyIcon,
   LockIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./ConstructorItem.module.css";
@@ -11,21 +10,14 @@ import styles from "./ConstructorItem.module.css";
 function ConstructorItem(props) {
   return (
     <section
-      className={`${styles.container} p-2 `} 
+      className={`${styles.container} p-2 ${
+        props.bunLock_top !== undefined && styles.container_bun_top
+      } ${props.bunLock_bottom !== undefined && styles.container_bun_bottom}`}
     >
       <div
-        // className={`${styles.container_ingredient_info} ${
-        //   props.bunLock !== undefined && styles.container_ingredient_info_empty
-        // }`}
-        className={`${styles.container_ingredient_info} 
-        `}
-
+        className={`${styles.container_ingredient_info}`}
+        className={`${styles.container_ingredient_info}`}
       >
-        {/* {props.bunLock === undefined && (
-          <div className={styles.container_drag_icon}>
-            <DragIcon />
-          </div>
-        )} */}
         <img
           className={styles.container_ingredient_image}
           src={props.image}

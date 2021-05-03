@@ -1,14 +1,12 @@
 .constructor {
-  margin: auto;
+  margin: 120px auto 0 auto;
 }
 
 .constructor_ingredients {
-  width: 600px;
+  max-width: 600px;
   height: 50vh;
   overflow-y: scroll;
   margin: 0 auto;
-  border: 1px solid white;
-
 }
 
 .constructor_bun {
@@ -18,29 +16,10 @@
   max-width: 470px;
   background-color: #1c1c21;
   margin: 0 auto;
-  border: 1px solid white;
- 
 }
-
-
-.constructor_bun_top {
-  border-radius: 88px 88px 40px 40px;
-  margin: 80px auto 0 auto;
-}
-
-.constructor_bun_bottom {
-  border-radius: 40px 40px 88px 88px;
-  margin: 20px auto 0 auto;
-
-  /* padding: 0 0 0 20px; */
-
-}
-
-
 
 .constructor_list {
   padding: 0 0 0 24px;
-  width: 568px;
 }
 
 .constructor_item {
@@ -84,6 +63,12 @@
 }
 
 .dragicon {
-  /* margin: 0 0 8px 0; */
   padding: 0;
+}
+
+
+@media screen and (max-width: 599px) {
+
+
+
 }
