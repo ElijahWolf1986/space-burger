@@ -11,19 +11,6 @@ Modal.propTypes = {
 };
 
 function Modal(props) {
-  //Компонент вывода ошибки в случае ее возникновения при работе с api
-  function closeByEsc(evt) {
-    if (evt.keyCode === 27) {
-      props.onClose();
-    }
-  }
-  React.useEffect(() => {
-    document.addEventListener("keydown", closeByEsc, false);
-    return () => {
-      document.removeEventListener("keydown", closeByEsc, false);
-    };
-  }, []);
-
   return (
     <section
       className={`${styles.modal} ${props.isModal && styles.modal_active}`}

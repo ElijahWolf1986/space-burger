@@ -3,7 +3,7 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import IngredientsApi from "../../Api";
+import IngredientsApi from "../../utils/Api";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
@@ -19,6 +19,13 @@ function App() {
   const [selectedIngredient, setSelectedIngredient] = React.useState();
   const [order, setOrder] = React.useState();
   const ingredientsApi = new IngredientsApi(URL);
+
+
+  function closeByEsc(evt) {
+    if (evt.keyCode === 27) {
+      closeAllPopups();
+    }
+  }
 
   function handleToogleMenu() {
     // Меню для мобильных устройств
@@ -60,6 +67,14 @@ function App() {
       });
   }, []);
 
+
+  React.useEffect(() => {
+    document.addEventListener("keydown", closeByEsc, false);
+    return () => {
+      document.removeEventListener("keydown", closeByEsc, false);
+    };
+  }, []);
+
   return (
     <>
       <AppHeader
@@ -84,7 +99,7 @@ function App() {
         ingredient={selectedIngredient}
       />
       <OrderDetails onClose={closeAllPopups} order={order} />
-      <ErrorPopup onClose={closeAllPopups} err={errApi} />
+      <ErrorPopup onClose={closeAllPopups} err={errApi}  />
     </>
   );
 }
