@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -10,6 +11,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import { URL, ORDER } from "../../utils/Utils";
 
 function App() {
+  const mainContainer = document.getElementById("root");
   const [isTooglePopup, setIsTooglePopup] = React.useState(false);
   const [isTooglePopupPersonal, setIsTooglePopupPersonal] = React.useState(
     false
@@ -19,7 +21,6 @@ function App() {
   const [selectedIngredient, setSelectedIngredient] = React.useState();
   const [order, setOrder] = React.useState();
   const ingredientsApi = new IngredientsApi(URL);
-
 
   function closeByEsc(evt) {
     if (evt.keyCode === 27) {
@@ -67,7 +68,6 @@ function App() {
       });
   }, []);
 
-
   React.useEffect(() => {
     document.addEventListener("keydown", closeByEsc, false);
     return () => {
@@ -94,12 +94,24 @@ function App() {
           createOrder={handleClickCreateOrder}
         />
       </section>
-      <IngredientDetails
+      {ReactDOM.createPortal(
+        <IngredientDetails
+          onClose={closeAllPopups}
+          ingredient={selectedIngredient}
+        />,
+        mainContainer
+      )}
+      {ReactDOM.createPortal(
+        <OrderDetails onClose={closeAllPopups} order={order} />,
+        mainContainer
+      )}
+
+      {/* <IngredientDetails
         onClose={closeAllPopups}
         ingredient={selectedIngredient}
-      />
-      <OrderDetails onClose={closeAllPopups} order={order} />
-      <ErrorPopup onClose={closeAllPopups} err={errApi}  />
+      /> */}
+      {/* <OrderDetails onClose={closeAllPopups} order={order} /> */}
+      <ErrorPopup onClose={closeAllPopups} err={errApi} />
     </>
   );
 }

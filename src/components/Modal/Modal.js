@@ -24,11 +24,14 @@ function Modal(props) {
             {" "}
           </button>
         </header>
-
+        <div id='test'>
         {props.children}
+
+        </div>
+
       </div>
     </section>
   );
 }
 
-export default Modal;
+export default Modal; 
