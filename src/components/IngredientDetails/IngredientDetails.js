@@ -14,7 +14,7 @@ IngredientDetails.propTypes = {
   carbohydrates: PropTypes.string,
 };
 
-const element = document.getElementById("root");
+const element = document.getElementById("modal");
 
 function IngredientDetails(props) {
   return ReactDOM.createPortal(

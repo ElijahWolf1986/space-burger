@@ -10,7 +10,7 @@ OrderDetails.propTypes = {
   order: PropTypes.object,
   number: PropTypes.number,
 };
-const element = document.getElementById("root");
+const element = document.getElementById("modal");
 
 function OrderDetails(props) {
   return ReactDOM.createPortal(
