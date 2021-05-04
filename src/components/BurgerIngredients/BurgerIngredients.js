@@ -11,6 +11,26 @@ BurgerIngredients.propTypes = {
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("one");
+
+  function viewComponentFilling() {
+    document
+      .getElementById("filling")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+    setCurrent("three");
+  }
+  function viewComponentSauce() {
+    document
+      .getElementById("sauce")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+    setCurrent("two");
+  }
+  function viewComponentBun() {
+    document
+      .getElementById("bun")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+    setCurrent("one");
+  }
+
   //   отбор захардкоренных данных
   const bunArr = props.ingredientsList.filter((item) => {
     return item.type === "bun";
@@ -28,13 +48,21 @@ function BurgerIngredients(props) {
       <h1 className={styles.burger_header}>Соберите бургер</h1>
       {/* Меню ингредиетов */}
       <menu className={styles.burger_menu}>
-        <Tab value="one" active={current === "one"} onClick={setCurrent}>
+        <Tab value="one" active={current === "one"} onClick={viewComponentBun}>
           Булки
         </Tab>
-        <Tab value="two" active={current === "two"} onClick={setCurrent}>
+        <Tab
+          value="two"
+          active={current === "two"}
+          onClick={viewComponentSauce}
+        >
           Соусы
         </Tab>
-        <Tab value="three" active={current === "three"} onClick={setCurrent}>
+        <Tab
+          value="three"
+          active={current === "three"}
+          onClick={viewComponentFilling}
+        >
           Начинки
         </Tab>
       </menu>
