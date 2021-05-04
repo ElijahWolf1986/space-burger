@@ -1,28 +1,44 @@
 import React from "react";
-// import { useHistory, Link, useLocation } from "react-router-dom";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Data from "../../utils/data";
+import PropTypes from "prop-types";
 
-function BurgerIngredients() {
+BurgerIngredients.propTypes = {
+  ingredientsList: PropTypes.array,
+  selectedIngredient: PropTypes.func,
+};
+
+function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("one");
 
-  //   const history = useHistory(); // Была попытка организовть якорную ссылку, но ничего не вышло ()
-  //   const turnToFilling = () => {
-  //     history.push("#filling");
-  //     setCurrent("three");
-  //   };
-  // const {name, fat, price} = Data;
+  function viewComponentFilling() {
+    document
+      .getElementById("filling")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+    setCurrent("three");
+  }
+  function viewComponentSauce() {
+    document
+      .getElementById("sauce")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+    setCurrent("two");
+  }
+  function viewComponentBun() {
+    document
+      .getElementById("bun")
+      .scrollIntoView({ block: "start", behavior: "smooth" });
+    setCurrent("one");
+  }
 
   //   отбор захардкоренных данных
-  const bunArr = Data.filter((item) => {
+  const bunArr = props.ingredientsList.filter((item) => {
     return item.type === "bun";
   });
-  const sauceArr = Data.filter((item) => {
+  const sauceArr = props.ingredientsList.filter((item) => {
     return item.type === "sauce";
   });
-  const fillingArr = Data.filter((item) => {
+  const fillingArr = props.ingredientsList.filter((item) => {
     return item.type === "main";
   });
   //   ************************************
@@ -32,13 +48,21 @@ function BurgerIngredients() {
       <h1 className={styles.burger_header}>Соберите бургер</h1>
       {/* Меню ингредиетов */}
       <menu className={styles.burger_menu}>
-        <Tab value="one" active={current === "one"} onClick={setCurrent}>
+        <Tab value="one" active={current === "one"} onClick={viewComponentBun}>
           Булки
         </Tab>
-        <Tab value="two" active={current === "two"} onClick={setCurrent}>
+        <Tab
+          value="two"
+          active={current === "two"}
+          onClick={viewComponentSauce}
+        >
           Соусы
         </Tab>
-        <Tab value="three" active={current === "three"} onClick={setCurrent}>
+        <Tab
+          value="three"
+          active={current === "three"}
+          onClick={viewComponentFilling}
+        >
           Начинки
         </Tab>
       </menu>
@@ -55,6 +79,8 @@ function BurgerIngredients() {
                   image={item.image}
                   name={item.name}
                   price={item.price}
+                  onIngredientClick={props.selectedIngredient}
+                  ingredient={item}
                 />
               );
             })}
@@ -71,6 +97,8 @@ function BurgerIngredients() {
                   image={item.image}
                   name={item.name}
                   price={item.price}
+                  onIngredientClick={props.selectedIngredient}
+                  ingredient={item}
                 />
               );
             })}
@@ -87,6 +115,8 @@ function BurgerIngredients() {
                   image={item.image}
                   name={item.name}
                   price={item.price}
+                  onIngredientClick={props.selectedIngredient}
+                  ingredient={item}
                 />
               );
             })}

@@ -1,12 +1,26 @@
 .container {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin: 0 32px 16px 0;
-  max-width: 536px;
+  margin: 0 32px 16px 8px;
   max-height: 48px;
   background-color: #1c1c21;
   border-radius: 40px;
+}
+
+.container_bun_top {
+  max-width: 480px;
+  border-radius: 88px 88px 40px 40px;
+  margin: 0 auto;
+  justify-content: flex-end;
+}
+
+.container_bun_bottom {
+  max-width: 480px;
+  border-radius: 40px 40px 88px 88px;
+  margin: 0 auto;
+  justify-content: flex-end;
 }
 
 .container_ingredient_info {

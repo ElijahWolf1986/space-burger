@@ -3,28 +3,28 @@ import React from "react";
 import {
   CurrencyIcon,
   LockIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./ConstructorItem.module.css";
+import PropTypes from "prop-types";
+
+ConstructorItem.propTypes = {
+  bunLock: PropTypes.bool,
+  bunLock_top: PropTypes.bool,
+  bunLock_bottom: PropTypes.bool,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+};
 
 function ConstructorItem(props) {
   return (
     <section
       className={`${styles.container} p-2 ${
-        props.type === "bun" && styles.container_bun
-      }`} 
+        props.bunLock_top !== undefined && styles.container_bun_top
+      } ${props.bunLock_bottom !== undefined && styles.container_bun_bottom}`}
     >
-      <div
-        className={`${styles.container_ingredient_info} ${
-          props.in_stock === "false" && styles.container_ingredient_info_empty
-        }`}
-      >
-        {props.in_stock === "true" && (
-          <div className={styles.container_drag_icon}>
-            <DragIcon />
-          </div>
-        )}
+      <div className={`${styles.container_ingredient_info}`}>
         <img
           className={styles.container_ingredient_image}
           src={props.image}
@@ -36,7 +36,7 @@ function ConstructorItem(props) {
       <div className={styles.container_ingredient_price}>
         <p className={styles.container_ingredient_price_value}>{props.price}</p>
         <CurrencyIcon />
-        {props.in_stock === "true" ? (
+        {props.bunLock === undefined ? (
           <button className={styles.container_button_delete}></button>
         ) : (
           <div className={styles.container_lock_icon}>

@@ -7,31 +7,21 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+AppHeader.propTypes = {
+  handleToogleMenu: PropTypes.func,
+  isTooglePopup: PropTypes.bool,
+  closeAllPopups: PropTypes.func,
+  isTooglePopupPersonal: PropTypes.bool,
+  handleToogleMenuPersonal: PropTypes.func,
+};
 
 function AppHeader(props) {
-  // const [current, setCurrent] = React.useState("one");
-
   return (
     <section className={styles.header_section}>
       <header className={styles.header}>
         <menu className={styles.menu}>
-          {/* <Tab value="one" active={current === "one"} onClick={setCurrent}> // "это дичь! Эти табы я использовать не буду, из-за них настроить мобильные версии не вариант, проще свою логику прописать!"
-          <div className={styles.tab}>
-
-            <BurgerIcon type="primary" />
-            <p className={`${styles.menu_title}`}>Конструктор</p>
-            </div>
-          </Tab>
-          
-          
-
-          <Tab value="two" active={current === "two"} onClick={setCurrent}>
-          <div className={styles.tab}> 
-            <ListIcon type="secondary" />
-            <p className={`${styles.menu_title}`}>Лента заказов</p>
-            </div>
-          </Tab> */}
-
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
               <BurgerIcon type="primary" />

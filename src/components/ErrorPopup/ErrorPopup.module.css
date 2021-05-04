@@ -1,0 +1,50 @@
+.err_popup_container {
+  position: fixed;
+  width: 430px;
+  left: 50%;
+  top: 21%;
+  margin-left: -215px;
+  background-color: #24242f;
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+}
+
+.err_popup_close_icon {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 24px;
+  height: 24px;
+  background: none;
+  background-image: url("../../images/Header/close-mobile.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.err_popup {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.err_popup_active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+  opacity: 1;
+}
+
+.err_popup_title {
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  color: #8585ad;
+}
+
+.err_popup_paragraph {
+  text-align: center;
+}

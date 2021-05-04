@@ -15,7 +15,6 @@
   align-items: center;
   justify-content: space-between;
   margin: 20px auto;
-  padding: 0 40px;
 }
 
 .logo {
@@ -65,7 +64,7 @@
   align-items: center;
   justify-content: left;
   margin-left: 9px;
-  padding: 0 20px;
+  padding: 0 8px;
 }
 
 .menu_title {
@@ -153,10 +152,3 @@
     display: none;
   }
 }
-
-/* .tab {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-} */
