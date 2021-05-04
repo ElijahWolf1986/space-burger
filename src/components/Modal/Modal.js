@@ -2,6 +2,9 @@ import React from "react";
 import styles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
+
+const element = document.getElementById("root");
 
 Modal.propTypes = {
   onClose: PropTypes.func,
@@ -11,7 +14,7 @@ Modal.propTypes = {
 };
 
 function Modal(props) {
-  return (
+  return ReactDOM.createPortal(
     <section
       className={`${styles.modal} ${props.isModal && styles.modal_active}`}
     >
@@ -24,14 +27,11 @@ function Modal(props) {
             {" "}
           </button>
         </header>
-        <div id='test'>
-        {props.children}
-
-        </div>
-
+        <div id="test">{props.children}</div>
       </div>
-    </section>
+    </section>,
+    element
   );
 }
 
-export default Modal; 
+export default Modal;

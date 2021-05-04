@@ -22,7 +22,6 @@
 
 .modal_container {
   z-index: 3;
-
   border: 1px solid white;
   position: fixed;
   width: 34%;

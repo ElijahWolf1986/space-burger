@@ -31,5 +31,5 @@ function OrderDetails(props) {
     </Modal>
   );
 }
- 
+
 export default OrderDetails;
