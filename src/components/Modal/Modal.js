@@ -2,9 +2,6 @@ import React from "react";
 import styles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
-import ReactDOM from "react-dom";
-
-const element = document.getElementById("root");
 
 Modal.propTypes = {
   onClose: PropTypes.func,
@@ -14,12 +11,11 @@ Modal.propTypes = {
 };
 
 function Modal(props) {
-  return ReactDOM.createPortal(
+  return (
     <section
       className={`${styles.modal} ${props.isModal && styles.modal_active}`}
     >
       <ModalOverlay onClose={props.onClose} />
-
       <div className={styles.modal_container}>
         <header className={`${styles.modal_header} m-5`}>
           <h3 className={styles.modal_title}>{props.header}</h3>
@@ -29,8 +25,7 @@ function Modal(props) {
         </header>
         <div id="test">{props.children}</div>
       </div>
-    </section>,
-    element
+    </section>
   );
 }
 

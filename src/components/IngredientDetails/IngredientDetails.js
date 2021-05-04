@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./IngredientDetails.module.css";
 import Modal from "../Modal/Modal";
 import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
 
 IngredientDetails.propTypes = {
   onClose: PropTypes.func,
@@ -13,8 +14,10 @@ IngredientDetails.propTypes = {
   carbohydrates: PropTypes.string,
 };
 
+const element = document.getElementById("root");
+
 function IngredientDetails(props) {
-  return (
+  return ReactDOM.createPortal(
     <Modal
       onClose={props.onClose}
       isModal={props.ingredient}
@@ -57,7 +60,8 @@ function IngredientDetails(props) {
           </li>
         </ul>
       </div>
-    </Modal>
+    </Modal>,
+    element
   );
 }
 

@@ -3,15 +3,17 @@ import styles from "./OrderDetails.module.css";
 import Modal from "../Modal/Modal";
 import successIcon from "../../images/OrderDetails/success_icon.png";
 import PropTypes from "prop-types";
+import ReactDOM from "react-dom";
 
 OrderDetails.propTypes = {
   onClose: PropTypes.func,
   order: PropTypes.object,
   number: PropTypes.number,
 };
+const element = document.getElementById("root");
 
 function OrderDetails(props) {
-  return (
+  return ReactDOM.createPortal(
     <Modal onClose={props.onClose} isModal={props.order}>
       <div className={styles.order_container}>
         <p className={styles.order_number}>
@@ -28,7 +30,8 @@ function OrderDetails(props) {
           Дождитесь готовности на орбитальной станции
         </p>
       </div>
-    </Modal>
+    </Modal>,
+    element
   );
 }
 
