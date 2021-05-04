@@ -21,6 +21,8 @@
 }
 
 .modal_container {
+
+  border: 1px solid white;
   position: fixed;
   width: 34%;
   left: 50%;
