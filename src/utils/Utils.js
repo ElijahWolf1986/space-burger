@@ -1,5 +1,3 @@
-export const URL = "https://norma.nomoreparties.space/api/ingredients";
+export const urlIngredients = "https://norma.nomoreparties.space/api/ingredients";
 
-export const ORDER = {
-    "number": "034536",
-}
+export const urlOrder = "https://norma.nomoreparties.space/api/orders";

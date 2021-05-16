@@ -7,22 +7,44 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { BurgerIngredientsContext } from "../../contexts/burgerContext";
 
 BurgerConstructor.propTypes = {
-  ingredientsList: PropTypes.array,
   createOrder: PropTypes.func,
 };
 
 function BurgerConstructor(props) {
+  const ingredientsList = React.useContext(BurgerIngredientsContext);
+
   // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const ingredArr = props.ingredientsList.filter((item) => {
+  const ingredArr = ingredientsList.filter((item) => {
     return item.type !== "bun";
   });
-  const whatIsBun = props.ingredientsList.find((item) => {
+  const whatIsBun = ingredientsList.find((item) => {
     return item.type === "bun";
   });
 
-  const total = 610;
+  //Временная конструкция для обработки входных данных по ингредиентам
+  let totalPrice = 0;
+  let orderIdArr = [];
+  if (ingredArr && whatIsBun) {
+    totalPrice =
+      ingredArr.reduce(function (prevValue, item) {
+        return prevValue + item.price;
+      }, 0) +
+      whatIsBun.price * 2;
+    orderIdArr = ingredArr.map((item) => {
+      return item._id;
+    });
+    orderIdArr.push(whatIsBun._id, whatIsBun._id);
+  }
+
+  //******************* */
+
+  const handleSubmit = () => {
+    //поднятая функция для работы с api
+    props.createOrder(orderIdArr);
+  };
 
   return (
     <section className={styles.constructor}>
@@ -47,12 +69,12 @@ function BurgerConstructor(props) {
       <ConstructorItem {...whatIsBun} bunLock bunLock_bottom />
       <div className={styles.constructor_total}>
         {/* Тут подсчитываем и выводим общую стоимость заказа */}
-        <p className={styles.constructor_count}> {total} </p>
+        <p className={styles.constructor_count}> {totalPrice} </p>
         <div className={styles.constructor_currency_icon}>
           <CurrencyIcon type="primary" />
         </div>
         {/* Этот див временный пока не починять кнопку в библиотеке */}
-        <div onClick={props.createOrder}>
+        <div onClick={handleSubmit}>
           <Button type="primary" size="large">
             Оформить заказ
           </Button>

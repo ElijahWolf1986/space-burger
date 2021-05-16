@@ -7,18 +7,22 @@ import IngredientsApi from "../../utils/Api";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { URL, ORDER } from "../../utils/Utils";
+import { urlIngredients, urlOrder } from "../../utils/Utils";
+import {
+  BurgerIngredientsContext,
+  orderContext,
+} from "../../contexts/burgerContext";
 
 function App() {
   const [isTooglePopup, setIsTooglePopup] = React.useState(false);
-  const [isTooglePopupPersonal, setIsTooglePopupPersonal] = React.useState(
-    false
-  );
+  const [isTooglePopupPersonal, setIsTooglePopupPersonal] =
+    React.useState(false);
   const [ingredientsList, setIngredientsList] = React.useState([]);
   const [errApi, setErrApi] = React.useState({});
   const [selectedIngredient, setSelectedIngredient] = React.useState();
   const [order, setOrder] = React.useState();
-  const ingredientsApi = new IngredientsApi(URL);
+  const ingredientsApi = new IngredientsApi(urlIngredients);
+  const orderApi = new IngredientsApi(urlOrder);
 
   function closeByEsc(evt) {
     if (evt.keyCode === 27) {
@@ -36,8 +40,16 @@ function App() {
     setIsTooglePopupPersonal(!isTooglePopupPersonal);
   }
 
-  function handleClickCreateOrder() {
-    setOrder(ORDER);
+  function handleClickCreateOrder(ingredients) {
+    orderApi
+      .getOrder(ingredients)
+      .then((res) => {
+        setOrder(res);
+        setErrApi({});
+      })
+      .catch((err) => {
+        setErrApi(err);
+      });
   }
 
   function closeAllPopups() {
@@ -87,16 +99,19 @@ function App() {
           ingredientsList={ingredientsList}
           selectedIngredient={handleIngredientClick}
         />
-        <BurgerConstructor
-          ingredientsList={ingredientsList}
-          createOrder={handleClickCreateOrder}
-        />
+
+        <BurgerIngredientsContext.Provider value={ingredientsList}>
+          <BurgerConstructor createOrder={handleClickCreateOrder} />
+        </BurgerIngredientsContext.Provider>
       </section>
       <IngredientDetails
         onClose={closeAllPopups}
         ingredient={selectedIngredient}
       />
-      <OrderDetails onClose={closeAllPopups} order={order} />
+      <orderContext.Provider value={order}>
+        <OrderDetails onClose={closeAllPopups} />
+      </orderContext.Provider>
+
       <ErrorPopup onClose={closeAllPopups} err={errApi} />
     </>
   );

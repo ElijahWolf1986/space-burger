@@ -4,21 +4,19 @@ import Modal from "../Modal/Modal";
 import successIcon from "../../images/OrderDetails/success_icon.png";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
+import { orderContext } from "../../contexts/burgerContext";
 
 OrderDetails.propTypes = {
   onClose: PropTypes.func,
-  order: PropTypes.object,
-  number: PropTypes.number,
 };
 const element = document.getElementById("modal");
 
 function OrderDetails(props) {
+  const order = React.useContext(orderContext);
   return ReactDOM.createPortal(
-    <Modal onClose={props.onClose} isModal={props.order}>
+    <Modal onClose={props.onClose} isModal={order}>
       <div className={styles.order_container}>
-        <p className={styles.order_number}>
-          {props.order ? props.order.number : ""}
-        </p>
+        <p className={styles.order_number}>{order ? order.order.number : ""}</p>
         <p className={styles.order_title}>Идентификатор заказа</p>
         <img
           src={successIcon}
