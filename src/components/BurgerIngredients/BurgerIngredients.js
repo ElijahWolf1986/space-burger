@@ -5,33 +5,64 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 
 function BurgerIngredients() {
-  const [current, setCurrent] = React.useState("one");
+  const bunBlock = document.getElementById("bun");
+  const sauceBlock = document.getElementById("sauce");
+  const fillingBlock = document.getElementById("filling");
+  const topBlock = document.getElementById("ingredients");
 
+  const [current, setCurrent] = React.useState("one");
   const { ingredients } = useSelector((store) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
 
   function viewComponentFilling() {
-    document
-      .getElementById("filling")
-      .scrollIntoView({ block: "start", behavior: "smooth" });
+    fillingBlock.scrollIntoView({ block: "start", behavior: "smooth" });
     setCurrent("three");
   }
   function viewComponentSauce() {
-    document
-      .getElementById("sauce")
-      .scrollIntoView({ block: "start", behavior: "smooth" });
+    sauceBlock.scrollIntoView({ block: "start", behavior: "smooth" });
     setCurrent("two");
   }
   function viewComponentBun() {
-    document
-      .getElementById("bun")
-      .scrollIntoView({ block: "start", behavior: "smooth" });
+    bunBlock.scrollIntoView({ block: "start", behavior: "smooth" });
     setCurrent("one");
   }
 
-  // Сортировка ингредиентов по группам
+  function onScrollIngredients() {
+    const bunBlockPosition = Math.abs(
+      bunBlock.getBoundingClientRect().top -
+        topBlock.getBoundingClientRect().top
+    );
+    const sauceBlockPosition = Math.abs(
+      sauceBlock.getBoundingClientRect().top -
+        topBlock.getBoundingClientRect().top
+    );
+    const fillingBlockPosition = Math.abs(
+      fillingBlock.getBoundingClientRect().top -
+        topBlock.getBoundingClientRect().top
+    );
 
+    if (
+      bunBlockPosition < sauceBlockPosition &&
+      bunBlockPosition < fillingBlockPosition
+    ) {
+      setCurrent("one");
+    }
+    if (
+      sauceBlockPosition < bunBlockPosition &&
+      sauceBlockPosition < fillingBlockPosition
+    ) {
+      setCurrent("two");
+    }
+    if (
+      fillingBlockPosition < bunBlockPosition &&
+      fillingBlockPosition < sauceBlockPosition
+    ) {
+      setCurrent("three");
+    }
+  }
+
+  // Сортировка ингредиентов по группам
   const bunArr = ingredients.filter((item) => {
     return item.type === "bun";
   });
@@ -67,7 +98,11 @@ function BurgerIngredients() {
         </Tab>
       </menu>
       {/* *************** */}
-      <section className={styles.ingredients}>
+      <section
+        id="ingredients"
+        className={styles.ingredients}
+        onScroll={onScrollIngredients}
+      >
         {/* Отображение булок */}
         <div id="bun" className={styles.ingredients_bun}>
           <p className={styles.ingredients_title}>Булки</p>

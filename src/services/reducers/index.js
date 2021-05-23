@@ -17,28 +17,27 @@ import {
   HIDE_PERSONAL_MENU,
 } from "../types";
 
-const initialStateIngredients = {
+const initialStateIngredients = { //ингредиенты запрошенные с севрра
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
-  currentConstructorIngredientsList: [],
 };
 
-const initialStateOrder = {
+const initialStateOrder = { //заказ запрошенный с сервера
   order: null,
   orderRequest: false,
   orderFailed: false,
 };
 
-const initialStateApp = {
+const initialStateApp = { //Обработка и вывод ошибок на экран при работе с сервером
   error: {},
 };
 
-const initialStateIngredient = {
+const initialStateIngredient = { //Работа с выводом деталей ингредиента
   currentIngredient: null,
 };
 
-const initialStateMenu = {
+const initialStateMenu = { //Работа с функиональностью меню для мобильных устройств
   isTooglePopup: false,
   isTooglePersonal: false,
 };
