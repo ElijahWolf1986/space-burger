@@ -2,15 +2,14 @@ import React from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.array,
-  selectedIngredient: PropTypes.func,
-};
-
-function BurgerIngredients(props) {
+function BurgerIngredients() {
   const [current, setCurrent] = React.useState("one");
+
+  const { ingredients } = useSelector((store) => ({
+    ingredients: store.burgerIngredients.ingredients,
+  }));
 
   function viewComponentFilling() {
     document
@@ -31,14 +30,15 @@ function BurgerIngredients(props) {
     setCurrent("one");
   }
 
-  //   отбор захардкоренных данных
-  const bunArr = props.ingredientsList.filter((item) => {
+  // Сортировка ингредиентов по группам
+
+  const bunArr = ingredients.filter((item) => {
     return item.type === "bun";
   });
-  const sauceArr = props.ingredientsList.filter((item) => {
+  const sauceArr = ingredients.filter((item) => {
     return item.type === "sauce";
   });
-  const fillingArr = props.ingredientsList.filter((item) => {
+  const fillingArr = ingredients.filter((item) => {
     return item.type === "main";
   });
   //   ************************************
@@ -72,14 +72,13 @@ function BurgerIngredients(props) {
         <div id="bun" className={styles.ingredients_bun}>
           <p className={styles.ingredients_title}>Булки</p>
           <div className={styles.ingredients_list}>
-            {bunArr.map((item, index) => {
+            {bunArr.map((item) => {
               return (
                 <Ingredient
                   key={item._id}
                   image={item.image}
                   name={item.name}
                   price={item.price}
-                  onIngredientClick={props.selectedIngredient}
                   ingredient={item}
                 />
               );
@@ -97,7 +96,6 @@ function BurgerIngredients(props) {
                   image={item.image}
                   name={item.name}
                   price={item.price}
-                  onIngredientClick={props.selectedIngredient}
                   ingredient={item}
                 />
               );
@@ -115,7 +113,6 @@ function BurgerIngredients(props) {
                   image={item.image}
                   name={item.name}
                   price={item.price}
-                  onIngredientClick={props.selectedIngredient}
                   ingredient={item}
                 />
               );

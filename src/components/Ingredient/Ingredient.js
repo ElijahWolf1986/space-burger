@@ -6,6 +6,9 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+
+import { getSelectedIngredient } from "../../services/actions";
 
 Ingredient.propTypes = {
   ingredient: PropTypes.object,
@@ -13,16 +16,15 @@ Ingredient.propTypes = {
   name: PropTypes.string,
   price: PropTypes.number,
   onIngredientClick: PropTypes.func,
-}
+};
 
 function Ingredient(props) {
-
+  const dispatch = useDispatch();
   const ingredient = props.ingredient;
 
   const handleClick = () => {
-    props.onIngredientClick(ingredient);
-
-  }
+    dispatch(getSelectedIngredient(ingredient));
+  };
   return (
     <section className={styles.ingredient} onClick={handleClick}>
       <Counter count={1} size="small" />

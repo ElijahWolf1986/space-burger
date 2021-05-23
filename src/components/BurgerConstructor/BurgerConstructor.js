@@ -6,21 +6,20 @@ import {
   Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { BurgerIngredientsContext } from "../../contexts/burgerContext";
+import { useSelector, useDispatch } from "react-redux";
+import { getOrder } from "../../services/actions";
 
-BurgerConstructor.propTypes = {
-  createOrder: PropTypes.func,
-};
-
-function BurgerConstructor(props) {
-  const ingredientsList = React.useContext(BurgerIngredientsContext);
+function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const { ingredients } = useSelector((store) => ({
+    ingredients: store.burgerIngredients.ingredients,
+  }));
 
   // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const ingredArr = ingredientsList.filter((item) => {
+  const ingredArr = ingredients.filter((item) => {
     return item.type !== "bun";
   });
-  const whatIsBun = ingredientsList.find((item) => {
+  const whatIsBun = ingredients.find((item) => {
     return item.type === "bun";
   });
 
@@ -43,7 +42,7 @@ function BurgerConstructor(props) {
 
   const handleSubmit = () => {
     //поднятая функция для работы с api
-    props.createOrder(orderIdArr);
+    dispatch(getOrder(orderIdArr));
   };
 
   return (

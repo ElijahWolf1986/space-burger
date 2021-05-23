@@ -5,25 +5,39 @@ import {
   BurgerIcon,
   ListIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  showPersonalMenu,
+  hidePersonalMenu,
+  closeAllPopups,
+} from "../../services/actions";
 
-TooglePopup.propTypes = {
-  closeAllPopups: PropTypes.func,
-  isTooglePopupPersonal: PropTypes.bool,
-  handleToogleMenuPersonal: PropTypes.func,
-};
+function TooglePopup() {
+  const dispatch = useDispatch();
+  const { isTooglePopup, isTooglePersonal } = useSelector((store) => ({
+    isTooglePopup: store.menu.isTooglePopup,
+    isTooglePersonal: store.menu.isTooglePersonal,
+  }));
+  function onClose() {
+    if (isTooglePopup) {
+      dispatch(closeAllPopups());
+    }
+  }
+  function onTooglePersonalMenu() {
+    if (isTooglePersonal) {
+      dispatch(hidePersonalMenu());
+    } else {
+      dispatch(showPersonalMenu());
+    }
+  }
 
-function TooglePopup(props) {
   return (
     <section className={styles.popup}>
       <header className={styles.popup_header}>
         <p className={`${styles.popup_title} text text_type_main-defaul`}>
           Меню
         </p>
-        <button
-          className={styles.popup_close_icon}
-          onClick={props.closeAllPopups}
-        >
+        <button className={styles.popup_close_icon} onClick={onClose}>
           {" "}
         </button>
       </header>
@@ -40,14 +54,14 @@ function TooglePopup(props) {
             </li>
             <button
               className={`${styles.popup_menu_personal_throw} ${
-                props.isTooglePopupPersonal
+                isTooglePersonal
                   ? styles.popup_menu_personal_throw_state_opened
                   : styles.popup_menu_personal_throw_state_closed
               }`}
-              onClick={props.handleToogleMenuPersonal}
+              onClick={onTooglePersonalMenu}
             ></button>
           </div>
-          {props.isTooglePopupPersonal && (
+          {isTooglePersonal && (
             <ul className={styles.popup_menu_personal_list}>
               <li
                 className={`${styles.popup_menu_personal_item} ${styles.popup_menu_personal_item_state_active}`}
