@@ -18,10 +18,21 @@ import {
   HIDE_PERSONAL_MENU,
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
+  MOVE_CLIENT_INGREDIENT,
 } from "../types";
 
 const ingredientsApi = new IngredientsApi(urlIngredients);
 const orderApi = new IngredientsApi(urlOrder);
+
+export function moveClientIngredient({dragIndex, hoverIndex}) {
+  return (dispatch) => {
+    dispatch({
+      type: MOVE_CLIENT_INGREDIENT,
+      payload: {dragIndex, hoverIndex},
+    });
+  };
+}
+
 
 export function removeClientIngredient(ingredientId) {
   return (dispatch) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Ingredient.module.css";
-import { useDrag } from "react-dnd";
+import { useDrag } from "react-dnd"; 
 
 import {
   Counter,

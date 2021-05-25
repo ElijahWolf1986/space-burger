@@ -44,8 +44,12 @@ function BurgerConstructor() {
       whatIsBun.price * 2;
     orderIdArr.push(whatIsBun._id, whatIsBun._id);
   }
-
+   
   //******************* */
+  
+//   const moveCard = () => {
+//  return console.log('hi')
+//   }
 
   return (
     <section className={`${styles.constructor}`} ref={dropTarget}>
@@ -67,7 +71,10 @@ function BurgerConstructor() {
                     {" "}
                     <DragIcon />{" "}
                   </div>
-                  <ConstructorItem {...item} index={index} />{" "}
+                  <ConstructorItem {...item} 
+                  index={index}
+                  //  moveCard={moveCard}
+                   />{" "}
                 </li>
               );
             })}

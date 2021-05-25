@@ -19,6 +19,7 @@ import {
   HIDE_PERSONAL_MENU,
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
+  MOVE_CLIENT_INGREDIENT
 } from "../types";
 
 const initialStateIngredients = {
@@ -57,7 +58,7 @@ const initialStateMenu = {
   isTooglePersonal: false,
 };
 
-const getClientIngredients = (state = initialStateClient, action) => {
+const getClientIngredientsReducer = (state = initialStateClient, action) => {
   switch (action.type) {
     case PUT_CLIENT_INGREDIENT: {
       if (action.payload.type === "bun") {
@@ -81,6 +82,17 @@ const getClientIngredients = (state = initialStateClient, action) => {
           ...state.clientIngredients.filter(
             (item) => item.ingredientId !== action.payload
           ),
+        ],
+      };
+    }
+    case MOVE_CLIENT_INGREDIENT: {
+      const {dragIndex, hoverIndex} = action.payload;
+      console.log(dragIndex, hoverIndex)
+      return {
+        ...state,
+        clientIngredients: [
+          ...state.clientIngredients.splice(
+            [dragIndex,1], [hoverIndex, 0])
         ],
       };
     }
@@ -251,7 +263,7 @@ const rootReducer = combineReducers({
   errors: putAppErrorsReducer,
   order: getOrderReducer,
   menu: menuReducer,
-  client: getClientIngredients,
+  client: getClientIngredientsReducer,
 });
 
 export default rootReducer;
