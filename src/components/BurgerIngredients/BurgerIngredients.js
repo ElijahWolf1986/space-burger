@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,11 +9,24 @@ function BurgerIngredients() {
   const sauceBlock = document.getElementById("sauce");
   const fillingBlock = document.getElementById("filling");
   const topBlock = document.getElementById("ingredients");
-
   const [current, setCurrent] = React.useState("one");
-  const { ingredients } = useSelector((store) => ({
-    ingredients: store.burgerIngredients.ingredients,
-  }));
+  const { ingredients, clientIngredients, whatIsBun } = useSelector(
+    (store) => ({
+      ingredients: store.burgerIngredients.ingredients,
+      clientIngredients: store.client.clientIngredients,
+      whatIsBun: store.client.whatIsBun,
+    })
+  );
+
+  const ingredientsWithCount = useMemo(() => {
+    return ingredients.map((ingredient) => {
+      ingredient.count = clientIngredients.filter(
+        (item) => item._id === ingredient._id
+      ).length;
+      if (whatIsBun && whatIsBun._id === ingredient._id) ingredient.count += 2;
+      return ingredient;
+    });
+  }, [ingredients, clientIngredients, whatIsBun]);
 
   function viewComponentFilling() {
     fillingBlock.scrollIntoView({ block: "start", behavior: "smooth" });
@@ -63,13 +76,13 @@ function BurgerIngredients() {
   }
 
   // Сортировка ингредиентов по группам
-  const bunArr = ingredients.filter((item) => {
+  const bunArr = ingredientsWithCount.filter((item) => {
     return item.type === "bun";
   });
-  const sauceArr = ingredients.filter((item) => {
+  const sauceArr = ingredientsWithCount.filter((item) => {
     return item.type === "sauce";
   });
-  const fillingArr = ingredients.filter((item) => {
+  const fillingArr = ingredientsWithCount.filter((item) => {
     return item.type === "main";
   });
   //   ************************************
@@ -115,6 +128,7 @@ function BurgerIngredients() {
                   name={item.name}
                   price={item.price}
                   ingredient={item}
+                  count={item.count}
                 />
               );
             })}
@@ -132,6 +146,7 @@ function BurgerIngredients() {
                   name={item.name}
                   price={item.price}
                   ingredient={item}
+                  count={item.count}
                 />
               );
             })}
@@ -149,6 +164,7 @@ function BurgerIngredients() {
                   name={item.name}
                   price={item.price}
                   ingredient={item}
+                  count={item.count}
                 />
               );
             })}

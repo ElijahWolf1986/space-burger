@@ -2,13 +2,20 @@ import React from "react";
 import styles from "./IngredientDetails.module.css";
 import Modal from "../Modal/Modal";
 import ReactDOM from "react-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addClientIngredient, closeAllPopups } from "../../services/actions";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 const element = document.getElementById("modal");
 
 function IngredientDetails() {
+  const dispatch = useDispatch();
   const { currentIngredient } = useSelector((store) => ({
     currentIngredient: store.burgerIngredient.currentIngredient,
   }));
+  function handleAddIngredient() {
+    dispatch(addClientIngredient(currentIngredient));
+    dispatch(closeAllPopups(currentIngredient));
+  }
   return ReactDOM.createPortal(
     <Modal isModal={currentIngredient} header="Детали Ингредиента">
       <div className={styles.ingredient_container}>
@@ -47,6 +54,11 @@ function IngredientDetails() {
             </p>
           </li>
         </ul>
+        <div className={styles.ingredient_button} onClick={handleAddIngredient}>
+          <Button type="primary" size="large">
+            Добавить в заказ
+          </Button>
+        </div>
       </div>
     </Modal>,
     element

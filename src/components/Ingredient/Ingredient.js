@@ -27,7 +27,7 @@ function Ingredient(props) {
   };
   return (
     <section className={styles.ingredient} onClick={handleClick}>
-      <Counter count={1} size="small" />
+      <Counter count={props.count} size="small" />
       <img src={props.image} alt={props.name} />
 
       <div className={styles.ingredient_price}>
@@ -35,7 +35,7 @@ function Ingredient(props) {
         <CurrencyIcon />
       </div>
       <p className={styles.ingredient_name}>{props.name}</p>
-    </section>
+    </section> 
   );
 }
 

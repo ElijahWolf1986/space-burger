@@ -15,31 +15,77 @@ import {
   HIDE_MENU,
   SHOW_PERSONAL_MENU,
   HIDE_PERSONAL_MENU,
+  PUT_CLIENT_INGREDIENT,
+  REM_CLIENT_INGREDIENT,
 } from "../types";
 
-const initialStateIngredients = { //ингредиенты запрошенные с севрра
+const initialStateIngredients = {
+  //ингредиенты запрошенные с севрра
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
 };
 
-const initialStateOrder = { //заказ запрошенный с сервера
+const initialStateOrder = {
+  //заказ запрошенный с сервера
   order: null,
   orderRequest: false,
   orderFailed: false,
 };
 
-const initialStateApp = { //Обработка и вывод ошибок на экран при работе с сервером
+const initialStateClient = {
+  //заказ который собирает клиент
+  clientIngredients: [],
+  whatIsBun: null,
+};
+
+const initialStateApp = {
+  //Обработка и вывод ошибок на экран при работе с сервером
   error: {},
 };
 
-const initialStateIngredient = { //Работа с выводом деталей ингредиента
+const initialStateIngredient = {
+  //Работа с выводом деталей ингредиента
   currentIngredient: null,
 };
 
-const initialStateMenu = { //Работа с функиональностью меню для мобильных устройств
+const initialStateMenu = {
+  //Работа с функиональностью меню для мобильных устройств
   isTooglePopup: false,
   isTooglePersonal: false,
+};
+
+const getClientIngredients = (state = initialStateClient, action) => {
+  const clientIngredients = [...state.clientIngredients];
+  const deletedElement = clientIngredients.find((item) => {
+    return item._id === action.payload;
+  });
+  switch (action.type) {
+    case PUT_CLIENT_INGREDIENT: {
+      if (action.payload.type === "bun") {
+        return {
+          ...state,
+          whatIsBun: action.payload,
+        };
+      }
+      return {
+        ...state,
+        clientIngredients: state.clientIngredients.concat(action.payload),
+      };
+    }
+    case REM_CLIENT_INGREDIENT: {
+      clientIngredients.splice(deletedElement, 1);
+      return {
+        ...state,
+        clientIngredients,
+      };
+    }
+    default: {
+      return {
+        ...state,
+      };
+    }
+  }
 };
 
 const menuReducer = (state = initialStateMenu, action) => {
@@ -201,6 +247,7 @@ const rootReducer = combineReducers({
   errors: putAppErrorsReducer,
   order: getOrderReducer,
   menu: menuReducer,
+  client: getClientIngredients,
 });
 
 export default rootReducer;

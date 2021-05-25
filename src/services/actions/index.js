@@ -16,10 +16,31 @@ import {
   HIDE_MENU,
   SHOW_PERSONAL_MENU,
   HIDE_PERSONAL_MENU,
+  PUT_CLIENT_INGREDIENT,
+  REM_CLIENT_INGREDIENT,
 } from "../types";
 
 const ingredientsApi = new IngredientsApi(urlIngredients);
 const orderApi = new IngredientsApi(urlOrder);
+
+export function removeClientIngredient(ingredientIndex) {
+    return (dispatch) => {
+        dispatch({
+          type: REM_CLIENT_INGREDIENT,
+          payload: ingredientIndex,
+        });
+      };
+}
+
+export function addClientIngredient(ingredient) {
+    return (dispatch) => {
+        dispatch({
+          type: PUT_CLIENT_INGREDIENT,
+          payload: ingredient,
+        });
+      };
+}
+
 
 export function showMenu() {
     return (dispatch) => {

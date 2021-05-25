@@ -4,6 +4,8 @@ import {
   CurrencyIcon,
   LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from "react-redux";
+import { removeClientIngredient } from "../../services/actions";
 
 import styles from "./ConstructorItem.module.css";
 import PropTypes from "prop-types";
@@ -18,6 +20,12 @@ ConstructorItem.propTypes = {
 };
 
 function ConstructorItem(props) {
+  const dispatch = useDispatch();
+
+  function handleDeleteIngredient() {
+    dispatch(removeClientIngredient(props.index + 1));
+  }
+
   return (
     <section
       className={`${styles.container} p-2 ${
@@ -37,7 +45,10 @@ function ConstructorItem(props) {
         <p className={styles.container_ingredient_price_value}>{props.price}</p>
         <CurrencyIcon />
         {props.bunLock === undefined ? (
-          <button className={styles.container_button_delete}></button>
+          <button
+            className={styles.container_button_delete}
+            onClick={handleDeleteIngredient}
+          ></button>
         ) : (
           <div className={styles.container_lock_icon}>
             <LockIcon type="primary" />

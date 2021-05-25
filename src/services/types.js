@@ -23,5 +23,9 @@ export const HIDE_MENU = "HIDE_MENU";
 export const SHOW_PERSONAL_MENU = "SHOW_PERSONAL_MENU";
 export const HIDE_PERSONAL_MENU = "HIDE_PERSONAL_MENU";
 
+//actions для работы с ингредиентами клиента
+export const PUT_CLIENT_INGREDIENT = "PUT_CLIENT_INGREDIENT";
+export const REM_CLIENT_INGREDIENT = "REM_CLIENT_INGREDIENT";
+
 
 

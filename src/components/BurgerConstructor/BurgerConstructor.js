@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import {
@@ -8,33 +9,29 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrder } from "../../services/actions";
+import hungry from "../../images/hungry.png";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector((store) => ({
-    ingredients: store.burgerIngredients.ingredients,
+  const { clientIngredients, whatIsBun } = useSelector((store) => ({
+    clientIngredients: store.client.clientIngredients,
+    whatIsBun: store.client.whatIsBun,
   }));
-
-  // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const ingredArr = ingredients.filter((item) => {
-    return item.type !== "bun";
-  });
-  const whatIsBun = ingredients.find((item) => {
-    return item.type === "bun";
-  });
 
   //Временная конструкция для обработки входных данных по ингредиентам
   let totalPrice = 0;
-  let orderIdArr = [];
-  if (ingredArr && whatIsBun) {
+  const orderIdArr = [...clientIngredients];
+  if (clientIngredients && !whatIsBun) {
+    totalPrice = clientIngredients.reduce(function (prevValue, item) {
+      return prevValue + item.price;
+    }, 0);
+  }
+  if (clientIngredients && whatIsBun) {
     totalPrice =
-      ingredArr.reduce(function (prevValue, item) {
+      clientIngredients.reduce(function (prevValue, item) {
         return prevValue + item.price;
       }, 0) +
       whatIsBun.price * 2;
-    orderIdArr = ingredArr.map((item) => {
-      return item._id;
-    });
     orderIdArr.push(whatIsBun._id, whatIsBun._id);
   }
 
@@ -47,37 +44,67 @@ function BurgerConstructor() {
 
   return (
     <section className={styles.constructor}>
-      <ConstructorItem {...whatIsBun} bunLock bunLock_top />
-      {/* Тут отрисовываем ингредиенты внутри списка */}
-      <div className={styles.constructor_ingredients}>
-        <ul className={styles.constructor_list}>
-          {ingredArr.map((item) => {
-            return (
-              <li className={styles.constructor_item} key={item._id}>
-                {" "}
-                <div className={`${styles.dragicon} mb-1`}>
+      <div
+        className={`${styles.constructor_client} ${
+          (clientIngredients.length || whatIsBun) &&
+          styles.constructor_client_active
+        }`}
+      >
+        {whatIsBun && <ConstructorItem {...whatIsBun} bunLock bunLock_top />}
+        {/* Тут отрисовываем ингредиенты внутри списка */}
+
+        <div className={styles.constructor_ingredients}>
+          <ul className={styles.constructor_list}>
+            {clientIngredients.map((item, index) => {
+              return (
+                <li className={styles.constructor_item} key={uuidv4()}>
                   {" "}
-                  <DragIcon />{" "}
-                </div>
-                <ConstructorItem {...item} />{" "}
-              </li>
-            );
-          })}
-        </ul>
+                  <div className={`${styles.dragicon} mb-1`}>
+                    {" "}
+                    <DragIcon />{" "}
+                  </div>
+                  <ConstructorItem {...item} index={index} />{" "}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {whatIsBun && <ConstructorItem {...whatIsBun} bunLock bunLock_bottom />}
+        <div className={styles.constructor_total}>
+          {/* Тут подсчитываем и выводим общую стоимость заказа */}
+          <p className={styles.constructor_count}> {totalPrice} </p>
+          <div className={styles.constructor_currency_icon}>
+            <CurrencyIcon type="primary" />
+          </div>
+          {/* Этот див временный пока не починять кнопку в библиотеке */}
+          <div onClick={handleSubmit}>
+            <Button type="primary" size="large">
+              Оформить заказ
+            </Button>
+          </div>
+        </div>
       </div>
-      <ConstructorItem {...whatIsBun} bunLock bunLock_bottom />
-      <div className={styles.constructor_total}>
-        {/* Тут подсчитываем и выводим общую стоимость заказа */}
-        <p className={styles.constructor_count}> {totalPrice} </p>
-        <div className={styles.constructor_currency_icon}>
-          <CurrencyIcon type="primary" />
-        </div>
-        {/* Этот див временный пока не починять кнопку в библиотеке */}
-        <div onClick={handleSubmit}>
-          <Button type="primary" size="large">
-            Оформить заказ
-          </Button>
-        </div>
+
+      <div
+        className={`${styles.constructor_hungry} ${
+          !clientIngredients.length &&
+          !whatIsBun &&
+          styles.constructor_hungry_active
+        }`}
+      >
+        <p className={styles.constructor_hungry_paragraph}>
+          {" "}
+          Хочешь оформить заказ?{" "}
+        </p>
+        <p className={styles.constructor_hungry_paragraph}>
+          {" "}
+          Положи в меня еду! ){" "}
+        </p>
+        <img
+          className={styles.constructor_hungry_img}
+          src={hungry}
+          alt="hungry smile"
+        />
       </div>
     </section>
   );
