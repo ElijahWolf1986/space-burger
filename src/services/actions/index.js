@@ -24,54 +24,52 @@ const ingredientsApi = new IngredientsApi(urlIngredients);
 const orderApi = new IngredientsApi(urlOrder);
 
 export function removeClientIngredient(ingredientIndex) {
-    return (dispatch) => {
-        dispatch({
-          type: REM_CLIENT_INGREDIENT,
-          payload: ingredientIndex,
-        });
-      };
+  return (dispatch) => {
+    dispatch({
+      type: REM_CLIENT_INGREDIENT,
+      payload: ingredientIndex,
+    });
+  };
 }
 
 export function addClientIngredient(ingredient) {
-    return (dispatch) => {
-        dispatch({
-          type: PUT_CLIENT_INGREDIENT,
-          payload: ingredient,
-        });
-      };
+  return (dispatch) => {
+    dispatch({
+      type: PUT_CLIENT_INGREDIENT,
+      payload: ingredient,
+    });
+  };
 }
 
-
 export function showMenu() {
-    return (dispatch) => {
-        dispatch({
-            type: SHOW_MENU,
-          });
-    }
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_MENU,
+    });
+  };
 }
 
 export function hideMenu() {
-    return (dispatch) => {
-        dispatch({
-            type: HIDE_MENU,
-          });
-    }
+  return (dispatch) => {
+    dispatch({
+      type: HIDE_MENU,
+    });
+  };
 }
 export function showPersonalMenu() {
-    return (dispatch) => {
-        dispatch({
-            type: SHOW_PERSONAL_MENU,
-          });
-    }
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_PERSONAL_MENU,
+    });
+  };
 }
 export function hidePersonalMenu() {
-    return (dispatch) => {
-        dispatch({
-            type: HIDE_PERSONAL_MENU,
-          });
-    }
+  return (dispatch) => {
+    dispatch({
+      type: HIDE_PERSONAL_MENU,
+    });
+  };
 }
-
 
 export function closeAllPopups() {
   return (dispatch) => {

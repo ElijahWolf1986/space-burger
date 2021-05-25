@@ -4,6 +4,7 @@ import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 
+
 function BurgerIngredients() {
   const bunBlock = document.getElementById("bun");
   const sauceBlock = document.getElementById("sauce");

@@ -8,6 +8,8 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch } from "react-redux";
 import { getIngredients, closeAllPopups } from "../../services/actions";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,10 +30,12 @@ function App() {
   return (
     <>
       <AppHeader />
+      <DndProvider backend={HTML5Backend}>
       <section id="main" className={styles.main}>
         <BurgerIngredients />
         <BurgerConstructor />
       </section>
+      </DndProvider>
       <IngredientDetails />
       <OrderDetails />
       <ErrorPopup />

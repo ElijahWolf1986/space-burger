@@ -8,8 +8,9 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrder } from "../../services/actions";
+import { getOrder, addClientIngredient } from "../../services/actions";
 import hungry from "../../images/hungry.png";
+import { useDrop } from "react-dnd";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -17,6 +18,15 @@ function BurgerConstructor() {
     clientIngredients: store.client.clientIngredients,
     whatIsBun: store.client.whatIsBun,
   }));
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "dragIngredient",
+    drop(ingredient) {
+      dispatch(addClientIngredient(ingredient));
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+  });
 
   //Временная конструкция для обработки входных данных по ингредиентам
   let totalPrice = 0;
@@ -43,16 +53,15 @@ function BurgerConstructor() {
   };
 
   return (
-    <section className={styles.constructor}>
+    <section className={`${styles.constructor}`} ref={dropTarget}>
       <div
         className={`${styles.constructor_client} ${
           (clientIngredients.length || whatIsBun) &&
           styles.constructor_client_active
-        }`}
+        } ${isHover && styles.constructor_hover}`}
       >
         {whatIsBun && <ConstructorItem {...whatIsBun} bunLock bunLock_top />}
         {/* Тут отрисовываем ингредиенты внутри списка */}
-
         <div className={styles.constructor_ingredients}>
           <ul className={styles.constructor_list}>
             {clientIngredients.map((item, index) => {
@@ -90,7 +99,7 @@ function BurgerConstructor() {
           !clientIngredients.length &&
           !whatIsBun &&
           styles.constructor_hungry_active
-        }`}
+        } ${isHover && styles.constructor_hover}`}
       >
         <p className={styles.constructor_hungry_paragraph}>
           {" "}

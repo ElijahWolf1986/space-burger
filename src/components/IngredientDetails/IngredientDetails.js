@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addClientIngredient, closeAllPopups } from "../../services/actions";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components"; 
 const element = document.getElementById("modal");
 
 function IngredientDetails() {

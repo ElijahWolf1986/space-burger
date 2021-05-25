@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Ingredient.module.css";
+import { useDrag } from "react-dnd";
 
 import {
   Counter,
@@ -21,12 +22,19 @@ Ingredient.propTypes = {
 function Ingredient(props) {
   const dispatch = useDispatch();
   const ingredient = props.ingredient;
+  const [{isDrag}, dragRef] = useDrag({
+    type: "dragIngredient",
+    item: ingredient,
+    collect: monitor => ({
+      isDrag: monitor.isDragging()
+  })
+  });
 
   const handleClick = () => {
     dispatch(getSelectedIngredient(ingredient));
   };
-  return (
-    <section className={styles.ingredient} onClick={handleClick}>
+  return ( !isDrag && 
+    <section className={styles.ingredient} onClick={handleClick} ref={dragRef}>
       <Counter count={props.count} size="small" />
       <img src={props.image} alt={props.name} />
 
