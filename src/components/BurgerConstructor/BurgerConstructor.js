@@ -47,11 +47,6 @@ function BurgerConstructor() {
 
   //******************* */
 
-  const handleSubmit = () => {
-    //поднятая функция для работы с api
-    dispatch(getOrder(orderIdArr));
-  };
-
   return (
     <section className={`${styles.constructor}`} ref={dropTarget}>
       <div
@@ -86,7 +81,7 @@ function BurgerConstructor() {
             <CurrencyIcon type="primary" />
           </div>
           {/* Этот див временный пока не починять кнопку в библиотеке */}
-          <div onClick={handleSubmit}>
+          <div onClick={() => dispatch(getOrder(orderIdArr))}>
             <Button type="primary" size="large">
               Оформить заказ
             </Button>

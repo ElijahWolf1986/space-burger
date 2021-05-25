@@ -23,11 +23,11 @@ import {
 const ingredientsApi = new IngredientsApi(urlIngredients);
 const orderApi = new IngredientsApi(urlOrder);
 
-export function removeClientIngredient(ingredientIndex) {
+export function removeClientIngredient(ingredientId) {
   return (dispatch) => {
     dispatch({
       type: REM_CLIENT_INGREDIENT,
-      payload: ingredientIndex,
+      payload: ingredientId,
     });
   };
 }

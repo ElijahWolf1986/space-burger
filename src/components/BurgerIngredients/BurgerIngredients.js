@@ -4,7 +4,6 @@ import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 
-
 function BurgerIngredients() {
   const bunBlock = document.getElementById("bun");
   const sauceBlock = document.getElementById("sauce");
@@ -29,20 +28,7 @@ function BurgerIngredients() {
     });
   }, [ingredients, clientIngredients, whatIsBun]);
 
-  function viewComponentFilling() {
-    fillingBlock.scrollIntoView({ block: "start", behavior: "smooth" });
-    setCurrent("three");
-  }
-  function viewComponentSauce() {
-    sauceBlock.scrollIntoView({ block: "start", behavior: "smooth" });
-    setCurrent("two");
-  }
-  function viewComponentBun() {
-    bunBlock.scrollIntoView({ block: "start", behavior: "smooth" });
-    setCurrent("one");
-  }
-
-  function onScrollIngredients() {
+  const onScrollIngredients = () => {
     const bunBlockPosition = Math.abs(
       bunBlock.getBoundingClientRect().top -
         topBlock.getBoundingClientRect().top
@@ -74,7 +60,7 @@ function BurgerIngredients() {
     ) {
       setCurrent("three");
     }
-  }
+  };
 
   // Сортировка ингредиентов по группам
   const bunArr = ingredientsWithCount.filter((item) => {
@@ -93,20 +79,33 @@ function BurgerIngredients() {
       <h1 className={styles.burger_header}>Соберите бургер</h1>
       {/* Меню ингредиетов */}
       <menu className={styles.burger_menu}>
-        <Tab value="one" active={current === "one"} onClick={viewComponentBun}>
+        <Tab
+          value="one"
+          active={current === "one"}
+          onClick={() => {
+            bunBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            setCurrent("one");
+          }}
+        >
           Булки
         </Tab>
         <Tab
           value="two"
           active={current === "two"}
-          onClick={viewComponentSauce}
+          onClick={() => {
+            sauceBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            setCurrent("two");
+          }}
         >
           Соусы
         </Tab>
         <Tab
           value="three"
           active={current === "three"}
-          onClick={viewComponentFilling}
+          onClick={() => {
+            fillingBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            setCurrent("three");
+          }}
         >
           Начинки
         </Tab>

@@ -22,9 +22,13 @@ ConstructorItem.propTypes = {
 function ConstructorItem(props) {
   const dispatch = useDispatch();
 
-  function handleDeleteIngredient() {
-    dispatch(removeClientIngredient(props.index + 1));
-  }
+  // function handleDeleteIngredient() {
+  //   dispatch(removeClientIngredient(props.ingredientId));
+  //   // console.log(props)
+  //   // console.log(props.ingredientId)
+
+
+  // }
 
   return (
     <section
@@ -47,7 +51,9 @@ function ConstructorItem(props) {
         {props.bunLock === undefined ? (
           <button
             className={styles.container_button_delete}
-            onClick={handleDeleteIngredient}
+            onClick={() =>  {
+              dispatch(removeClientIngredient(props.ingredientId))
+            }}
           ></button>
         ) : (
           <div className={styles.container_lock_icon}>

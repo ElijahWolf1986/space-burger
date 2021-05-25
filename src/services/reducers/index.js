@@ -1,4 +1,6 @@
 import { combineReducers } from "redux";
+import { v4 as uuidv4 } from "uuid";
+
 import {
   GET_ITEMS_INGREDIENTS_REQUEST,
   GET_ITEMS_INGREDIENTS_SUCCESS,
@@ -56,10 +58,6 @@ const initialStateMenu = {
 };
 
 const getClientIngredients = (state = initialStateClient, action) => {
-  const clientIngredients = [...state.clientIngredients];
-  const deletedElement = clientIngredients.find((item) => {
-    return item._id === action.payload;
-  });
   switch (action.type) {
     case PUT_CLIENT_INGREDIENT: {
       if (action.payload.type === "bun") {
@@ -70,14 +68,20 @@ const getClientIngredients = (state = initialStateClient, action) => {
       }
       return {
         ...state,
-        clientIngredients: state.clientIngredients.concat(action.payload),
+        clientIngredients: [
+          ...state.clientIngredients,
+          { ...action.payload, ingredientId: uuidv4() },
+        ],
       };
     }
     case REM_CLIENT_INGREDIENT: {
-      clientIngredients.splice(deletedElement, 1);
       return {
         ...state,
-        clientIngredients,
+        clientIngredients: [
+          ...state.clientIngredients.filter(
+            (item) => item.ingredientId !== action.payload
+          ),
+        ],
       };
     }
     default: {
