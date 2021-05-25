@@ -19,7 +19,7 @@ import {
   HIDE_PERSONAL_MENU,
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
-  MOVE_CLIENT_INGREDIENT
+  MOVE_CLIENT_INGREDIENT,
 } from "../types";
 
 const initialStateIngredients = {
@@ -86,14 +86,12 @@ const getClientIngredientsReducer = (state = initialStateClient, action) => {
       };
     }
     case MOVE_CLIENT_INGREDIENT: {
-      const {dragIndex, hoverIndex} = action.payload;
-      console.log(dragIndex, hoverIndex)
+      const { dragIndex, hoverIndex } = action.payload;
+      const ingredients = [...state.clientIngredients];
+      ingredients.splice(dragIndex, 0, ingredients.splice(hoverIndex, 1)[0]);
       return {
         ...state,
-        clientIngredients: [
-          ...state.clientIngredients.splice(
-            [dragIndex,1], [hoverIndex, 0])
-        ],
+        clientIngredients: ingredients,
       };
     }
     default: {

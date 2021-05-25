@@ -44,12 +44,7 @@ function BurgerConstructor() {
       whatIsBun.price * 2;
     orderIdArr.push(whatIsBun._id, whatIsBun._id);
   }
-   
   //******************* */
-  
-//   const moveCard = () => {
-//  return console.log('hi')
-//   }
 
   return (
     <section className={`${styles.constructor}`} ref={dropTarget}>
@@ -65,16 +60,13 @@ function BurgerConstructor() {
           <ul className={styles.constructor_list}>
             {clientIngredients.map((item, index) => {
               return (
-                <li className={styles.constructor_item} key={uuidv4()}>
+                <li className={styles.constructor_item} key={item.ingredientId}>
                   {" "}
                   <div className={`${styles.dragicon} mb-1`}>
                     {" "}
                     <DragIcon />{" "}
                   </div>
-                  <ConstructorItem {...item} 
-                  index={index}
-                  //  moveCard={moveCard}
-                   />{" "}
+                  <ConstructorItem {...item} index={index} />{" "}
                 </li>
               );
             })}
