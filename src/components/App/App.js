@@ -11,6 +11,8 @@ import { urlIngredients, urlOrder } from "../../utils/Utils";
 import {
   BurgerIngredientsContext,
   orderContext,
+  ClientIngredientsContext,
+  BunContext,
 } from "../../contexts/burgerContext";
 
 function App() {
@@ -18,11 +20,27 @@ function App() {
   const [isTooglePopupPersonal, setIsTooglePopupPersonal] =
     React.useState(false);
   const [ingredientsList, setIngredientsList] = React.useState([]);
+  const [clientIngredientsList, setclientIngredientsList] = React.useState([]);
+  const [bun, setBun] = React.useState(null);
   const [errApi, setErrApi] = React.useState({});
   const [selectedIngredient, setSelectedIngredient] = React.useState();
   const [order, setOrder] = React.useState();
   const ingredientsApi = new IngredientsApi(urlIngredients);
   const orderApi = new IngredientsApi(urlOrder);
+
+  function handleAddIngredient(ingredient) {
+    if (ingredient.type === "bun") {
+      closeAllPopups();
+      return setBun(ingredient);
+    }
+    const updatedClientIngredients = [
+      ...clientIngredientsList,
+      { ...ingredient },
+    ];
+    setclientIngredientsList(updatedClientIngredients);
+    closeAllPopups();
+    console.log(clientIngredientsList);
+  }
 
   function closeByEsc(evt) {
     if (evt.keyCode === 27) {
@@ -41,15 +59,17 @@ function App() {
   }
 
   function handleClickCreateOrder(ingredients) {
-    orderApi
-      .getOrder(ingredients)
-      .then((res) => {
-        setOrder(res);
-        setErrApi({});
-      })
-      .catch((err) => {
-        setErrApi(err);
-      });
+    if (bun) {
+      orderApi
+        .getOrder(ingredients)
+        .then((res) => {
+          setOrder(res);
+          setErrApi({});
+        })
+        .catch((err) => {
+          setErrApi(err);
+        });
+    }
   }
 
   function closeAllPopups() {
@@ -95,18 +115,19 @@ function App() {
         handleToogleMenuPersonal={handleToogleMenuPersonal}
       />
       <section id="main" className={styles.main}>
-        <BurgerIngredients
-          ingredientsList={ingredientsList}
-          selectedIngredient={handleIngredientClick}
-        />
-
         <BurgerIngredientsContext.Provider value={ingredientsList}>
-          <BurgerConstructor createOrder={handleClickCreateOrder} />
+          <BurgerIngredients selectedIngredient={handleIngredientClick} />
+          <ClientIngredientsContext.Provider value={clientIngredientsList}>
+            <BunContext.Provider value={bun}>
+              <BurgerConstructor createOrder={handleClickCreateOrder} />
+            </BunContext.Provider>
+          </ClientIngredientsContext.Provider>
         </BurgerIngredientsContext.Provider>
       </section>
       <IngredientDetails
         onClose={closeAllPopups}
         ingredient={selectedIngredient}
+        handleAddIngredient={handleAddIngredient}
       />
       <orderContext.Provider value={order}>
         <OrderDetails onClose={closeAllPopups} />

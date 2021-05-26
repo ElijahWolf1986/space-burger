@@ -3,6 +3,7 @@ import styles from "./IngredientDetails.module.css";
 import Modal from "../Modal/Modal";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 IngredientDetails.propTypes = {
   onClose: PropTypes.func,
@@ -17,6 +18,10 @@ IngredientDetails.propTypes = {
 const element = document.getElementById("modal");
 
 function IngredientDetails(props) {
+  const addIngredient = () => {
+    props.handleAddIngredient(props.ingredient);
+  };
+
   return ReactDOM.createPortal(
     <Modal
       onClose={props.onClose}
@@ -59,6 +64,11 @@ function IngredientDetails(props) {
             </p>
           </li>
         </ul>
+        <div className={styles.ingredient_button} onClick={addIngredient}>
+          <Button type="primary" size="large">
+            Добавить в заказ
+          </Button>
+        </div>
       </div>
     </Modal>,
     element

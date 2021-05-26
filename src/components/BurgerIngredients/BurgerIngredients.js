@@ -3,6 +3,7 @@ import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { BurgerIngredientsContext } from "../../contexts/burgerContext";
 
 BurgerIngredients.propTypes = {
   ingredientsList: PropTypes.array,
@@ -11,6 +12,7 @@ BurgerIngredients.propTypes = {
 
 function BurgerIngredients(props) {
   const [current, setCurrent] = React.useState("one");
+  const ingredientsList = React.useContext(BurgerIngredientsContext);
 
   function viewComponentFilling() {
     document
@@ -32,13 +34,13 @@ function BurgerIngredients(props) {
   }
 
   //   отбор захардкоренных данных
-  const bunArr = props.ingredientsList.filter((item) => {
+  const bunArr = ingredientsList.filter((item) => {
     return item.type === "bun";
   });
-  const sauceArr = props.ingredientsList.filter((item) => {
+  const sauceArr = ingredientsList.filter((item) => {
     return item.type === "sauce";
   });
-  const fillingArr = props.ingredientsList.filter((item) => {
+  const fillingArr = ingredientsList.filter((item) => {
     return item.type === "main";
   });
   //   ************************************

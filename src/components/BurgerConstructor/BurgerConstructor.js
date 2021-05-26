@@ -7,22 +7,26 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { BurgerIngredientsContext } from "../../contexts/burgerContext";
+import {
+  ClientIngredientsContext,
+  BunContext,
+} from "../../contexts/burgerContext";
 
 BurgerConstructor.propTypes = {
   createOrder: PropTypes.func,
 };
 
 function BurgerConstructor(props) {
-  const ingredientsList = React.useContext(BurgerIngredientsContext);
+  const ingredArr = React.useContext(ClientIngredientsContext);
+  const whatIsBun = React.useContext(BunContext);
 
   // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const ingredArr = ingredientsList.filter((item) => {
-    return item.type !== "bun";
-  });
-  const whatIsBun = ingredientsList.find((item) => {
-    return item.type === "bun";
-  });
+  // const ingredArr = ingredientsList.filter((item) => {
+  //   return item.type !== "bun";
+  // });
+  // const whatIsBun = ingredientsList.find((item) => {
+  //   return item.type === "bun";
+  // });
 
   //Временная конструкция для обработки входных данных по ингредиентам
   let totalPrice = 0;
@@ -54,7 +58,10 @@ function BurgerConstructor(props) {
         <ul className={styles.constructor_list}>
           {ingredArr.map((item) => {
             return (
-              <li className={styles.constructor_item} key={item._id}>
+              <li
+                className={styles.constructor_item}
+                key={item._id + Math.random()}
+              >
                 {" "}
                 <div className={`${styles.dragicon} mb-1`}>
                   {" "}
