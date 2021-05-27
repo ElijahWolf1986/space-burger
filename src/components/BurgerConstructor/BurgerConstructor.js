@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import {
@@ -8,7 +7,11 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrder, addClientIngredient } from "../../services/actions";
+import {
+  getOrder,
+  addClientIngredient,
+  showError,
+} from "../../services/actions";
 import hungry from "../../images/hungry.png";
 import { useDrop } from "react-dnd";
 
@@ -46,6 +49,18 @@ function BurgerConstructor() {
   }
   //******************* */
 
+  const handleGetOrder = () => {
+    if (whatIsBun) {
+      dispatch(getOrder(orderIdArr));
+    } else {
+      dispatch(
+        showError({
+          status: "Положи-ка булочку в заказ дружок - с ней будет веселее!)",
+        })
+      );
+    }
+  };
+
   return (
     <section className={`${styles.constructor}`} ref={dropTarget}>
       <div
@@ -80,7 +95,7 @@ function BurgerConstructor() {
             <CurrencyIcon type="primary" />
           </div>
           {/* Этот див временный пока не починять кнопку в библиотеке */}
-          <div onClick={() => dispatch(getOrder(orderIdArr))}>
+          <div onClick={handleGetOrder}>
             <Button type="primary" size="large">
               Оформить заказ
             </Button>

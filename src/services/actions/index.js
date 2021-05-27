@@ -24,61 +24,46 @@ import {
 const ingredientsApi = new IngredientsApi(urlIngredients);
 const orderApi = new IngredientsApi(urlOrder);
 
-export function moveClientIngredient({dragIndex, hoverIndex}) {
-  return (dispatch) => {
-    dispatch({
-      type: MOVE_CLIENT_INGREDIENT,
-      payload: {dragIndex, hoverIndex},
-    });
+export function moveClientIngredient({ dragIndex, hoverIndex }) {
+  return {
+    type: MOVE_CLIENT_INGREDIENT,
+    payload: { dragIndex, hoverIndex },
   };
 }
 
-
 export function removeClientIngredient(ingredientId) {
-  return (dispatch) => {
-    dispatch({
-      type: REM_CLIENT_INGREDIENT,
-      payload: ingredientId,
-    });
+  return {
+    type: REM_CLIENT_INGREDIENT,
+    payload: ingredientId,
   };
 }
 
 export function addClientIngredient(ingredient) {
-  return (dispatch) => {
-    dispatch({
-      type: PUT_CLIENT_INGREDIENT,
-      payload: ingredient,
-    });
+  return {
+    type: PUT_CLIENT_INGREDIENT,
+    payload: ingredient,
   };
 }
 
 export function showMenu() {
-  return (dispatch) => {
-    dispatch({
-      type: SHOW_MENU,
-    });
+  return {
+    type: SHOW_MENU,
   };
 }
 
 export function hideMenu() {
-  return (dispatch) => {
-    dispatch({
-      type: HIDE_MENU,
-    });
+  return {
+    type: HIDE_MENU,
   };
 }
 export function showPersonalMenu() {
-  return (dispatch) => {
-    dispatch({
-      type: SHOW_PERSONAL_MENU,
-    });
+  return {
+    type: SHOW_PERSONAL_MENU,
   };
 }
 export function hidePersonalMenu() {
-  return (dispatch) => {
-    dispatch({
-      type: HIDE_PERSONAL_MENU,
-    });
+  return {
+    type: HIDE_PERSONAL_MENU,
   };
 }
 
@@ -93,19 +78,15 @@ export function closeAllPopups() {
 }
 
 export function showError(error) {
-  return (dispatch) => {
-    dispatch({
-      type: SHOW_ERROR_POPUP,
-      payload: error,
-    });
+  return {
+    type: SHOW_ERROR_POPUP,
+    payload: error,
   };
 }
 
 export function hideError() {
-  return (dispatch) => {
-    dispatch({
-      type: HIDE_ERROR_POPUP,
-    });
+  return {
+    type: HIDE_ERROR_POPUP,
   };
 }
 
@@ -157,26 +138,20 @@ export function getOrder(ingredients) {
 }
 
 export function hideOrder() {
-  return (dispatch) => {
-    dispatch({
-      type: REM_ORDER,
-    });
+  return {
+    type: REM_ORDER,
   };
 }
 
 export function getSelectedIngredient(ingredient) {
-  return (dispatch) => {
-    dispatch({
-      type: GET_SELECTED_INGREDIENT_INFO,
-      payload: ingredient,
-    });
+  return {
+    type: GET_SELECTED_INGREDIENT_INFO,
+    payload: ingredient,
   };
 }
 
 export function removeSelectedIngredient() {
-  return (dispatch) => {
-    dispatch({
-      type: REM_SELECTED_INGREDIENT_INFO,
-    });
+  return {
+    type: REM_SELECTED_INGREDIENT_INFO,
   };
 }

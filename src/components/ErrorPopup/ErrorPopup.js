@@ -12,7 +12,6 @@ function ErrorPopup() {
   function onClose() {
     dispatch(closeAllPopups());
   }
-
   return (
     <section
       className={`${styles.err_popup} ${
