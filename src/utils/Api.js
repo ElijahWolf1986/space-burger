@@ -22,6 +22,19 @@ class IngredientsApi {
       .then(this._handleResponse)
       .catch(this._handleResponseError);
   }
+
+  getOrder(ingredients) {
+    return fetch(`${this._url}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ingredients: ingredients }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError);
+  }
 }
 
 export default IngredientsApi;

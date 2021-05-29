@@ -6,57 +6,123 @@ import {
   Button,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getOrder,
+  addClientIngredient,
+  showError,
+} from "../../services/actions";
+import hungry from "../../images/hungry.png";
+import { useDrop } from "react-dnd";
 
-BurgerConstructor.propTypes = {
-  ingredientsList: PropTypes.array,
-  createOrder: PropTypes.func,
-};
-
-function BurgerConstructor(props) {
-  // отбираем все ингредиенты кроме булочек, так как они устанавливаюся в меню отдельно в вех и низ
-  const ingredArr = props.ingredientsList.filter((item) => {
-    return item.type !== "bun";
+function BurgerConstructor() {
+  const dispatch = useDispatch();
+  const { clientIngredients, whatIsBun } = useSelector((store) => ({
+    clientIngredients: store.client.clientIngredients,
+    whatIsBun: store.client.whatIsBun,
+  }));
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "dragIngredient",
+    drop(ingredient) {
+      dispatch(addClientIngredient(ingredient));
+    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
   });
-  const whatIsBun = props.ingredientsList.find((item) => {
-    return item.type === "bun";
-  });
 
-  const total = 610;
+  //Временная конструкция для обработки входных данных по ингредиентам
+  let totalPrice = 0;
+  const orderIdArr = [...clientIngredients];
+  if (clientIngredients && !whatIsBun) {
+    totalPrice = clientIngredients.reduce(function (prevValue, item) {
+      return prevValue + item.price;
+    }, 0);
+  }
+  if (clientIngredients && whatIsBun) {
+    totalPrice =
+      clientIngredients.reduce(function (prevValue, item) {
+        return prevValue + item.price;
+      }, 0) +
+      whatIsBun.price * 2;
+    orderIdArr.push(whatIsBun._id, whatIsBun._id);
+  }
+  //******************* */
+
+  const handleGetOrder = () => {
+    if (whatIsBun) {
+      dispatch(getOrder(orderIdArr));
+    } else {
+      dispatch(
+        showError({
+          status: "Положи-ка булочку в заказ дружок - с ней будет веселее!)",
+        })
+      );
+    }
+  };
 
   return (
-    <section className={styles.constructor}>
-      <ConstructorItem {...whatIsBun} bunLock bunLock_top />
-      {/* Тут отрисовываем ингредиенты внутри списка */}
-      <div className={styles.constructor_ingredients}>
-        <ul className={styles.constructor_list}>
-          {ingredArr.map((item) => {
-            return (
-              <li className={styles.constructor_item} key={item._id}>
-                {" "}
-                <div className={`${styles.dragicon} mb-1`}>
+    <section className={`${styles.constructor}`} ref={dropTarget}>
+      <div
+        className={`${styles.constructor_client} ${
+          (clientIngredients.length || whatIsBun) &&
+          styles.constructor_client_active
+        } ${isHover && styles.constructor_hover}`}
+      >
+        {whatIsBun && <ConstructorItem {...whatIsBun} bunLock bunLock_top />}
+        {/* Тут отрисовываем ингредиенты внутри списка */}
+        <div className={styles.constructor_ingredients}>
+          <ul className={styles.constructor_list}>
+            {clientIngredients.map((item, index) => {
+              return (
+                <li className={styles.constructor_item} key={item.ingredientId}>
                   {" "}
-                  <DragIcon />{" "}
-                </div>
-                <ConstructorItem {...item} />{" "}
-              </li>
-            );
-          })}
-        </ul>
+                  <div className={`${styles.dragicon} mb-1`}>
+                    {" "}
+                    <DragIcon />{" "}
+                  </div>
+                  <ConstructorItem {...item} index={index} />{" "}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {whatIsBun && <ConstructorItem {...whatIsBun} bunLock bunLock_bottom />}
+        <div className={styles.constructor_total}>
+          {/* Тут подсчитываем и выводим общую стоимость заказа */}
+          <p className={styles.constructor_count}> {totalPrice} </p>
+          <div className={styles.constructor_currency_icon}>
+            <CurrencyIcon type="primary" />
+          </div>
+          {/* Этот див временный пока не починять кнопку в библиотеке */}
+          <div onClick={handleGetOrder}>
+            <Button type="primary" size="large">
+              Оформить заказ
+            </Button>
+          </div>
+        </div>
       </div>
-      <ConstructorItem {...whatIsBun} bunLock bunLock_bottom />
-      <div className={styles.constructor_total}>
-        {/* Тут подсчитываем и выводим общую стоимость заказа */}
-        <p className={styles.constructor_count}> {total} </p>
-        <div className={styles.constructor_currency_icon}>
-          <CurrencyIcon type="primary" />
-        </div>
-        {/* Этот див временный пока не починять кнопку в библиотеке */}
-        <div onClick={props.createOrder}>
-          <Button type="primary" size="large">
-            Оформить заказ
-          </Button>
-        </div>
+
+      <div
+        className={`${styles.constructor_hungry} ${
+          !clientIngredients.length &&
+          !whatIsBun &&
+          styles.constructor_hungry_active
+        } ${isHover && styles.constructor_hover}`}
+      >
+        <p className={styles.constructor_hungry_paragraph}>
+          {" "}
+          Хочешь оформить заказ?{" "}
+        </p>
+        <p className={styles.constructor_hungry_paragraph}>
+          {" "}
+          Положи в меня еду! ){" "}
+        </p>
+        <img
+          className={styles.constructor_hungry_img}
+          src={hungry}
+          alt="hungry smile"
+        />
       </div>
     </section>
   );

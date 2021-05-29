@@ -1,44 +1,75 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-BurgerIngredients.propTypes = {
-  ingredientsList: PropTypes.array,
-  selectedIngredient: PropTypes.func,
-};
-
-function BurgerIngredients(props) {
+function BurgerIngredients() {
+  const bunBlock = document.getElementById("bun");
+  const sauceBlock = document.getElementById("sauce");
+  const fillingBlock = document.getElementById("filling");
+  const topBlock = document.getElementById("ingredients");
   const [current, setCurrent] = React.useState("one");
+  const { ingredients, clientIngredients, whatIsBun } = useSelector(
+    (store) => ({
+      ingredients: store.burgerIngredients.ingredients,
+      clientIngredients: store.client.clientIngredients,
+      whatIsBun: store.client.whatIsBun,
+    })
+  );
 
-  function viewComponentFilling() {
-    document
-      .getElementById("filling")
-      .scrollIntoView({ block: "start", behavior: "smooth" });
-    setCurrent("three");
-  }
-  function viewComponentSauce() {
-    document
-      .getElementById("sauce")
-      .scrollIntoView({ block: "start", behavior: "smooth" });
-    setCurrent("two");
-  }
-  function viewComponentBun() {
-    document
-      .getElementById("bun")
-      .scrollIntoView({ block: "start", behavior: "smooth" });
-    setCurrent("one");
-  }
+  const ingredientsWithCount = useMemo(() => {
+    return ingredients.map((ingredient) => {
+      ingredient.count = clientIngredients.filter(
+        (item) => item._id === ingredient._id
+      ).length;
+      if (whatIsBun && whatIsBun._id === ingredient._id) ingredient.count += 2;
+      return ingredient;
+    });
+  }, [ingredients, clientIngredients, whatIsBun]);
 
-  //   отбор захардкоренных данных
-  const bunArr = props.ingredientsList.filter((item) => {
+  const onScrollIngredients = () => {
+    const bunBlockPosition = Math.abs(
+      bunBlock.getBoundingClientRect().top -
+        topBlock.getBoundingClientRect().top
+    );
+    const sauceBlockPosition = Math.abs(
+      sauceBlock.getBoundingClientRect().top -
+        topBlock.getBoundingClientRect().top
+    );
+    const fillingBlockPosition = Math.abs(
+      fillingBlock.getBoundingClientRect().top -
+        topBlock.getBoundingClientRect().top
+    );
+
+    if (
+      bunBlockPosition < sauceBlockPosition &&
+      bunBlockPosition < fillingBlockPosition
+    ) {
+      setCurrent("one");
+    }
+    if (
+      sauceBlockPosition < bunBlockPosition &&
+      sauceBlockPosition < fillingBlockPosition
+    ) {
+      setCurrent("two");
+    }
+    if (
+      fillingBlockPosition < bunBlockPosition &&
+      fillingBlockPosition < sauceBlockPosition
+    ) {
+      setCurrent("three");
+    }
+  };
+
+  // Сортировка ингредиентов по группам
+  const bunArr = ingredientsWithCount.filter((item) => {
     return item.type === "bun";
   });
-  const sauceArr = props.ingredientsList.filter((item) => {
+  const sauceArr = ingredientsWithCount.filter((item) => {
     return item.type === "sauce";
   });
-  const fillingArr = props.ingredientsList.filter((item) => {
+  const fillingArr = ingredientsWithCount.filter((item) => {
     return item.type === "main";
   });
   //   ************************************
@@ -48,39 +79,56 @@ function BurgerIngredients(props) {
       <h1 className={styles.burger_header}>Соберите бургер</h1>
       {/* Меню ингредиетов */}
       <menu className={styles.burger_menu}>
-        <Tab value="one" active={current === "one"} onClick={viewComponentBun}>
+        <Tab
+          value="one"
+          active={current === "one"}
+          onClick={() => {
+            bunBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            setCurrent("one");
+          }}
+        >
           Булки
         </Tab>
         <Tab
           value="two"
           active={current === "two"}
-          onClick={viewComponentSauce}
+          onClick={() => {
+            sauceBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            setCurrent("two");
+          }}
         >
           Соусы
         </Tab>
         <Tab
           value="three"
           active={current === "three"}
-          onClick={viewComponentFilling}
+          onClick={() => {
+            fillingBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            setCurrent("three");
+          }}
         >
           Начинки
         </Tab>
       </menu>
       {/* *************** */}
-      <section className={styles.ingredients}>
+      <section
+        id="ingredients"
+        className={styles.ingredients}
+        onScroll={onScrollIngredients}
+      >
         {/* Отображение булок */}
         <div id="bun" className={styles.ingredients_bun}>
           <p className={styles.ingredients_title}>Булки</p>
           <div className={styles.ingredients_list}>
-            {bunArr.map((item, index) => {
+            {bunArr.map((item) => {
               return (
                 <Ingredient
                   key={item._id}
                   image={item.image}
                   name={item.name}
                   price={item.price}
-                  onIngredientClick={props.selectedIngredient}
                   ingredient={item}
+                  count={item.count}
                 />
               );
             })}
@@ -97,8 +145,8 @@ function BurgerIngredients(props) {
                   image={item.image}
                   name={item.name}
                   price={item.price}
-                  onIngredientClick={props.selectedIngredient}
                   ingredient={item}
+                  count={item.count}
                 />
               );
             })}
@@ -115,8 +163,8 @@ function BurgerIngredients(props) {
                   image={item.image}
                   name={item.name}
                   price={item.price}
-                  onIngredientClick={props.selectedIngredient}
                   ingredient={item}
+                  count={item.count}
                 />
               );
             })}

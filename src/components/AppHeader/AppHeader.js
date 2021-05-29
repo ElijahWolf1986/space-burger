@@ -7,17 +7,18 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { showMenu } from "../../services/actions";
 
-AppHeader.propTypes = {
-  handleToogleMenu: PropTypes.func,
-  isTooglePopup: PropTypes.bool,
-  closeAllPopups: PropTypes.func,
-  isTooglePopupPersonal: PropTypes.bool,
-  handleToogleMenuPersonal: PropTypes.func,
-};
+function AppHeader() {
+  const dispatch = useDispatch();
+  function openMenu() {
+    dispatch(showMenu());
+  }
+  const { isTooglePopup } = useSelector((store) => ({
+    isTooglePopup: store.menu.isTooglePopup,
+  }));
 
-function AppHeader(props) {
   return (
     <section className={styles.header_section}>
       <header className={styles.header}>
@@ -45,18 +46,12 @@ function AppHeader(props) {
         <button
           id="toogle-menu"
           className={styles.toogle_menu}
-          onClick={props.handleToogleMenu}
+          onClick={openMenu}
         >
           {" "}
         </button>
 
-        {props.isTooglePopup && (
-          <TooglePopup
-            closeAllPopups={props.closeAllPopups}
-            isTooglePopupPersonal={props.isTooglePopupPersonal}
-            handleToogleMenuPersonal={props.handleToogleMenuPersonal}
-          />
-        )}
+        {isTooglePopup && <TooglePopup />}
 
         <div className={styles.profile}>
           <ProfileIcon type="secondary" />
