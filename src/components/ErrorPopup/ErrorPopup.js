@@ -12,6 +12,8 @@ function ErrorPopup() {
   function onClose() {
     dispatch(closeAllPopups());
   }
+  const textError = error.status === 401 ? 'Логин или пароль неверны' : '';
+
   return (
     <section
       className={`${styles.err_popup} ${
@@ -28,7 +30,10 @@ function ErrorPopup() {
           Произошла ошибка при общении с сервером:{" "}
         </h2>
         <p className={styles.err_popup_paragraph}>
-          Статус ответа: {error.status} {error.statusText}
+          Статус ответа: {error.status} {error.statusText} 
+        </p>
+        <p className={styles.err_popup_paragraph}>
+           {textError}
         </p>
       </div>
     </section>

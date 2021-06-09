@@ -1,5 +1,5 @@
 import IngredientsApi from "../../utils/Api";
-import { urlIngredients, urlOrder } from "../../utils/Utils";
+import { urlApi } from "../../utils/Utils";
 import {
   GET_ITEMS_INGREDIENTS_REQUEST,
   GET_ITEMS_INGREDIENTS_SUCCESS,
@@ -19,23 +19,76 @@ import {
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
   MOVE_CLIENT_INGREDIENT,
-  PUT_USER_LOGIN_DATA,
-  REM_USER_LOGIN_DATA,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILED,
+  RESET_USER_PASSWORD,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILED,
 } from "../types";
 
-const ingredientsApi = new IngredientsApi(urlIngredients);
-const orderApi = new IngredientsApi(urlOrder);
+const burgerApi = new IngredientsApi(urlApi);
 
-export function addLoginClientData({ name, email, password }) {
-  return {
-    type: PUT_USER_LOGIN_DATA,
-    payload: { name, email, password },
+export function loginUser({ email, password }) {
+  return (dispatch) => {
+    dispatch({
+      type: LOGIN_USER_REQUEST,
+    });
+    burgerApi
+      .loginUser(email, password)
+      .then((res) => {
+        dispatch({
+          type: LOGIN_USER_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(showError(error));
+        dispatch({
+          type: LOGIN_USER_FAILED,
+        });
+      });
   };
 }
 
-export function removeLoginClientData() {
-  return {
-    type: REM_USER_LOGIN_DATA,
+export function createUser({ email, password, name }) {
+  return (dispatch) => {
+    dispatch({
+      type: CREATE_USER_REQUEST,
+    });
+    burgerApi
+      .registerUser(email, password, name)
+      .then((res) => {
+        dispatch({
+          type: CREATE_USER_SUCCESS,
+          payload: res,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(showError(error));
+        dispatch({
+          type: CREATE_USER_FAILED,
+        });
+      });
+  };
+}
+export function resetUserPassword() {
+  return (dispatch) => {
+    burgerApi
+      .forgotPassword()
+      .then((res) => {
+        dispatch({
+          type: RESET_USER_PASSWORD,
+          payload: res,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(showError(error));
+      });
   };
 }
 
@@ -110,7 +163,7 @@ export function getIngredients() {
     dispatch({
       type: GET_ITEMS_INGREDIENTS_REQUEST,
     });
-    ingredientsApi
+    burgerApi
       .getIngredientList()
       .then((res) => {
         dispatch({
@@ -134,7 +187,7 @@ export function getOrder(ingredients) {
       type: GET_ORDER_REQUEST,
     });
 
-    orderApi
+    burgerApi
       .getOrder(ingredients)
       .then((res) => {
         dispatch({

@@ -1,15 +1,17 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { addLoginClientData } from "../../services/actions";
+import { createUser } from "../../services/actions";
+import { emailPattern } from "../../utils/Utils";
 
 function Register() {
   const dispatch = useDispatch();
-  const emailPattern =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const { success } = useSelector((store) => ({
+    success: store.user.success,
+  }));
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -28,7 +30,7 @@ function Register() {
       setTimeout(() => setError(""), 3000);
       return;
     }
-    dispatch(addLoginClientData({ name, email, password }));
+    dispatch(createUser({ name, email, password }));
     setName("");
     setEmail("");
     setPassword("");
@@ -50,6 +52,10 @@ function Register() {
     <form className={styles.login_container} onSubmit={onRegister} noValidate>
       <h2 className={styles.login_title}>Регистрация</h2>
       <span className={styles.login_error}>{error}</span>
+      <span className={styles.login_message}>
+        {success ? "Ура вы зарегились!" : ""}
+      </span>
+
       <Input
         type="text"
         isRequired

@@ -1,3 +1,3 @@
-export const urlIngredients = "https://norma.nomoreparties.space/api/ingredients";
+export const urlApi = "https://norma.nomoreparties.space/api";
 
-export const urlOrder = "https://norma.nomoreparties.space/api/orders";
+export const emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

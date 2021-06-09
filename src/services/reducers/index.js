@@ -20,8 +20,13 @@ import {
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
   MOVE_CLIENT_INGREDIENT,
-  PUT_USER_LOGIN_DATA,
-  REM_USER_LOGIN_DATA,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILED,
+  RESET_USER_PASSWORD,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILED,
 } from "../types";
 
 const initialStateIngredients = {
@@ -60,30 +65,78 @@ const initialStateMenu = {
   isTooglePersonal: false,
 };
 
-const initialLoginData = {
-  name: null,
-  email: null,
-  password: null,
+const initialUserInfo = {
+  user: {},
+  success: false,
+  accessToken: null,
+  refreshToken: null,
+  message: null,
+  userRequest: false,
+  userRequestFail: false,
 };
 
-const loginDataReducer = (state = initialLoginData, action) => {
+const userInfoReducer = (state = initialUserInfo, action) => {
   switch (action.type) {
-    case PUT_USER_LOGIN_DATA: {
-      const { name, email, password } = action.payload;
+    case CREATE_USER_REQUEST: {
       return {
         ...state,
-        name: name,
-        email: email,
-        password: password,
+        userRequest: true,
       };
     }
-    case REM_USER_LOGIN_DATA: {
+    case CREATE_USER_SUCCESS: {
+      const { success, user, accessToken, refreshToken } = action.payload;
       return {
         ...state,
-        email: null,
-        password: null,
+        success: success,
+        user: user,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        userRequest: false,
+        userRequestFail: false,
       };
     }
+    case CREATE_USER_FAILED: {
+      return {
+        ...state,
+        userRequest: false,
+        userRequestFail: true,
+      };
+    }
+    case RESET_USER_PASSWORD: {
+      const { success, message } = action.payload;
+      return {
+        ...state,
+        success: success,
+        message: message,
+      };
+    }
+
+    case LOGIN_USER_REQUEST: {
+      return {
+        ...state,
+        userRequest: true,
+      };
+    }
+    case LOGIN_USER_SUCCESS: {
+      const { success, user, accessToken, refreshToken } = action.payload;
+      return {
+        ...state,
+        success: success,
+        user: user,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        userRequest: false,
+        userRequestFail: false,
+      };
+    }
+    case LOGIN_USER_FAILED: {
+      return {
+        ...state,
+        userRequest: false,
+        userRequestFail: true,
+      };
+    }
+
     default: {
       return {
         ...state,
@@ -296,7 +349,7 @@ const rootReducer = combineReducers({
   order: getOrderReducer,
   menu: menuReducer,
   client: getClientIngredientsReducer,
-  login: loginDataReducer,
+  user: userInfoReducer,
 });
 
 export default rootReducer;

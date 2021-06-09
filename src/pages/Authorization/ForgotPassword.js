@@ -1,12 +1,25 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { emailPattern } from "../../utils/Utils";
+import { resetUserPassword } from "../../services/actions";
 
 function ForgotPassword() {
-  const emailPattern =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const history = useHistory();
+  const { message, success } = useSelector((store) => ({
+    message: store.user.message,
+    success: store.user.success,
+  }));
+  const dispatch = useDispatch();
+
+  const turnToResetPasswordPage = () => {
+    if (success && message === "Reset email sent") {
+      history.push("/reset-password");
+    }
+  };
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
@@ -23,12 +36,17 @@ function ForgotPassword() {
       setTimeout(() => setError(""), 3000);
       return;
     }
+    dispatch(resetUserPassword());
     setEmail("");
   };
 
   const changeEmail = (evt) => {
     setEmail(evt.target.value);
   };
+
+  React.useEffect(() => {
+    turnToResetPasswordPage();
+  }, [success, message]);
 
   return (
     <form className={styles.login_container} onSubmit={onSubmit} noValidate>

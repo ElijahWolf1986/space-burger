@@ -1,26 +1,22 @@
 import React from "react";
-import {
-  // useSelector,
-  useDispatch,
-} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import {
-  addLoginClientData,
-  //   removeLoginClientData, //action для удаления данных по логированию из стора, пока оставлю это здесь)
-} from "../../services/actions";
+import { loginUser } from "../../services/actions";
+import { emailPattern } from "../../utils/Utils";
 
 function Login() {
   const dispatch = useDispatch();
-  const emailPattern =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const { success, userName } = useSelector((store) => ({
+    success: store.user.success,
+    userName: store.user.user.name,
+  }));
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
-
   const onLogin = (evt) => {
     evt.preventDefault();
     if (!email || !password) {
@@ -33,7 +29,7 @@ function Login() {
       setTimeout(() => setError(""), 3000);
       return;
     }
-    dispatch(addLoginClientData({ email, password }));
+    dispatch(loginUser({ email, password }));
     setEmail("");
     setPassword("");
   };
@@ -46,16 +42,13 @@ function Login() {
     setPassword(evt.target.value);
   };
 
-  // const { loginEmail, loginPassword } = useSelector((store) => ({
-  //   loginEmail: store.login.email,
-  //   loginPassword: store.login.password,
-  // }));
-  // console.log(loginEmail, loginPassword); //данны из стора, пока оставлю это здесь)
-
   return (
     <form className={styles.login_container} onSubmit={onLogin} noValidate>
       <h2 className={styles.login_title}>Вход</h2>
       <span className={styles.login_error}>{error}</span>
+      <span className={styles.login_message}>
+        {success ? `Ура ${userName} вы зашли в свой аккаунт!` : ""}
+      </span>
       <Input
         type="email"
         isRequired
@@ -69,7 +62,6 @@ function Login() {
         placeholder="Пароль"
         value={password}
         handleChange={changePassword}
-        // onEyeClick={onEyeClick}
       />
       <div className={styles.login_button} type="submit">
         <Button type="primary" size="large">
