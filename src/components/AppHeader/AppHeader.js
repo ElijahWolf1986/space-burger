@@ -9,6 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { showMenu } from "../../services/actions";
+import { Link } from "react-router-dom";
 
 function AppHeader() {
   const dispatch = useDispatch();
@@ -25,21 +26,27 @@ function AppHeader() {
         <menu className={styles.menu}>
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
-              <BurgerIcon type="primary" />
-              <p className={`${styles.menu_title}`}>Конструктор</p>
+              <Link to="/constructor">
+                <BurgerIcon type="primary" />
+                <p className={`${styles.menu_title}`}>Конструктор</p>
+              </Link>
             </li>
             <li className={styles.menu_item}>
-              <ListIcon type="secondary" />
-              <p className={`${styles.menu_title} ${styles.menu_title_active}`}>
-                Лента заказов
-              </p>
+              <Link to="/feed">
+                <ListIcon type="secondary" />
+                <p
+                  className={`${styles.menu_title} ${styles.menu_title_active}`}
+                >
+                  Лента заказов
+                </p>
+              </Link>
             </li>
           </ul>
         </menu>
 
-        <a href="localhost:3000" className={styles.logo}>
+        <Link to="/" className={styles.logo}>
           <Logo />
-        </a>
+        </Link>
         <a href="localhost:3000" className={styles.logo_mobile}>
           {" "}
         </a>

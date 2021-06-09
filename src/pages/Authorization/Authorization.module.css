@@ -1,0 +1,50 @@
+.login_container {
+  width: 480px;
+  height: 478px;
+  margin: 180px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login_title {
+  font-family: JetBrains Mono;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0 auto 12px auto;
+  color: #f2f2f3;
+}
+
+.login_button {
+  min-width: 128px;
+  margin: 12px auto 80px auto;
+  background-color: transparent;
+  border-radius: 40px;
+  border: none;
+}
+
+.login_paragraph {
+  font-family: JetBrains Mono;
+  font-size: 16px;
+  line-height: 24px;
+  color: #8585ad;
+  margin: 0 auto 16px auto;
+}
+
+.login_paragraph a {
+  color: #4c4cff;
+  text-decoration: none;
+}
+
+.login_error {
+  max-width: 100%;
+  max-height: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Iceland;
+  font-size: 20px;
+  line-height: 26px;
+  color: red;
+}

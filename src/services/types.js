@@ -27,3 +27,10 @@ export const HIDE_PERSONAL_MENU = "HIDE_PERSONAL_MENU";
 export const PUT_CLIENT_INGREDIENT = "PUT_CLIENT_INGREDIENT";
 export const REM_CLIENT_INGREDIENT = "REM_CLIENT_INGREDIENT";
 export const MOVE_CLIENT_INGREDIENT = "MOVE_CLIENT_INGREDIENT";
+
+//actions для работы с формой ввода логина/пароля
+export const PUT_USER_LOGIN_DATA = "PUT_USER_LOGIN_DATA";
+export const REM_USER_LOGIN_DATA = "REM_USER_LOGIN_DATA";
+
+
+

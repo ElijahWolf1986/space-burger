@@ -20,6 +20,8 @@ import {
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
   MOVE_CLIENT_INGREDIENT,
+  PUT_USER_LOGIN_DATA,
+  REM_USER_LOGIN_DATA,
 } from "../types";
 
 const initialStateIngredients = {
@@ -56,6 +58,38 @@ const initialStateMenu = {
   //Работа с функиональностью меню для мобильных устройств
   isTooglePopup: false,
   isTooglePersonal: false,
+};
+
+const initialLoginData = {
+  name: null,
+  email: null,
+  password: null,
+};
+
+const loginDataReducer = (state = initialLoginData, action) => {
+  switch (action.type) {
+    case PUT_USER_LOGIN_DATA: {
+      const { name, email, password } = action.payload;
+      return {
+        ...state,
+        name: name,
+        email: email,
+        password: password,
+      };
+    }
+    case REM_USER_LOGIN_DATA: {
+      return {
+        ...state,
+        email: null,
+        password: null,
+      };
+    }
+    default: {
+      return {
+        ...state,
+      };
+    }
+  }
 };
 
 const getClientIngredientsReducer = (state = initialStateClient, action) => {
@@ -262,6 +296,7 @@ const rootReducer = combineReducers({
   order: getOrderReducer,
   menu: menuReducer,
   client: getClientIngredientsReducer,
+  login: loginDataReducer,
 });
 
 export default rootReducer;

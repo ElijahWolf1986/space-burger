@@ -19,10 +19,25 @@ import {
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
   MOVE_CLIENT_INGREDIENT,
+  PUT_USER_LOGIN_DATA,
+  REM_USER_LOGIN_DATA,
 } from "../types";
 
 const ingredientsApi = new IngredientsApi(urlIngredients);
 const orderApi = new IngredientsApi(urlOrder);
+
+export function addLoginClientData({ name, email, password }) {
+  return {
+    type: PUT_USER_LOGIN_DATA,
+    payload: { name, email, password },
+  };
+}
+
+export function removeLoginClientData() {
+  return {
+    type: REM_USER_LOGIN_DATA,
+  };
+}
 
 export function moveClientIngredient({ dragIndex, hoverIndex }) {
   return {

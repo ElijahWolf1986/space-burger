@@ -59,12 +59,22 @@
 
 .menu_item {
   cursor: pointer;
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: left;
+  justify-content: left; */
   margin-left: 9px;
   padding: 0 8px;
+}
+
+.menu_item a{
+text-decoration: none;
+color: inherit;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: left;
+
 }
 
 .menu_title {
