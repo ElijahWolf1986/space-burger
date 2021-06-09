@@ -22,7 +22,6 @@ function Login() {
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
 
   const onLogin = (evt) => {
-    // form logic => work with redux
     evt.preventDefault();
     if (!email || !password) {
       setError("Нужно заполнить оба поля");
@@ -70,6 +69,7 @@ function Login() {
         placeholder="Пароль"
         value={password}
         handleChange={changePassword}
+        // onEyeClick={onEyeClick}
       />
       <div className={styles.login_button} type="submit">
         <Button type="primary" size="large">

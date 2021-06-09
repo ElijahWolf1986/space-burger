@@ -11,7 +11,7 @@ import { getIngredients, closeAllPopups } from "../../services/actions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Router, Route, Switch, useHistory } from "react-router-dom";
-import { Login, Register } from "../../pages";
+import { Login, Register, ForgotPassword } from "../../pages";
 
 function App() {
   const history = useHistory();
@@ -40,6 +40,9 @@ function App() {
         </Route>
         <Route exact path="/registration">
           <Register />
+        </Route>
+        <Route exact path="/forgot-password">
+          <ForgotPassword />
         </Route>
         <Route exact path="/constructor">
           <DndProvider backend={HTML5Backend}>
