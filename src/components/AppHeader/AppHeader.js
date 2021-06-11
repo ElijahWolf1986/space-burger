@@ -76,18 +76,27 @@ function AppHeader() {
           {" "}
         </button>
         {isTooglePopup && <TooglePopup />}
-        <div className={styles.profile}>
-          <ProfileIcon
-            type={location.pathname === "/profile" ? "primary" : "secondary"}
-          />
-          <p
-            className={`${styles.profile_title} ${
-              location.pathname === "/profile" && styles.profile_title_active
-            }`}
-          >
-            Личный кабинет
-          </p>
-        </div>
+        <Link to="/profile">
+          <div className={styles.profile}>
+            <ProfileIcon
+              type={
+                location.pathname === "/profile" ||
+                location.pathname === "/profile/orders"
+                  ? "primary"
+                  : "secondary"
+              }
+            />
+            <p
+              className={`${styles.profile_title} ${
+                (location.pathname === "/profile" ||
+                  location.pathname === "/profile/orders") &&
+                styles.profile_title_active
+              }`}
+            >
+              Личный кабинет
+            </p>
+          </div>
+        </Link>
       </header>
     </section>
   );

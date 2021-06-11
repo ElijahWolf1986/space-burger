@@ -11,7 +11,15 @@ import { getIngredients, closeAllPopups } from "../../services/actions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Router, Route, Switch, useHistory } from "react-router-dom";
-import { Login, Register, ForgotPassword, ResetPassword, Feed } from "../../pages";
+import {
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+  Feed,
+  Profile,
+  ProfileOrders,
+} from "../../pages";
 import OrderItem from "../Order/OrderItem";
 
 function App() {
@@ -52,6 +60,15 @@ function App() {
           <Feed />
         </Route>
         <Route exact path="/feed/:id">
+          <OrderItem />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/profile/orders">
+          <ProfileOrders />
+        </Route>
+        <Route exact path="/profile/orders/:id">
           <OrderItem />
         </Route>
         <Route exact path="/constructor">

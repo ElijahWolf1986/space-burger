@@ -11,7 +11,7 @@ Input.propTypes = {
 };
 
 function Input(props) {
-  const { placeholder, type, value, handleChange, isRequired } = props;
+  const { placeholder, type, value, handleChange, isRequired, custom } = props;
   const [typeInput, setTypeInput] = React.useState(type);
 
   const onEyeClick = () => {
@@ -22,8 +22,8 @@ function Input(props) {
     }
   };
 
-  return (
-    <section className={styles.input_container}>
+  const customInput = !custom ? (
+    <>
       <label className={styles.input_label}>{value ? "" : placeholder}</label>
       <input
         type={typeInput}
@@ -36,8 +36,28 @@ function Input(props) {
         (typeInput === "show-password" && value)) && (
         <div className={styles.input_eye} onClick={onEyeClick}></div>
       )}
-    </section>
+    </>
+  ) : (
+    <>
+      <label className={styles.input_profile_label}>{placeholder}</label>
+      <input
+        type={typeInput}
+        value={value || ""}
+        onChange={handleChange}
+        required={isRequired}
+        className={`${styles.input} ${styles.input_profile}`}
+      />
+
+      {(typeInput === "password" && value) ||
+      (typeInput === "show-password" && value) ? (
+        <div className={styles.input_eye} onClick={onEyeClick}></div>
+      ) : (
+        <div className={styles.input_pencil}></div>
+      )}
+    </>
   );
+
+  return <section className={styles.input_container}>{customInput}</section>;
 }
 
 export default Input;

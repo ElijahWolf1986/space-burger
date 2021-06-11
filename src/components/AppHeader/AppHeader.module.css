@@ -6,6 +6,9 @@
     0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
     0px 0px 1px rgba(0, 0, 0, 0.04);
 }
+.header_section a {
+  text-decoration: none;
+}
 
 .header {
   width: 1280px;
@@ -63,14 +66,13 @@
   padding: 0 8px;
 }
 
-.menu_item a{
-text-decoration: none;
-color: inherit;
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-justify-content: left;
-
+.menu_item a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
 }
 
 .menu_title {
@@ -96,7 +98,7 @@ justify-content: left;
   margin-left: 8px;
   font-size: 16px;
   line-height: 24px;
-  color:#8585ad;
+  color: #8585ad;
 }
 
 .profile_title_active {
