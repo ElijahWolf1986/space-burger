@@ -19,6 +19,7 @@ import {
   Feed,
   Profile,
   ProfileOrders,
+  NotFound
 } from "../../pages";
 import OrderItem from "../Order/OrderItem";
 
@@ -78,6 +79,9 @@ function App() {
               <BurgerConstructor />
             </section>
           </DndProvider>
+        </Route>
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
 

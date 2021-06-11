@@ -1,0 +1,23 @@
+.notfound_container {
+  width: 1280px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notfound_title {
+  font-family: JetBrains Mono;
+  font-size: 36px;
+  line-height: 42px;
+}
+
+.notfound_paragraph {
+  font-family: JetBrains Mono;
+  font-size: 26px;
+  line-height: 32px;
+  color: #8585ad;
+}
+.notfound_container a {
+  text-decoration: none;
+}

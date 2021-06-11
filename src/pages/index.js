@@ -5,6 +5,15 @@ import { default as ResetPassword } from "./Authorization/ResetPassword";
 import { default as Feed } from "./Feed/Feed";
 import { default as Profile } from "./Profile/Profile";
 import { default as ProfileOrders } from "./Profile/ProfileOrders";
+import { default as NotFound } from "./NotFound/NotFound";
 
-
-export { Login, Register, ForgotPassword, ResetPassword, Feed, Profile, ProfileOrders };
+export {
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+  Feed,
+  Profile,
+  ProfileOrders,
+  NotFound,
+};
