@@ -9,10 +9,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { showMenu } from "../../services/actions";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
   const dispatch = useDispatch();
+  let location = useLocation();
   function openMenu() {
     dispatch(showMenu());
   }
@@ -27,15 +28,32 @@ function AppHeader() {
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
               <Link to="/constructor">
-                <BurgerIcon type="primary" />
-                <p className={`${styles.menu_title}`}>Конструктор</p>
+                <BurgerIcon
+                  type={
+                    location.pathname === "/constructor"
+                      ? "primary"
+                      : "secondary"
+                  }
+                />
+                <p
+                  className={`${styles.menu_title} ${
+                    location.pathname === "/constructor" &&
+                    styles.menu_title_active
+                  }`}
+                >
+                  Конструктор
+                </p>
               </Link>
             </li>
             <li className={styles.menu_item}>
               <Link to="/feed">
-                <ListIcon type="secondary" />
+                <ListIcon
+                  type={location.pathname === "/feed" ? "primary" : "secondary"}
+                />
                 <p
-                  className={`${styles.menu_title} ${styles.menu_title_active}`}
+                  className={`${styles.menu_title} ${
+                    location.pathname === "/feed" && styles.menu_title_active
+                  }`}
                 >
                   Лента заказов
                 </p>
@@ -57,13 +75,15 @@ function AppHeader() {
         >
           {" "}
         </button>
-
         {isTooglePopup && <TooglePopup />}
-
         <div className={styles.profile}>
-          <ProfileIcon type="secondary" />
+          <ProfileIcon
+            type={location.pathname === "/profile" ? "primary" : "secondary"}
+          />
           <p
-            className={`${styles.profile_title} ${styles.profile_title_active}`}
+            className={`${styles.profile_title} ${
+              location.pathname === "/profile" && styles.profile_title_active
+            }`}
           >
             Личный кабинет
           </p>

@@ -13,6 +13,7 @@ function ErrorPopup() {
     dispatch(closeAllPopups());
   }
   const textError = error.status === 401 ? 'Логин или пароль неверны' : '';
+  const textError2 = error.status === 403 ? 'Такой пользователь уже существует дружок!' : '';
 
   return (
     <section
@@ -33,7 +34,7 @@ function ErrorPopup() {
           Статус ответа: {error.status} {error.statusText} 
         </p>
         <p className={styles.err_popup_paragraph}>
-           {textError}
+           {textError} {textError2}
         </p>
       </div>
     </section>
