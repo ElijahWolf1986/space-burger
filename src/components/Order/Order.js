@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { update } from "../../utils/utils";
+import { update } from "../../utils/func";
 import { optionsDate } from "../../utils/constants";
 
 
