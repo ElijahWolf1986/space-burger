@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./NotFound.module.css";
 import NotFoundPic from "../../images/not-found-ico.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function NotFound() {

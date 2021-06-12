@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 
 Input.propTypes = {
   placeholder: PropTypes.string,
-  type: PropTypes.string,
-  isRequired: PropTypes.bool,
+  type: PropTypes.string.isRequired,
+  isRequired: PropTypes.bool.isRequired,
   value: PropTypes.string,
-  handleChange: PropTypes.func,
+  handleChange: PropTypes.func.isRequired,
 };
 
 function Input(props) {

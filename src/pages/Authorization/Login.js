@@ -5,7 +5,7 @@ import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../services/actions";
-import { emailPattern } from "../../utils/Utils";
+import { emailPattern } from "../../utils/constants";
 
 function Login() {
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ function Login() {
         <Button type="primary" size="large">
           {" "}
           Войти{" "}
-        </Button>
+        </Button> 
       </div>
       <p className={styles.login_paragraph}>
         Вы &mdash; новый пользователь?{" "}

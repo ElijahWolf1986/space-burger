@@ -2,7 +2,9 @@ import React from "react";
 import styles from "./Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { Update, options } from "../../utils/Utils";
+import { update } from "../../utils/utils";
+import { optionsDate } from "../../utils/constants";
+
 
 Order.propTypes = {
   order: PropTypes.object,
@@ -14,7 +16,7 @@ Order.propTypes = {
 };
 
 function Order(props) {
-  const orderDate = Update(props.order.date, options);
+  const orderDate = update(props.order.date, optionsDate);
   return (
     <section className={styles.order}>
       <div className={styles.order_header}>

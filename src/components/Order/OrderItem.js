@@ -2,15 +2,16 @@ import React from "react";
 import styles from "./Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
-import Data from "../../utils/data";
-import { Update, options } from "../../utils/Utils";
+import data from "../../utils/data";
+import { update } from "../../utils/utils";
+import { optionsDate } from "../../utils/constants";
 
 function OrderItem() {
   const { id } = useParams();
-  const order = Data.filter(({ number }) => {
+  const order = data.filter(({ number }) => {
     return number === JSON.parse(id);
   })[0];
-  const orderDate = Update(order.date, options);
+  const orderDate = update(order.date, optionsDate);
 
   return (
     <section className={styles.order_item}>

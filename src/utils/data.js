@@ -1,4 +1,4 @@
-const Data = [
+const data = [
   {
     name: 'Хлесткий бургер - "Плеть Физрука"',
     number: 666,
@@ -406,4 +406,4 @@ const Data = [
   },
 ];
 
-export default Data;
+export default data;

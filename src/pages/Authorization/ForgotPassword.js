@@ -4,7 +4,7 @@ import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from "react-router-dom";
-import { emailPattern } from "../../utils/Utils";
+import { emailPattern } from "../../utils/constants";
 import { resetUserPassword } from "../../services/actions";
 
 function ForgotPassword() {

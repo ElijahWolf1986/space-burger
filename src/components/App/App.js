@@ -19,20 +19,20 @@ import {
   Feed,
   Profile,
   ProfileOrders,
-  NotFound
+  NotFound,
 } from "../../pages";
 import OrderItem from "../Order/OrderItem";
 
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
-  function closeByEsc(evt) {
-    if (evt.keyCode === 27) {
-      dispatch(closeAllPopups());
-    }
-  }
 
   React.useEffect(() => {
+    function closeByEsc(evt) {
+      if (evt.keyCode === 27) {
+        dispatch(closeAllPopups());
+      }
+    }
     dispatch(getIngredients());
     document.addEventListener("keydown", closeByEsc, false);
     return () => {

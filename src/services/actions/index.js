@@ -1,5 +1,5 @@
 import IngredientsApi from "../../utils/Api";
-import { urlApi } from "../../utils/Utils";
+import { urlApi } from "../../utils/constants";
 import {
   GET_ITEMS_INGREDIENTS_REQUEST,
   GET_ITEMS_INGREDIENTS_SUCCESS,
@@ -188,7 +188,7 @@ export function getOrder(ingredients) {
     });
 
     burgerApi
-      .getOrder(ingredients)
+      .getOrder(ingredients) 
       .then((res) => {
         dispatch({
           type: GET_ORDER_SUCCESS,

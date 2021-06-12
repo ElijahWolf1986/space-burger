@@ -5,7 +5,7 @@ import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { createUser } from "../../services/actions";
-import { emailPattern } from "../../utils/Utils";
+import { emailPattern } from "../../utils/constants";
 
 function Register() {
   const dispatch = useDispatch();

@@ -13,7 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
   const dispatch = useDispatch();
-  let location = useLocation();
+  const location = useLocation();
   function openMenu() {
     dispatch(showMenu());
   }
@@ -65,9 +65,6 @@ function AppHeader() {
         <Link to="/" className={styles.logo}>
           <Logo />
         </Link>
-        <a href="localhost:3000" className={styles.logo_mobile}>
-          {" "}
-        </a>
         <button
           id="toogle-menu"
           className={styles.toogle_menu}
