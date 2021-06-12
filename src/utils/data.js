@@ -5,6 +5,7 @@ const data = [
     price: 540,
     date: 16226007866889,
     status: "Выполнен",
+    _id: "606effddf6c42cc7b410027a1a9b1",
     data: [
       {
         _id: "60666c42cc7b410027a1a9b1",
@@ -76,6 +77,7 @@ const data = [
     price: 562,
     date: 16229017896089,
     status: "Готовится",
+    _id: "606effddf6c42cc7b4100feerf7a1a9b1",
     data: [
       {
         _id: "60666c42cc7b410027a1a9b2",
@@ -164,6 +166,7 @@ const data = [
     price: 56287,
     date: 16229017596089,
     status: "Выполнен",
+    _id: "606effddf6c42ccrrb410027a1a9b1",
     data: [
       {
         _id: "60666c42cc7b410027a1a9b1",
@@ -283,6 +286,7 @@ const data = [
     price: 1000000000,
     date: 16227017596089,
     status: "Выполнен",
+    _id: "606effddf6c42cc7b410027a1989b1",
     data: [
       {
         _id: "60666c42cc7b410027a1a9b1",
@@ -369,6 +373,7 @@ const data = [
     price: 56284,
     date: 16229007596089,
     status: "Отменен",
+    _id: "6066dfddf6c42cc7b410027a1a9b1",
     data: [
       {
         _id: "60666c42cc7b410027a1a9b2",
