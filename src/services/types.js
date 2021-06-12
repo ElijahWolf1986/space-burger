@@ -27,3 +27,16 @@ export const HIDE_PERSONAL_MENU = "HIDE_PERSONAL_MENU";
 export const PUT_CLIENT_INGREDIENT = "PUT_CLIENT_INGREDIENT";
 export const REM_CLIENT_INGREDIENT = "REM_CLIENT_INGREDIENT";
 export const MOVE_CLIENT_INGREDIENT = "MOVE_CLIENT_INGREDIENT";
+
+//actions для работы с Register
+export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
+export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
+export const CREATE_USER_FAILED = "CREATE_USER_FAILED";
+
+//actions для работы с ResetPassword
+export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
+
+//actions для работы с Login
+export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
+export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
+export const LOGIN_USER_FAILED = "LOGIN_USER_FAILED";

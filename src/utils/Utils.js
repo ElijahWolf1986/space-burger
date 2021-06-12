@@ -1,3 +1,3 @@
-export const urlIngredients = "https://norma.nomoreparties.space/api/ingredients";
-
-export const urlOrder = "https://norma.nomoreparties.space/api/orders";
+export const update = (date, options) => {
+  return new Date(date).toLocaleDateString("ru-RU", options);
+};

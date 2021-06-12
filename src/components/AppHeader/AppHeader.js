@@ -9,9 +9,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { showMenu } from "../../services/actions";
+import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
   const dispatch = useDispatch();
+  const location = useLocation();
   function openMenu() {
     dispatch(showMenu());
   }
@@ -25,24 +27,44 @@ function AppHeader() {
         <menu className={styles.menu}>
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
-              <BurgerIcon type="primary" />
-              <p className={`${styles.menu_title}`}>Конструктор</p>
+              <Link to="/constructor">
+                <BurgerIcon
+                  type={
+                    location.pathname === "/constructor"
+                      ? "primary"
+                      : "secondary"
+                  }
+                />
+                <p
+                  className={`${styles.menu_title} ${
+                    location.pathname === "/constructor" &&
+                    styles.menu_title_active
+                  }`}
+                >
+                  Конструктор
+                </p>
+              </Link>
             </li>
             <li className={styles.menu_item}>
-              <ListIcon type="secondary" />
-              <p className={`${styles.menu_title} ${styles.menu_title_active}`}>
-                Лента заказов
-              </p>
+              <Link to="/feed">
+                <ListIcon
+                  type={location.pathname === "/feed" ? "primary" : "secondary"}
+                />
+                <p
+                  className={`${styles.menu_title} ${
+                    location.pathname === "/feed" && styles.menu_title_active
+                  }`}
+                >
+                  Лента заказов
+                </p>
+              </Link>
             </li>
           </ul>
         </menu>
 
-        <a href="localhost:3000" className={styles.logo}>
+        <Link to="/" className={styles.logo}>
           <Logo />
-        </a>
-        <a href="localhost:3000" className={styles.logo_mobile}>
-          {" "}
-        </a>
+        </Link>
         <button
           id="toogle-menu"
           className={styles.toogle_menu}
@@ -50,17 +72,28 @@ function AppHeader() {
         >
           {" "}
         </button>
-
         {isTooglePopup && <TooglePopup />}
-
-        <div className={styles.profile}>
-          <ProfileIcon type="secondary" />
-          <p
-            className={`${styles.profile_title} ${styles.profile_title_active}`}
-          >
-            Личный кабинет
-          </p>
-        </div>
+        <Link to="/profile">
+          <div className={styles.profile}>
+            <ProfileIcon
+              type={
+                location.pathname === "/profile" ||
+                location.pathname === "/profile/orders"
+                  ? "primary"
+                  : "secondary"
+              }
+            />
+            <p
+              className={`${styles.profile_title} ${
+                (location.pathname === "/profile" ||
+                  location.pathname === "/profile/orders") &&
+                styles.profile_title_active
+              }`}
+            >
+              Личный кабинет
+            </p>
+          </div>
+        </Link>
       </header>
     </section>
   );
