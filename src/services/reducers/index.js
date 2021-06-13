@@ -27,6 +27,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILED,
+  CLEAR_CLIENT_INGREDIENTS,
 } from "../types";
 
 const initialStateIngredients = {
@@ -179,6 +180,13 @@ const getClientIngredientsReducer = (state = initialStateClient, action) => {
       return {
         ...state,
         clientIngredients: ingredients,
+      };
+    }
+    case CLEAR_CLIENT_INGREDIENTS: {
+      return {
+        ...state,
+        clientIngredients: [],
+        whatIsBun: null,
       };
     }
     default: {

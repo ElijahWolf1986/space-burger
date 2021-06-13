@@ -45,7 +45,7 @@ function App() {
       <AppHeader />
 
       <Switch>
-      <Route exact path="/">
+        <Route exact path="/">
           <DndProvider backend={HTML5Backend}>
             <section id="main" className={styles.main}>
               <BurgerIngredients />
@@ -80,7 +80,7 @@ function App() {
         <Route exact path="/profile/orders/:id">
           <OrderItem />
         </Route>
-                <Route>
+        <Route>
           <NotFound />
         </Route>
       </Switch>

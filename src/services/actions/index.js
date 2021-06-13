@@ -26,6 +26,7 @@ import {
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILED,
+  CLEAR_CLIENT_INGREDIENTS,
 } from "../types";
 
 const burgerApi = new IngredientsApi(urlApi);
@@ -113,6 +114,12 @@ export function addClientIngredient(ingredient) {
   };
 }
 
+export function clearClientIngredients() {
+  return {
+    type: CLEAR_CLIENT_INGREDIENTS,
+  };
+}
+
 export function showMenu() {
   return {
     type: SHOW_MENU,
@@ -188,12 +195,13 @@ export function getOrder(ingredients) {
     });
 
     burgerApi
-      .getOrder(ingredients) 
+      .getOrder(ingredients)
       .then((res) => {
         dispatch({
           type: GET_ORDER_SUCCESS,
           payload: res,
         });
+        dispatch(clearClientIngredients());
       })
       .catch((error) => {
         console.log(error);

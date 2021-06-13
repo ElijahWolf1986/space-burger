@@ -51,7 +51,7 @@ function BurgerConstructor() {
 
   const handleGetOrder = () => {
     if (whatIsBun) {
-      dispatch(getOrder(orderIdArr)); 
+      dispatch(getOrder(orderIdArr));  
     } else {
       dispatch(
         showError({
