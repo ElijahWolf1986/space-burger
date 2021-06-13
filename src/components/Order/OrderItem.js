@@ -3,7 +3,7 @@ import styles from "./Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
 import data from "../../utils/data";
-import { update } from "../../utils/utils";
+import { update } from "../../utils/func";
 import { optionsDate } from "../../utils/constants";
 
 function OrderItem() {

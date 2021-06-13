@@ -27,17 +27,17 @@ function AppHeader() {
         <menu className={styles.menu}>
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
-              <Link to="/constructor">
+              <Link to="/">
                 <BurgerIcon
                   type={
-                    location.pathname === "/constructor"
+                    location.pathname === "/"
                       ? "primary"
                       : "secondary"
                   }
                 />
                 <p
                   className={`${styles.menu_title} ${
-                    location.pathname === "/constructor" &&
+                    location.pathname === "/" &&
                     styles.menu_title_active
                   }`}
                 >
