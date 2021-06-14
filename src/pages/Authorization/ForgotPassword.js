@@ -66,7 +66,7 @@ function ForgotPassword() {
         </Button>
       </div>
       <p className={styles.login_paragraph}>
-        Вспомнили пароль? <Link to="/">Войти</Link>{" "}
+        Вспомнили пароль? <Link to="/login">Войти</Link>{" "}
       </p>
     </form>
   );

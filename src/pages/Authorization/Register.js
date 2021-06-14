@@ -84,7 +84,7 @@ function Register() {
         </Button>
       </div>
       <p className={styles.login_paragraph}>
-        Уже зарегестрированы? <Link to="/">Войти</Link>{" "}
+        Уже зарегестрированы? <Link to="/login">Войти</Link>{" "}
       </p>
     </form>
   );

@@ -1,146 +1,43 @@
-import IngredientsApi from "../../utils/Api";
-import { urlApi } from "../../utils/constants";
 import {
-  GET_ITEMS_INGREDIENTS_REQUEST,
-  GET_ITEMS_INGREDIENTS_SUCCESS,
-  GET_ITEMS_INGREDIENTS_FAILED,
-  SHOW_ERROR_POPUP,
-  HIDE_ERROR_POPUP,
-  GET_SELECTED_INGREDIENT_INFO,
-  REM_SELECTED_INGREDIENT_INFO,
-  GET_ORDER_REQUEST,
-  GET_ORDER_SUCCESS,
-  GET_ORDER_FAILED,
-  REM_ORDER,
-  SHOW_MENU,
-  HIDE_MENU,
-  SHOW_PERSONAL_MENU,
-  HIDE_PERSONAL_MENU,
-  PUT_CLIENT_INGREDIENT,
-  REM_CLIENT_INGREDIENT,
-  MOVE_CLIENT_INGREDIENT,
-  CREATE_USER_REQUEST,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_FAILED,
-  RESET_USER_PASSWORD,
-  LOGIN_USER_REQUEST,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILED,
-  CLEAR_CLIENT_INGREDIENTS,
-} from "../types";
+  getIngredients,
+  getSelectedIngredient,
+  removeSelectedIngredient,
+} from "./ingredientsActions";
+import { loginUser, createUser, resetUserPassword } from "./userInfoActions";
+import { showError, hideError } from "./errorActions";
+import { getOrder, hideOrder } from "./orderActions";
+import {
+  showMenu,
+  hideMenu,
+  showPersonalMenu,
+  hidePersonalMenu,
+} from "./menuActions";
+import {
+  moveClientIngredient,
+  removeClientIngredient,
+  addClientIngredient,
+  clearClientIngredients,
+} from "./clientIngredientsActions";
 
-const burgerApi = new IngredientsApi(urlApi);
-
-export function loginUser({ email, password }) {
-  return (dispatch) => {
-    dispatch({
-      type: LOGIN_USER_REQUEST,
-    });
-    burgerApi
-      .loginUser(email, password)
-      .then((res) => {
-        dispatch({
-          type: LOGIN_USER_SUCCESS,
-          payload: res,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(showError(error));
-        dispatch({
-          type: LOGIN_USER_FAILED,
-        });
-      });
-  };
-}
-
-export function createUser({ email, password, name }) {
-  return (dispatch) => {
-    dispatch({
-      type: CREATE_USER_REQUEST,
-    });
-    burgerApi
-      .registerUser(email, password, name)
-      .then((res) => {
-        dispatch({
-          type: CREATE_USER_SUCCESS,
-          payload: res,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(showError(error));
-        dispatch({
-          type: CREATE_USER_FAILED,
-        });
-      });
-  };
-}
-export function resetUserPassword() {
-  return (dispatch) => {
-    burgerApi
-      .forgotPassword()
-      .then((res) => {
-        dispatch({
-          type: RESET_USER_PASSWORD,
-          payload: res,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(showError(error));
-      });
-  };
-}
-
-export function moveClientIngredient({ dragIndex, hoverIndex }) {
-  return {
-    type: MOVE_CLIENT_INGREDIENT,
-    payload: { dragIndex, hoverIndex },
-  };
-}
-
-export function removeClientIngredient(ingredientId) {
-  return {
-    type: REM_CLIENT_INGREDIENT,
-    payload: ingredientId,
-  };
-}
-
-export function addClientIngredient(ingredient) {
-  return {
-    type: PUT_CLIENT_INGREDIENT,
-    payload: ingredient,
-  };
-}
-
-export function clearClientIngredients() {
-  return {
-    type: CLEAR_CLIENT_INGREDIENTS,
-  };
-}
-
-export function showMenu() {
-  return {
-    type: SHOW_MENU,
-  };
-}
-
-export function hideMenu() {
-  return {
-    type: HIDE_MENU,
-  };
-}
-export function showPersonalMenu() {
-  return {
-    type: SHOW_PERSONAL_MENU,
-  };
-}
-export function hidePersonalMenu() {
-  return {
-    type: HIDE_PERSONAL_MENU,
-  };
-}
+export {
+  loginUser,
+  createUser,
+  resetUserPassword,
+  showError,
+  getOrder,
+  hideOrder,
+  moveClientIngredient,
+  removeClientIngredient,
+  addClientIngredient,
+  clearClientIngredients,
+  showMenu,
+  hideMenu,
+  showPersonalMenu,
+  hidePersonalMenu,
+  getIngredients,
+  getSelectedIngredient,
+  removeSelectedIngredient,
+};
 
 export function closeAllPopups() {
   return (dispatch) => {
@@ -152,82 +49,3 @@ export function closeAllPopups() {
   };
 }
 
-export function showError(error) {
-  return {
-    type: SHOW_ERROR_POPUP,
-    payload: error,
-  };
-}
-
-export function hideError() {
-  return {
-    type: HIDE_ERROR_POPUP,
-  };
-}
-
-export function getIngredients() {
-  return (dispatch) => {
-    dispatch({
-      type: GET_ITEMS_INGREDIENTS_REQUEST,
-    });
-    burgerApi
-      .getIngredientList()
-      .then((res) => {
-        dispatch({
-          type: GET_ITEMS_INGREDIENTS_SUCCESS,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(showError(error));
-        dispatch({
-          type: GET_ITEMS_INGREDIENTS_FAILED,
-        });
-      });
-  };
-}
-
-export function getOrder(ingredients) {
-  return (dispatch) => {
-    dispatch({
-      type: GET_ORDER_REQUEST,
-    });
-
-    burgerApi
-      .getOrder(ingredients)
-      .then((res) => {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          payload: res,
-        });
-        dispatch(clearClientIngredients());
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(showError(error));
-        dispatch({
-          type: GET_ORDER_FAILED,
-        });
-      });
-  };
-}
-
-export function hideOrder() {
-  return {
-    type: REM_ORDER,
-  };
-}
-
-export function getSelectedIngredient(ingredient) {
-  return {
-    type: GET_SELECTED_INGREDIENT_INFO,
-    payload: ingredient,
-  };
-}
-
-export function removeSelectedIngredient() {
-  return {
-    type: REM_SELECTED_INGREDIENT_INFO,
-  };
-}
