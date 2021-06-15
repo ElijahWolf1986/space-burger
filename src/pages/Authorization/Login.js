@@ -13,8 +13,6 @@ function Login() {
     success: store.user.success,
     userName: store.user.user.name,
   }));
-//  const accessToken = getCookie("token");
-//   console.log(accessToken)
   const dispatch = useDispatch();
   const history = useHistory();
   const turnToMainPage = () => {
