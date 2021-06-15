@@ -5,7 +5,8 @@ import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from "react-router-dom";
 import { emailPattern } from "../../utils/constants";
-import { resetUserPassword } from "../../services/actions";
+import { getCodeUserPassword } from "../../services/actions";
+import { getCookie } from "../../utils/func";
 
 function ForgotPassword() {
   const history = useHistory();
@@ -14,7 +15,11 @@ function ForgotPassword() {
     success: store.user.success,
   }));
   const dispatch = useDispatch();
-
+  const turnToMainPage = () => {
+    if (getCookie("token")) {
+      history.push("/");
+    }
+  };
   const turnToResetPasswordPage = () => {
     if (success && message === "Reset email sent") {
       history.push("/reset-password");
@@ -23,7 +28,6 @@ function ForgotPassword() {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
-
   const onSubmit = (evt) => {
     evt.preventDefault();
     if (!email) {
@@ -36,7 +40,7 @@ function ForgotPassword() {
       setTimeout(() => setError(""), 3000);
       return;
     }
-    dispatch(resetUserPassword());
+    dispatch(getCodeUserPassword(email));
     setEmail("");
   };
 
@@ -45,8 +49,9 @@ function ForgotPassword() {
   };
 
   React.useEffect(() => {
+    turnToMainPage();
     turnToResetPasswordPage();
-  }, [success, message]);
+  });
 
   return (
     <form className={styles.login_container} onSubmit={onSubmit} noValidate>

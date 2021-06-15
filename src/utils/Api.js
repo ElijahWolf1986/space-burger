@@ -1,3 +1,5 @@
+import { getCookie } from "./func";
+
 class IngredientsApi {
   constructor(url) {
     this._url = url;
@@ -36,26 +38,27 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  forgotPassword() {
+  forgotPassword(email) {
     return fetch(`${this._url}/password-reset`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ email: `${email}` }),
     })
       .then(this._handleResponse)
       .catch(this._handleResponseError);
   }
 
   resetPassword(password, code) {
-    return fetch(`${this._url}/password-reset`, {
+    return fetch(`${this._url}/password-reset/reset`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ password: `${password}`, code: `${code}` }),
+      body: JSON.stringify({ password: `${password}`, token: `${code}` }),
     })
       .then(this._handleResponse)
       .catch(this._handleResponseError);
@@ -88,6 +91,63 @@ class IngredientsApi {
       body: JSON.stringify({
         email: `${email}`,
         password: `${password}`,
+      }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError);
+  }
+
+  logout(refreshToken) {
+    return fetch(`${this._url}/auth/logout`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: `${refreshToken}`,
+      }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError);
+  }
+  refreshToken(refreshToken) {
+    return fetch(`${this._url}/auth/token`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: `${refreshToken}`,
+      }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError);
+  }
+  getUserInfo() {
+    return fetch(`${this._url}/auth/user`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
+      },
+    })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError);
+  }
+  updateUserInfo(token, name, email) {
+    return fetch(`${this._url}/auth/user`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
+      },
+      body: JSON.stringify({
+        email: `${name}`,
+        password: `${email}`,
       }),
     })
       .then(this._handleResponse)

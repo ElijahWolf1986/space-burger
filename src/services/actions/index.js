@@ -3,7 +3,7 @@ import {
   getSelectedIngredient,
   removeSelectedIngredient,
 } from "./ingredientsActions";
-import { loginUser, createUser, resetUserPassword } from "./userInfoActions";
+import { loginUser, createUser, resetUserPassword, getCodeUserPassword, logout, refreshToken, getUserInfo } from "./userInfoActions";
 import { showError, hideError } from "./errorActions";
 import { getOrder, hideOrder } from "./orderActions";
 import {
@@ -23,6 +23,7 @@ export {
   loginUser,
   createUser,
   resetUserPassword,
+  getCodeUserPassword,
   showError,
   getOrder,
   hideOrder,
@@ -37,6 +38,9 @@ export {
   getIngredients,
   getSelectedIngredient,
   removeSelectedIngredient,
+  logout,
+  refreshToken,
+  getUserInfo,
 };
 
 export function closeAllPopups() {

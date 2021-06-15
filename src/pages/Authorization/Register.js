@@ -16,7 +16,7 @@ function Register() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
-  const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
+  const isMailValid = email ? email.match(emailPattern) : "null";
 
   const onRegister = (evt) => {
     evt.preventDefault();

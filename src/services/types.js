@@ -36,9 +36,24 @@ export const CREATE_USER_SUCCESS = "CREATE_USER_SUCCESS";
 export const CREATE_USER_FAILED = "CREATE_USER_FAILED";
 
 //actions для работы с ResetPassword
+export const GET_USER_PASSWORD_CODE = "GET_USER_PASSWORD_CODE";
 export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
 
 //actions для работы с Login
 export const LOGIN_USER_REQUEST = "LOGIN_USER_REQUEST";
 export const LOGIN_USER_SUCCESS = "LOGIN_USER_SUCCESS";
 export const LOGIN_USER_FAILED = "LOGIN_USER_FAILED";
+
+//actions для работы с Logout
+export const REM_USER_INFO = "REM_USER_INFO";
+
+//actions для работы с RefreshToken
+export const REFRESH_USER_TOKEN = "REFRESH_USER_TOKEN";
+
+
+
+export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
+export const GET_USER_INFO_SUCCESS = "GET_USER_INFO";
+export const GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED";
+
+

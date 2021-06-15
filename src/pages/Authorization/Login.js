@@ -3,16 +3,27 @@ import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { loginUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
+import { getCookie } from "../../utils/func";
 
 function Login() {
-  const dispatch = useDispatch();
   const { success, userName } = useSelector((store) => ({
     success: store.user.success,
     userName: store.user.user.name,
   }));
+//  const accessToken = getCookie("token");
+//   console.log(accessToken)
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const turnToProfilePage = () => {
+    if (getCookie("token")) {
+      history.push("/profile");
+    }
+  };
+
+  
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
@@ -27,12 +38,13 @@ function Login() {
     if (isMailValid === null) {
       setError("Вы ввели неверный адрес почты");
       setTimeout(() => setError(""), 3000);
-      return;
+      return; 
     }
     dispatch(loginUser({ email, password }));
     setEmail("");
     setPassword("");
-  };
+
+  }; 
 
   const changeEmail = (evt) => {
     setEmail(evt.target.value);
@@ -42,12 +54,16 @@ function Login() {
     setPassword(evt.target.value);
   };
 
+  React.useEffect(() => {
+    turnToProfilePage();
+  });
+
   return (
     <form className={styles.login_container} onSubmit={onLogin} noValidate>
       <h2 className={styles.login_title}>Вход</h2>
       <span className={styles.login_error}>{error}</span>
       <span className={styles.login_message}>
-        {success ? `Ура ${userName} вы зашли в свой аккаунт!` : ""}
+        {success && userName ? `Ура ${userName} вы зашли в свой аккаунт!` : ""}
       </span>
       <Input
         type="email"
