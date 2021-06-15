@@ -3,7 +3,16 @@ import {
   getSelectedIngredient,
   removeSelectedIngredient,
 } from "./ingredientsActions";
-import { loginUser, createUser, resetUserPassword, getCodeUserPassword, logout, refreshToken, getUserInfo } from "./userInfoActions";
+import {
+  loginUser,
+  createUser,
+  resetUserPassword,
+  getCodeUserPassword,
+  logout,
+  refreshToken,
+  getUserInfo,
+  updateUserInfo,
+} from "./userInfoActions";
 import { showError, hideError } from "./errorActions";
 import { getOrder, hideOrder } from "./orderActions";
 import {
@@ -41,6 +50,7 @@ export {
   logout,
   refreshToken,
   getUserInfo,
+  updateUserInfo
 };
 
 export function closeAllPopups() {
@@ -52,4 +62,3 @@ export function closeAllPopups() {
     dispatch(hidePersonalMenu());
   };
 }
-

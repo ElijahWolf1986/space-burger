@@ -12,6 +12,9 @@ import {
   GET_USER_INFO_SUCCESS,
   GET_USER_INFO_FAILED,
   GET_USER_PASSWORD_CODE,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_FAILED,
 
 } from "../types";
 
@@ -140,6 +143,29 @@ export const userInfoReducer = (state = initialUserInfo, action) => {
           refreshToken: refreshToken,
           userRequest: false,
           userRequestFail: false,
+        };
+      }
+      case UPDATE_USER_INFO_REQUEST: {
+        return {
+          ...state,
+          userRequest: true,
+        };
+      }
+      case UPDATE_USER_INFO_SUCCESS: {
+        const { success, user } = action.payload;
+        return {
+          ...state,
+          success: success,
+          user: user,
+          userRequest: false,
+          userRequestFail: false,
+        };
+      }
+      case UPDATE_USER_INFO_FAILED: {
+        return {
+          ...state,
+          userRequest: false,
+          userRequestFail: true,
         };
       }
 

@@ -7,7 +7,7 @@ import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch } from "react-redux";
-import { getIngredients, closeAllPopups } from "../../services/actions";
+import { closeAllPopups } from "../../services/actions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Router, Route, Switch, useHistory } from "react-router-dom";
@@ -33,7 +33,6 @@ function App() {
         dispatch(closeAllPopups());
       }
     }
-    dispatch(getIngredients());
     document.addEventListener("keydown", closeByEsc, false);
     return () => {
       document.removeEventListener("keydown", closeByEsc, false);

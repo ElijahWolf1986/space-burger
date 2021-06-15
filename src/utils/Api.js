@@ -4,6 +4,9 @@ class IngredientsApi {
   constructor(url) {
     this._url = url;
   }
+  _response(res) {
+    return res.json();
+  }
 
   _handleResponse(res) {
     if (res.ok) {
@@ -134,10 +137,10 @@ class IngredientsApi {
         Authorization: "Bearer " + getCookie("token"),
       },
     })
-      .then(this._handleResponse)
+      .then((res) => (res.json()))
       .catch(this._handleResponseError);
   }
-  updateUserInfo(token, name, email) {
+  updateUserInfo(name, email, password) {
     return fetch(`${this._url}/auth/user`, {
       method: "PATCH",
       headers: {
@@ -146,8 +149,9 @@ class IngredientsApi {
         Authorization: "Bearer " + getCookie("token"),
       },
       body: JSON.stringify({
-        email: `${name}`,
-        password: `${email}`,
+        name: `${name}`,
+        email: `${email}`,
+        password: `${password}`,
       }),
     })
       .then(this._handleResponse)

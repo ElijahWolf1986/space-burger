@@ -17,9 +17,9 @@ function Login() {
 //   console.log(accessToken)
   const dispatch = useDispatch();
   const history = useHistory();
-  const turnToProfilePage = () => {
+  const turnToMainPage = () => {
     if (getCookie("token")) {
-      history.push("/profile");
+      history.push("/");
     }
   };
 
@@ -55,7 +55,7 @@ function Login() {
   };
 
   React.useEffect(() => {
-    turnToProfilePage();
+    turnToMainPage();
   });
 
   return (

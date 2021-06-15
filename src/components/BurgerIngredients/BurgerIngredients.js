@@ -2,9 +2,11 @@ import React, { useMemo } from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getIngredients } from "../../services/actions";
 
 function BurgerIngredients() {
+  const dispatch = useDispatch();
   const bunBlock = document.getElementById("bun");
   const sauceBlock = document.getElementById("sauce");
   const fillingBlock = document.getElementById("filling");
@@ -73,6 +75,10 @@ function BurgerIngredients() {
     return item.type === "main";
   });
   //   ************************************
+
+  React.useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
 
   return (
     <section id="BurgerIngredients" className={styles.burger}>

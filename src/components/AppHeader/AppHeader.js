@@ -17,8 +17,9 @@ function AppHeader() {
   function openMenu() {
     dispatch(showMenu());
   }
-  const { isTooglePopup } = useSelector((store) => ({
+  const { isTooglePopup, userName } = useSelector((store) => ({
     isTooglePopup: store.menu.isTooglePopup,
+    userName: store.user.user.name,
   }));
 
   return (
@@ -29,16 +30,11 @@ function AppHeader() {
             <li className={styles.menu_item}>
               <Link to="/">
                 <BurgerIcon
-                  type={
-                    location.pathname === "/"
-                      ? "primary"
-                      : "secondary"
-                  }
+                  type={location.pathname === "/" ? "primary" : "secondary"}
                 />
                 <p
                   className={`${styles.menu_title} ${
-                    location.pathname === "/" &&
-                    styles.menu_title_active
+                    location.pathname === "/" && styles.menu_title_active
                   }`}
                 >
                   Конструктор
@@ -90,7 +86,7 @@ function AppHeader() {
                 styles.profile_title_active
               }`}
             >
-              Личный кабинет
+              {userName ? userName : "Личный кабинет"}
             </p>
           </div>
         </Link>

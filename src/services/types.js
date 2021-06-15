@@ -51,9 +51,15 @@ export const REM_USER_INFO = "REM_USER_INFO";
 export const REFRESH_USER_TOKEN = "REFRESH_USER_TOKEN";
 
 
-
+//actions для работы с GetUserInfo
 export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
 export const GET_USER_INFO_SUCCESS = "GET_USER_INFO";
 export const GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED";
+
+//actions для работы с UpdateUserInfo
+export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
+export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
+export const UPDATE_USER_INFO_FAILED = "UPDATE_USER_INFO_FAILED";
+
 
 
