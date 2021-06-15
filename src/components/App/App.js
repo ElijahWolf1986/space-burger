@@ -11,6 +11,7 @@ import { closeAllPopups } from "../../services/actions";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Router, Route, Switch, useHistory } from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute";
 import {
   Login,
   Register,
@@ -70,15 +71,15 @@ function App() {
         <Route exact path="/feed/:id">
           <OrderItem />
         </Route>
-        <Route exact path="/profile">
+        <ProtectedRoute exact path="/profile">
           <Profile />
-        </Route>
-        <Route exact path="/profile/orders">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/profile/orders">
           <ProfileOrders />
-        </Route>
-        <Route exact path="/profile/orders/:id">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/profile/orders/:id">
           <OrderItem />
-        </Route>
+        </ProtectedRoute>
         <Route>
           <NotFound />
         </Route>
