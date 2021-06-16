@@ -12,12 +12,12 @@ OrderDetails.propTypes = {
 const element = document.getElementById("modal");
 
 function OrderDetails() {
-  const { order } = useSelector((store) => ({
+  const { order } = useSelector((store) => ({ 
     order: store.order.order,
   }));
 
   return ReactDOM.createPortal(
-    <Modal isModal={order}>
+    <Modal isModal={order} type="order">
       <div className={styles.order_container}>
         <p className={styles.order_number}>{order ? order.order.number : ""}</p>
         <p className={styles.order_title}>Идентификатор заказа</p>

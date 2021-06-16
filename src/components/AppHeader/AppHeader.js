@@ -49,11 +49,16 @@ function AppHeader() {
             <li className={styles.menu_item}>
               <Link to="/feed">
                 <ListIcon
-                  type={location.pathname === "/feed" ? "primary" : "secondary"}
+                  type={
+                    location.pathname.indexOf("/feed") >= 0
+                      ? "primary"
+                      : "secondary"
+                  }
                 />
                 <p
                   className={`${styles.menu_title} ${
-                    location.pathname === "/feed" && styles.menu_title_active
+                    location.pathname.indexOf("/feed") >= 0 &&
+                    styles.menu_title_active
                   }`}
                 >
                   Лента заказов
@@ -78,16 +83,14 @@ function AppHeader() {
           <div className={styles.profile}>
             <ProfileIcon
               type={
-                location.pathname === "/profile" ||
-                location.pathname === "/profile/orders"
+                location.pathname.indexOf("/profile") >= 0
                   ? "primary"
                   : "secondary"
               }
             />
             <p
               className={`${styles.profile_title} ${
-                (location.pathname === "/profile" ||
-                  location.pathname === "/profile/orders") &&
+                location.pathname.indexOf("/profile") >= 0 &&
                 styles.profile_title_active
               }`}
             >

@@ -4,7 +4,8 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import PropTypes from "prop-types";
 import { update } from "../../utils/func";
 import { optionsDate } from "../../utils/constants";
-
+import { useDispatch } from "react-redux";
+import { getSelectedOrder } from "../../services/actions";
 
 Order.propTypes = {
   order: PropTypes.object,
@@ -16,9 +17,14 @@ Order.propTypes = {
 };
 
 function Order(props) {
+  const dispatch = useDispatch();
   const orderDate = update(props.order.date, optionsDate);
+  const handleClick = () => {
+    dispatch(getSelectedOrder(props.order));
+  };
+
   return (
-    <section className={styles.order}>
+    <section className={styles.order} onClick={handleClick}>
       <div className={styles.order_header}>
         <p className={styles.order_number}>#{props.order.number}</p>
         <p className={styles.order_date}>{orderDate}</p>

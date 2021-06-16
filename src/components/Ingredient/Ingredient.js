@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Ingredient.module.css";
-import { useDrag } from "react-dnd"; 
+import { useDrag } from "react-dnd";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   Counter,
@@ -12,38 +13,54 @@ import { useDispatch } from "react-redux";
 import { getSelectedIngredient } from "../../services/actions";
 
 Ingredient.propTypes = {
-  ingredient: PropTypes.object,
+  item: PropTypes.object,
   image: PropTypes.string,
   name: PropTypes.string,
   price: PropTypes.number,
+  _id: PropTypes.string,
   onIngredientClick: PropTypes.func,
 };
 
-function Ingredient(props) {
+function Ingredient(item) {
+  const location = useLocation();
   const dispatch = useDispatch();
-  const ingredient = props.ingredient;
-  const [{isDrag}, dragRef] = useDrag({
+  const ingredient = item;
+  const [{ isDrag }, dragRef] = useDrag({
     type: "dragIngredient",
     item: ingredient,
-    collect: monitor => ({
-      isDrag: monitor.isDragging()
-  })
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
   });
 
   const handleClick = () => {
     dispatch(getSelectedIngredient(ingredient));
   };
-  return ( !isDrag && 
-    <section className={styles.ingredient} onClick={handleClick} ref={dragRef}>
-      <Counter count={props.count} size="small" />
-      <img src={props.image} alt={props.name} />
+  return (
+    !isDrag && (
+      <Link
+        className={styles.ingredient_link}
+        to={{
+          pathname: `/ingredients/${ingredient._id}`,
+          state: { backgroundIngredient: location },
+        }}
+      >
+        <section
+          className={styles.ingredient}
+          onClick={handleClick}
+          ref={dragRef}
+        >
+          <Counter count={ingredient.count} size="small" />
+          <img src={ingredient.image} alt={ingredient.name} />
 
-      <div className={styles.ingredient_price}>
-        <p className={styles.ingredient_price_value}>{props.price}</p>
-        <CurrencyIcon />
-      </div>
-      <p className={styles.ingredient_name}>{props.name}</p>
-    </section> 
+          <div className={styles.ingredient_price}>
+            <p className={styles.ingredient_price_value}>{ingredient.price}</p>
+            <CurrencyIcon />
+          </div>
+          <p className={styles.ingredient_name}>{ingredient.name}</p>
+        </section>
+      </Link>
+    )
   );
 }
 

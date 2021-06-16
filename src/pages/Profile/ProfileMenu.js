@@ -11,7 +11,8 @@ function ProfileMenu() {
   const history = useHistory();
   const handleLogout = () => {
      dispatch(logout(refreshToken));
-     history.push("/");
+     localStorage.removeItem("refreshToken");
+     history.push("/login");
   };
 
   return (

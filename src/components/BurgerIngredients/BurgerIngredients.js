@@ -127,16 +127,7 @@ function BurgerIngredients() {
           <p className={styles.ingredients_title}>Булки</p>
           <div className={styles.ingredients_list}>
             {bunArr.map((item) => {
-              return (
-                <Ingredient
-                  key={item._id}
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                  ingredient={item}
-                  count={item.count}
-                />
-              );
+              return <Ingredient key={item._id} {...item} />;
             })}
           </div>
         </div>
@@ -145,16 +136,7 @@ function BurgerIngredients() {
           <p className={styles.ingredients_title}>Соусы</p>
           <div className={styles.ingredients_list}>
             {sauceArr.map((item) => {
-              return (
-                <Ingredient
-                  key={item._id}
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                  ingredient={item}
-                  count={item.count}
-                />
-              );
+              return <Ingredient key={item._id} {...item} />;
             })}
           </div>
         </div>
@@ -163,16 +145,7 @@ function BurgerIngredients() {
           <p className={styles.ingredients_title}>Начинки</p>
           <div className={styles.ingredients_list}>
             {fillingArr.map((item) => {
-              return (
-                <Ingredient
-                  key={item._id}
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                  ingredient={item}
-                  count={item.count}
-                />
-              );
+              return <Ingredient key={item._id} {...item} />;
             })}
           </div>
         </div>

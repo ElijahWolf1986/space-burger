@@ -32,7 +32,7 @@ function Profile() {
   };
   const handleCancel = () => {
     setName(userName);
-    setEmail(userEmail);
+    setEmail(userEmail); 
   };
 
   React.useEffect((evt) => {

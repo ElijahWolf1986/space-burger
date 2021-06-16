@@ -18,6 +18,7 @@ function Login() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
+  const isToken = localStorage.getItem("refreshToken");
 
   const onLogin = (evt) => {
     evt.preventDefault();
@@ -29,7 +30,7 @@ function Login() {
     if (isMailValid === null) {
       setError("Вы ввели неверный адрес почты");
       setTimeout(() => setError(""), 3000);
-      return;
+      return; 
     }
     dispatch(loginUser({ email, password }));
     setEmail("");
@@ -43,8 +44,6 @@ function Login() {
   const changePassword = (evt) => {
     setPassword(evt.target.value);
   };
-
-  const isToken = localStorage.getItem("refreshToken");
 
   if (isToken) {
     return (

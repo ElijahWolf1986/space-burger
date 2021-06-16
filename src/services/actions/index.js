@@ -14,7 +14,12 @@ import {
   updateUserInfo,
 } from "./userInfoActions";
 import { showError, hideError } from "./errorActions";
-import { getOrder, hideOrder } from "./orderActions";
+import {
+  getOrder,
+  hideOrder,
+  getSelectedOrder,
+  removeSelectedOrder,
+} from "./orderActions";
 import {
   showMenu,
   hideMenu,
@@ -50,15 +55,19 @@ export {
   logout,
   refreshToken,
   getUserInfo,
-  updateUserInfo
+  updateUserInfo,
+  getSelectedOrder,
+  removeSelectedOrder,
 };
 
-export function closeAllPopups() {
+export function closeAllPopups(afterClose) {
   return (dispatch) => {
     dispatch(hideError());
     dispatch(removeSelectedIngredient());
     dispatch(hideOrder());
     dispatch(hideMenu());
     dispatch(hidePersonalMenu());
+    dispatch(removeSelectedOrder());
+    if (afterClose) dispatch(afterClose);
   };
 }

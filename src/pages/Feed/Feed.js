@@ -2,9 +2,10 @@ import React from "react";
 import styles from "./Feed.module.css";
 import Order from "../../components/Order/Order";
 import data from "../../utils/data";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Feed() {
+  const location = useLocation();
   const ReadyOrders = data.filter((item) => item.status === "Выполнен");
   const WorkOrders = data.filter((item) => item.status === "Готовится");
 
@@ -16,7 +17,12 @@ function Feed() {
           {data.map((item) => {
             return (
               <li className={styles.feed_order} key={item._id}>
-                <Link to={{ pathname: `/feed/${item.number}` }}>
+                <Link
+                  to={{
+                    pathname: `/feed/${item.number}`,
+                    state: { backgroundOrder: location },
+                  }}
+                >
                   <Order order={item} />
                 </Link>
               </li>
@@ -30,7 +36,10 @@ function Feed() {
               <ul className={styles.feed_list}>
                 {ReadyOrders.map((item, index) => {
                   return (
-                    <li className={styles.feed_orders_ready_item} key={item._id}>
+                    <li
+                      className={styles.feed_orders_ready_item}
+                      key={item._id}
+                    >
                       {item.number}
                     </li>
                   );
