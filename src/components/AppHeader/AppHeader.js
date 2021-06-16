@@ -12,15 +12,20 @@ import { showMenu } from "../../services/actions";
 import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
+  const [userName, setUserName] = React.useState("");
   const dispatch = useDispatch();
   const location = useLocation();
   function openMenu() {
     dispatch(showMenu());
   }
-  const { isTooglePopup, userName } = useSelector((store) => ({
+  const { isTooglePopup } = useSelector((store) => ({
     isTooglePopup: store.menu.isTooglePopup,
-    userName: store.user.user.name,
   }));
+
+  React.useEffect(() => {
+    const currentUserName = localStorage.getItem("userName");
+    setUserName(currentUserName);
+  });
 
   return (
     <section className={styles.header_section}>

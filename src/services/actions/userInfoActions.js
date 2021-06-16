@@ -43,10 +43,10 @@ export function getUserInfo() {
         if (error.message === "jwt expired") {
           dispatch(refreshToken(getUserInfo()));
           console.log(error);
-          dispatch({
-            type: GET_USER_INFO_FAILED,
-          });
         }
+        dispatch({
+          type: GET_USER_INFO_FAILED,
+        });
       });
   };
 }
@@ -66,6 +66,7 @@ export function updateUserInfo(name, email, password) {
           type: UPDATE_USER_INFO_SUCCESS,
           payload: res,
         });
+        localStorage.setItem("userName", res.user.name);
       })
       .catch((error) => {
         if (error.message === "jwt expired") {
@@ -90,6 +91,7 @@ export function loginUser({ email, password }) {
         if (res.accessToken && res.refreshToken) {
           setCookie("token", res.accessToken.split("Bearer ")[1]);
           localStorage.setItem("refreshToken", res.refreshToken);
+          localStorage.setItem("userName", res.user.name);
         }
         dispatch({
           type: LOGIN_USER_SUCCESS,
@@ -117,6 +119,7 @@ export function createUser({ email, password, name }) {
         if (res.accessToken && res.refreshToken) {
           setCookie("token", res.accessToken.split("Bearer ")[1]);
           localStorage.setItem("refreshToken", res.refreshToken);
+          localStorage.setItem("userName", res.user.name);
         }
         dispatch({
           type: CREATE_USER_SUCCESS,
@@ -175,8 +178,9 @@ export function logout(refreshToken) {
           type: REM_USER_INFO,
           payload: res,
         });
-        setCookie("token", "");
+        setCookie("token", null);
         localStorage.removeItem("refreshToken");
+        localStorage.removeItem("userName");
       })
       .catch((error) => {
         console.log(error);

@@ -13,8 +13,9 @@ function Profile() {
   }));
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState(null);
+  const [password, setPassword] = React.useState("");
   const dispatch = useDispatch();
+
   const changeName = (evt) => {
     setName(evt.target.value);
   };
@@ -24,6 +25,7 @@ function Profile() {
   const changePassword = (evt) => {
     setPassword(evt.target.value);
   };
+
   const onSaveNewUserData = (evt) => {
     evt.preventDefault();
     dispatch(updateUserInfo(name, email, password));
@@ -33,9 +35,10 @@ function Profile() {
     setEmail(userEmail);
   };
 
-  React.useEffect(() => {
+  React.useEffect((evt) => {
     dispatch(getUserInfo());
   }, []);
+
   React.useEffect(() => {
     setName(userName);
     setEmail(userEmail);

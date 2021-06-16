@@ -3,29 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
-import { getCookie } from "../../utils/func";
 
 function Login() {
+  const location = useLocation();
   const { success, userName } = useSelector((store) => ({
     success: store.user.success,
     userName: store.user.user.name,
   }));
   const dispatch = useDispatch();
-  const history = useHistory();
-  const turnToMainPage = () => {
-    if (getCookie("token")) {
-      history.push("/");
-    }
-  };
-
-  
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
+
   const onLogin = (evt) => {
     evt.preventDefault();
     if (!email || !password) {
@@ -36,13 +29,12 @@ function Login() {
     if (isMailValid === null) {
       setError("Вы ввели неверный адрес почты");
       setTimeout(() => setError(""), 3000);
-      return; 
+      return;
     }
     dispatch(loginUser({ email, password }));
     setEmail("");
     setPassword("");
-
-  }; 
+  };
 
   const changeEmail = (evt) => {
     setEmail(evt.target.value);
@@ -52,9 +44,13 @@ function Login() {
     setPassword(evt.target.value);
   };
 
-  React.useEffect(() => {
-    turnToMainPage();
-  });
+  const isToken = localStorage.getItem("refreshToken");
+
+  if (isToken) {
+    return (
+      <Redirect to={location.state ? location.state.from.pathname : "/"} />
+    );
+  }
 
   return (
     <form className={styles.login_container} onSubmit={onLogin} noValidate>
@@ -81,7 +77,7 @@ function Login() {
         <Button type="primary" size="large">
           {" "}
           Войти{" "}
-        </Button> 
+        </Button>
       </div>
       <p className={styles.login_paragraph}>
         Вы &mdash; новый пользователь?{" "}

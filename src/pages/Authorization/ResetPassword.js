@@ -2,31 +2,22 @@ import React from "react";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { resetUserPassword } from "../../services/actions";
-import { getCookie } from "../../utils/func";
 
 function ResetPassword() {
+  const location = useLocation();
   const history = useHistory();
   const { message, success } = useSelector((store) => ({
     message: store.user.message,
     success: store.user.success,
   }));
   const dispatch = useDispatch();
-  const turnToMainPage = () => {
-    if (getCookie("token")) {
-      history.push("/");
-    }
-  };
-  const turnToLoginPage = () => {
-    if (success && message === "Password successfully reset") {
-      history.push("/login");
-    }
-  };
   const [code, setCode] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
+  const isToken = localStorage.getItem("refreshToken");
   const onSubmit = (evt) => {
     evt.preventDefault();
     if (!code || !password) {
@@ -46,10 +37,22 @@ function ResetPassword() {
     setPassword(evt.target.value);
   };
 
-  React.useEffect(() => {
-    turnToMainPage();
-    turnToLoginPage();
-  });
+  if (isToken) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
+  if (success && message === "Password successfully reset") {
+    history.push("/login");
+  }
+
+  if (!location.state) {
+    history.push("/");
+  }
 
   return (
     <form className={styles.login_container} onSubmit={onSubmit} noValidate>
