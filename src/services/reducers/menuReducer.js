@@ -6,7 +6,6 @@ import {
 } from "../types";
 
 const initialStateMenu = {
-  //Работа с функиональностью меню для мобильных устройств
   isTooglePopup: false,
   isTooglePersonal: false,
 };
@@ -17,6 +16,7 @@ export const menuReducer = (state = initialStateMenu, action) => {
       return {
         ...state,
         isTooglePopup: true,
+        isTooglePersonal: false,
       };
     }
     case HIDE_MENU: {

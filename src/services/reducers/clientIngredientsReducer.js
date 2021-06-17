@@ -10,6 +10,7 @@ const initialStateClient = {
   clientIngredients: [],
   whatIsBun: null,
 };
+export const id = uuidv4();
 
 export const getClientIngredientsReducer = (
   state = initialStateClient,
@@ -27,7 +28,7 @@ export const getClientIngredientsReducer = (
         ...state,
         clientIngredients: [
           ...state.clientIngredients,
-          { ...action.payload, ingredientId: uuidv4() },
+          { ...action.payload, ingredientId: () => id },
         ],
       };
     }

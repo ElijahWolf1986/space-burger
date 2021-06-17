@@ -9,7 +9,6 @@ export const putAppErrorsReducer = (state = initialStateApp, action) => {
     case SHOW_ERROR_POPUP: {
       return {
         ...state,
-        isShowErrorPopup: true,
         error: action.payload,
       };
     }
@@ -17,7 +16,6 @@ export const putAppErrorsReducer = (state = initialStateApp, action) => {
       return {
         ...state,
         error: {},
-        isShowErrorPopup: false,
       };
     }
     default: {
