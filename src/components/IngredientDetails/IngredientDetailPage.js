@@ -1,27 +1,37 @@
 import React from "react";
 import styles from "./IngredientDetails.module.css";
-import Modal from "../Modal/Modal";
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addClientIngredient, closeAllPopups } from "../../services/actions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { getIngredients } from "../../services/actions";
+import { useParams, useHistory } from "react-router-dom";
+
 const element = document.getElementById("modal");
 
-function IngredientDetails() {
+function IngredientDetailsPage() {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const { currentIngredient } = useSelector((store) => ({
-    currentIngredient: store.burgerIngredient.currentIngredient,
+  const { id } = useParams();
+  const { ingredients } = useSelector((store) => ({
+    ingredients: store.burgerIngredients.ingredients,
   }));
+
+  const currentIngredient = ingredients.filter(({ _id }) => {
+    return _id === id;
+  })[0];
+
   function handleAddIngredient() {
     dispatch(addClientIngredient(currentIngredient));
     dispatch(closeAllPopups(currentIngredient));
+    history.push("/");
   }
+
+  React.useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
   return ReactDOM.createPortal(
-    <Modal
-      isModal={currentIngredient}
-      header="Детали Ингредиента"
-      type="goBack"
-    >
+    <section className={styles.ingredient_section}>
       <div className={styles.ingredient_container}>
         <img
           src={currentIngredient ? currentIngredient.image : "#"}
@@ -64,9 +74,9 @@ function IngredientDetails() {
           </Button>
         </div>
       </div>
-    </Modal>,
+    </section>,
     element
   );
 }
 
-export default IngredientDetails;
+export default IngredientDetailsPage;

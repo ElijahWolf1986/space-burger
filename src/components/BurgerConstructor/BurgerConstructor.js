@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
+import { useHistory } from "react-router-dom";
+
 import {
   CurrencyIcon,
   Button,
@@ -17,6 +19,9 @@ import { useDrop } from "react-dnd";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const isToken = localStorage.getItem("refreshToken");
   const { clientIngredients, whatIsBun } = useSelector((store) => ({
     clientIngredients: store.client.clientIngredients,
     whatIsBun: store.client.whatIsBun,
@@ -50,14 +55,18 @@ function BurgerConstructor() {
   //******************* */
 
   const handleGetOrder = () => {
-    if (whatIsBun) {
-      dispatch(getOrder(orderIdArr)); 
-    } else {
+    if (whatIsBun && isToken) {
+      dispatch(getOrder(orderIdArr));
+    }
+    if (!whatIsBun && isToken) {
       dispatch(
         showError({
           status: "Положи-ка булочку в заказ дружок - с ней будет веселее!)",
         })
       );
+    }
+    if ((whatIsBun && !isToken) || (!whatIsBun && !isToken)) {
+      history.push("/login");
     }
   };
 

@@ -2,9 +2,11 @@ import React, { useMemo } from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getIngredients } from "../../services/actions";
 
 function BurgerIngredients() {
+  const dispatch = useDispatch();
   const bunBlock = document.getElementById("bun");
   const sauceBlock = document.getElementById("sauce");
   const fillingBlock = document.getElementById("filling");
@@ -74,6 +76,10 @@ function BurgerIngredients() {
   });
   //   ************************************
 
+  React.useEffect(() => {
+    dispatch(getIngredients());
+  }, []);
+
   return (
     <section id="BurgerIngredients" className={styles.burger}>
       <h1 className={styles.burger_header}>Соберите бургер</h1>
@@ -121,16 +127,7 @@ function BurgerIngredients() {
           <p className={styles.ingredients_title}>Булки</p>
           <div className={styles.ingredients_list}>
             {bunArr.map((item) => {
-              return (
-                <Ingredient
-                  key={item._id}
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                  ingredient={item}
-                  count={item.count}
-                />
-              );
+              return <Ingredient key={item._id} {...item} />;
             })}
           </div>
         </div>
@@ -139,16 +136,7 @@ function BurgerIngredients() {
           <p className={styles.ingredients_title}>Соусы</p>
           <div className={styles.ingredients_list}>
             {sauceArr.map((item) => {
-              return (
-                <Ingredient
-                  key={item._id}
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                  ingredient={item}
-                  count={item.count}
-                />
-              );
+              return <Ingredient key={item._id} {...item} />;
             })}
           </div>
         </div>
@@ -157,16 +145,7 @@ function BurgerIngredients() {
           <p className={styles.ingredients_title}>Начинки</p>
           <div className={styles.ingredients_list}>
             {fillingArr.map((item) => {
-              return (
-                <Ingredient
-                  key={item._id}
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                  ingredient={item}
-                  count={item.count}
-                />
-              );
+              return <Ingredient key={item._id} {...item} />;
             })}
           </div>
         </div>

@@ -3,6 +3,7 @@
   position: relative;
   visibility: hidden;
   opacity: 0;
+  z-index: 101;
 }
 
 .modal_active {
@@ -24,9 +25,9 @@
   z-index: 3;
   border: 1px solid white;
   position: fixed;
-  width: 34%;
-  left: 50%;
-  top: 21%;
+  width: 44%;
+  left: 45%;
+  top: 15%;
   margin-left: -17%;
   background-color: #1c1c21;
   border: 1px solid rgba(76, 76, 255, 0.2);

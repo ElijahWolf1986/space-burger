@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { createUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
 
@@ -16,7 +16,8 @@ function Register() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
-  const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
+  const isMailValid = email ? email.match(emailPattern) : "null";
+  const isToken = localStorage.getItem("refreshToken");
 
   const onRegister = (evt) => {
     evt.preventDefault();
@@ -47,6 +48,16 @@ function Register() {
   const changePassword = (evt) => {
     setPassword(evt.target.value);
   };
+
+  if (isToken) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
 
   return (
     <form className={styles.login_container} onSubmit={onRegister} noValidate>
@@ -84,7 +95,7 @@ function Register() {
         </Button>
       </div>
       <p className={styles.login_paragraph}>
-        Уже зарегестрированы? <Link to="/">Войти</Link>{" "}
+        Уже зарегестрированы? <Link to="/login">Войти</Link>{" "}
       </p>
     </form>
   );

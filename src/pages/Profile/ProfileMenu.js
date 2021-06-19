@@ -1,9 +1,19 @@
 import React from "react";
 import styles from "./Profile.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../services/actions";
 
 function ProfileMenu() {
+  const dispatch = useDispatch();
+  const refreshToken = localStorage.getItem("refreshToken");
   let location = useLocation();
+  const history = useHistory();
+  const handleLogout = () => {
+     dispatch(logout(refreshToken));
+     localStorage.removeItem("refreshToken");
+     history.push("/login");
+  };
 
   return (
     <div className={styles.profile_menu}>
@@ -28,7 +38,9 @@ function ProfileMenu() {
             История заказов
           </li>
         </Link>
-        <li className={styles.profile_menu_item}>Выход</li>
+        <li className={styles.profile_menu_item} onClick={handleLogout}>
+          Выход
+        </li>
       </ul>
       <p className={styles.profile_info}>
         В этом разделе вы можете &nbsp; изменить свои персональные данные

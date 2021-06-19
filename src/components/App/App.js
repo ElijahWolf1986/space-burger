@@ -5,12 +5,19 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import IngredientDetailsPage from "../IngredientDetails/IngredientDetailPage";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { useDispatch } from "react-redux";
-import { getIngredients, closeAllPopups } from "../../services/actions";
+import OrderItemDetails from "../Order/OrderItemDetails";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Router, Route, Switch, useHistory } from "react-router-dom";
+import {
+  Router,
+  Route,
+  Switch,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute";
 import {
   Login,
   Register,
@@ -25,27 +32,19 @@ import OrderItem from "../Order/OrderItem";
 
 function App() {
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    function closeByEsc(evt) {
-      if (evt.keyCode === 27) {
-        dispatch(closeAllPopups());
-      }
-    }
-    dispatch(getIngredients());
-    document.addEventListener("keydown", closeByEsc, false);
-    return () => {
-      document.removeEventListener("keydown", closeByEsc, false);
-    };
-  }, []);
+  let location = useLocation();
+  const action = history.action === "PUSH" || history.action === "REPLACE";
+  let backgroundIngredient =
+    action && location.state && location.state.backgroundIngredient;
+  let backgroundOrder =
+    action && location.state && location.state.backgroundOrder;
 
   return (
     <Router history={history}>
       <AppHeader />
 
-      <Switch>
-      <Route exact path="/">
+      <Switch location={backgroundIngredient || backgroundOrder || location}>
+        <Route exact path="/">
           <DndProvider backend={HTML5Backend}>
             <section id="main" className={styles.main}>
               <BurgerIngredients />
@@ -71,21 +70,39 @@ function App() {
         <Route exact path="/feed/:id">
           <OrderItem />
         </Route>
-        <Route exact path="/profile">
+        <ProtectedRoute exact path="/profile">
           <Profile />
-        </Route>
-        <Route exact path="/profile/orders">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/profile/orders">
           <ProfileOrders />
-        </Route>
-        <Route exact path="/profile/orders/:id">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/profile/orders/:id">
           <OrderItem />
+        </ProtectedRoute>
+        <Route exact path="/ingredients/:id">
+          <IngredientDetailsPage />
         </Route>
-                <Route>
+        <Route>
           <NotFound />
         </Route>
       </Switch>
 
-      <IngredientDetails />
+      {backgroundIngredient && (
+        <Route exact path="/ingredients/:id">
+          <IngredientDetails />
+        </Route>
+      )}
+      {backgroundOrder && (
+        <ProtectedRoute exact path="/profile/orders/:id">
+          <OrderItemDetails />
+        </ProtectedRoute>
+      )}
+      {backgroundOrder && (
+        <Route exact path="/feed/:id">
+          <OrderItemDetails />
+        </Route>
+      )}
+
       <OrderDetails />
       <ErrorPopup />
     </Router>

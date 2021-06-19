@@ -16,6 +16,7 @@
 }
 
 .profile_menu_item {
+  cursor: pointer;
   font-family: JetBrains Mono;
   font-weight: bold;
   font-size: 24px;
@@ -68,4 +69,12 @@
 }
 .profile_orders_menu {
   margin-top: 78px;
+}
+
+.profile_button_container {
+  display: flex;
+}
+
+.profile_button {
+  margin: 0 24px 0 0;
 }

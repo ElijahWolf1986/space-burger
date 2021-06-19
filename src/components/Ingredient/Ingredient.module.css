@@ -11,6 +11,11 @@
   cursor: pointer;
 }
 
+.ingredient_link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .counter {
   width: 12px;
   height: 12px;

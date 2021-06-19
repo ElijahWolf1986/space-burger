@@ -3,27 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { emailPattern } from "../../utils/constants";
-import { resetUserPassword } from "../../services/actions";
+import { getCodeUserPassword } from "../../services/actions";
 
 function ForgotPassword() {
-  const history = useHistory();
+  const location = useLocation();
   const { message, success } = useSelector((store) => ({
     message: store.user.message,
     success: store.user.success,
   }));
   const dispatch = useDispatch();
-
-  const turnToResetPasswordPage = () => {
-    if (success && message === "Reset email sent") {
-      history.push("/reset-password");
-    }
-  };
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
-
+  const isToken = localStorage.getItem("refreshToken");
   const onSubmit = (evt) => {
     evt.preventDefault();
     if (!email) {
@@ -36,7 +30,7 @@ function ForgotPassword() {
       setTimeout(() => setError(""), 3000);
       return;
     }
-    dispatch(resetUserPassword());
+    dispatch(getCodeUserPassword(email));
     setEmail("");
   };
 
@@ -44,9 +38,26 @@ function ForgotPassword() {
     setEmail(evt.target.value);
   };
 
-  React.useEffect(() => {
-    turnToResetPasswordPage();
-  }, [success, message]);
+  if (success && message === "Reset email sent") {
+    return (
+      <Redirect
+        to={{
+          pathname: "/reset-password",
+          state: { from: location },
+        }}
+      />
+    );
+  }
+
+  if (isToken) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
 
   return (
     <form className={styles.login_container} onSubmit={onSubmit} noValidate>
@@ -66,7 +77,7 @@ function ForgotPassword() {
         </Button>
       </div>
       <p className={styles.login_paragraph}>
-        Вспомнили пароль? <Link to="/">Войти</Link>{" "}
+        Вспомнили пароль? <Link to="/login">Войти</Link>{" "}
       </p>
     </form>
   );

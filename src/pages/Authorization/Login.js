@@ -3,20 +3,23 @@ import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
 
 function Login() {
-  const dispatch = useDispatch();
+  const location = useLocation();
   const { success, userName } = useSelector((store) => ({
     success: store.user.success,
     userName: store.user.user.name,
   }));
+  const dispatch = useDispatch();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
+  const isToken = localStorage.getItem("refreshToken");
+
   const onLogin = (evt) => {
     evt.preventDefault();
     if (!email || !password) {
@@ -27,7 +30,7 @@ function Login() {
     if (isMailValid === null) {
       setError("Вы ввели неверный адрес почты");
       setTimeout(() => setError(""), 3000);
-      return;
+      return; 
     }
     dispatch(loginUser({ email, password }));
     setEmail("");
@@ -42,12 +45,18 @@ function Login() {
     setPassword(evt.target.value);
   };
 
+  if (isToken) {
+    return (
+      <Redirect to={location.state ? location.state.from.pathname : "/"} />
+    );
+  }
+
   return (
     <form className={styles.login_container} onSubmit={onLogin} noValidate>
       <h2 className={styles.login_title}>Вход</h2>
       <span className={styles.login_error}>{error}</span>
       <span className={styles.login_message}>
-        {success ? `Ура ${userName} вы зашли в свой аккаунт!` : ""}
+        {success && userName ? `Ура ${userName} вы зашли в свой аккаунт!` : ""}
       </span>
       <Input
         type="email"
@@ -67,7 +76,7 @@ function Login() {
         <Button type="primary" size="large">
           {" "}
           Войти{" "}
-        </Button> 
+        </Button>
       </div>
       <p className={styles.login_paragraph}>
         Вы &mdash; новый пользователь?{" "}

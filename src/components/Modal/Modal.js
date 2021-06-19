@@ -4,6 +4,7 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { closeAllPopups } from "../../services/actions";
+import { useHistory } from "react-router-dom";
 
 Modal.propTypes = {
   isModal: PropTypes.object,
@@ -12,10 +13,31 @@ Modal.propTypes = {
 };
 
 function Modal(props) {
+  const history = useHistory();
   const dispatch = useDispatch();
+  const goBack = () => {
+    history.goBack();
+  };
   function onClose() {
-    dispatch(closeAllPopups());
+    if (props.type === "goBack") {
+      dispatch(closeAllPopups(goBack));
+    } else {
+      dispatch(closeAllPopups());
+    }
   }
+
+  React.useEffect(() => {
+    function closeByEsc(evt) {
+      if (evt.keyCode === 27) {
+        onClose();
+      }
+    }
+    document.addEventListener("keydown", closeByEsc, false);
+    return () => {
+      document.removeEventListener("keydown", closeByEsc, false);
+    };
+  }, []);
+
   return (
     <section
       className={`${styles.modal} ${props.isModal && styles.modal_active}`}

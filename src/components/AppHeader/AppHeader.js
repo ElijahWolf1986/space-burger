@@ -12,6 +12,7 @@ import { showMenu } from "../../services/actions";
 import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
+  const [userName, setUserName] = React.useState("");
   const dispatch = useDispatch();
   const location = useLocation();
   function openMenu() {
@@ -21,6 +22,11 @@ function AppHeader() {
     isTooglePopup: store.menu.isTooglePopup,
   }));
 
+  React.useEffect(() => {
+    const currentUserName = localStorage.getItem("userName");
+    setUserName(currentUserName);
+  });
+
   return (
     <section className={styles.header_section}>
       <header className={styles.header}>
@@ -29,16 +35,11 @@ function AppHeader() {
             <li className={styles.menu_item}>
               <Link to="/">
                 <BurgerIcon
-                  type={
-                    location.pathname === "/"
-                      ? "primary"
-                      : "secondary"
-                  }
+                  type={location.pathname === "/" ? "primary" : "secondary"}
                 />
                 <p
                   className={`${styles.menu_title} ${
-                    location.pathname === "/" &&
-                    styles.menu_title_active
+                    location.pathname === "/" && styles.menu_title_active
                   }`}
                 >
                   Конструктор
@@ -48,11 +49,16 @@ function AppHeader() {
             <li className={styles.menu_item}>
               <Link to="/feed">
                 <ListIcon
-                  type={location.pathname === "/feed" ? "primary" : "secondary"}
+                  type={
+                    location.pathname.indexOf("/feed") >= 0
+                      ? "primary"
+                      : "secondary"
+                  }
                 />
                 <p
                   className={`${styles.menu_title} ${
-                    location.pathname === "/feed" && styles.menu_title_active
+                    location.pathname.indexOf("/feed") >= 0 &&
+                    styles.menu_title_active
                   }`}
                 >
                   Лента заказов
@@ -77,20 +83,18 @@ function AppHeader() {
           <div className={styles.profile}>
             <ProfileIcon
               type={
-                location.pathname === "/profile" ||
-                location.pathname === "/profile/orders"
+                location.pathname.indexOf("/profile") >= 0
                   ? "primary"
                   : "secondary"
               }
             />
             <p
               className={`${styles.profile_title} ${
-                (location.pathname === "/profile" ||
-                  location.pathname === "/profile/orders") &&
+                location.pathname.indexOf("/profile") >= 0 &&
                 styles.profile_title_active
               }`}
             >
-              Личный кабинет
+              {userName ? userName : "Личный кабинет"}
             </p>
           </div>
         </Link>
