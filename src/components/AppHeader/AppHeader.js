@@ -33,7 +33,7 @@ function AppHeader() {
         <menu className={styles.menu}>
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
-              <Link to="/">
+              <Link id='main' to="/">
                 <BurgerIcon
                   type={location.pathname === "/" ? "primary" : "secondary"}
                 />
@@ -47,7 +47,7 @@ function AppHeader() {
               </Link>
             </li>
             <li className={styles.menu_item}>
-              <Link to="/feed">
+              <Link id='feed' to="/feed">
                 <ListIcon
                   type={
                     location.pathname.indexOf("/feed") >= 0

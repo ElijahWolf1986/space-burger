@@ -71,7 +71,7 @@ function BurgerConstructor() {
   };
 
   return (
-    <section className={`${styles.constructor}`} ref={dropTarget}>
+    <section id='dropTarget' className={`${styles.constructor}`} ref={dropTarget}>
       <div
         className={`${styles.constructor_client} ${
           (clientIngredients.length || whatIsBun) &&

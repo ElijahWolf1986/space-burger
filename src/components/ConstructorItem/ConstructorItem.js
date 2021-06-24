@@ -98,6 +98,7 @@ function ConstructorItem(item) {
         <CurrencyIcon />
         {item.bunLock === undefined ? (
           <button
+          id="delete-button"
             className={styles.container_button_delete}
             onClick={() => {
               dispatch(removeClientIngredient(item.ingredientId));
