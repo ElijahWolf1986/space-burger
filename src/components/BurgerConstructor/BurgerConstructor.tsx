@@ -21,9 +21,8 @@ import { useDrop } from "react-dnd";
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const isToken = localStorage.getItem("refreshToken");
-  const { clientIngredients, whatIsBun } = useSelector((store) => ({
+  const { clientIngredients, whatIsBun } = useSelector((store: any) => ({
     clientIngredients: store.client.clientIngredients,
     whatIsBun: store.client.whatIsBun,
   }));
@@ -38,16 +37,20 @@ function BurgerConstructor() {
   });
 
   //Временная конструкция для обработки входных данных по ингредиентам
-  let totalPrice = 0;
+  let totalPrice: number = 0;
   const orderIdArr = [...clientIngredients];
   if (clientIngredients && !whatIsBun) {
-    totalPrice = clientIngredients.reduce(function (prevValue, item) {
+    totalPrice = clientIngredients.reduce(function (
+      prevValue: number,
+      item: any
+    ) {
       return prevValue + item.price;
-    }, 0);
+    },
+    0);
   }
   if (clientIngredients && whatIsBun) {
     totalPrice =
-      clientIngredients.reduce(function (prevValue, item) {
+      clientIngredients.reduce(function (prevValue: number, item: any) {
         return prevValue + item.price;
       }, 0) +
       whatIsBun.price * 2;
@@ -72,7 +75,11 @@ function BurgerConstructor() {
   };
 
   return (
-    <section id='dropTarget' className={`${styles.constructor}`} ref={dropTarget}>
+    <section
+      id="dropTarget"
+      className={`${styles.constructor}`}
+      ref={dropTarget}
+    >
       <div
         className={`${styles.constructor_client} ${
           (clientIngredients.length || whatIsBun) &&
@@ -83,13 +90,13 @@ function BurgerConstructor() {
         {/* Тут отрисовываем ингредиенты внутри списка */}
         <div className={styles.constructor_ingredients}>
           <ul className={styles.constructor_list}>
-            {clientIngredients.map((item, index) => {
+            {clientIngredients.map((item: any, index: number) => {
               return (
-                <li className={styles.constructor_item} key={uuidv4()}> 
+                <li className={styles.constructor_item} key={uuidv4()}>
                   {" "}
                   <div className={`${styles.dragicon} mb-1`}>
                     {" "}
-                    <DragIcon />{" "}
+                    <DragIcon type="primary" />{" "}
                   </div>
                   <ConstructorItem {...item} index={index} />{" "}
                 </li>

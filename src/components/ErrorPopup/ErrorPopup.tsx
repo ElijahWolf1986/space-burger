@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { closeAllPopups } from "../../services/actions";
 
 function ErrorPopup() {
-  const { error } = useSelector((store) => ({
+  const { error } = useSelector((store: any) => ({
     error: store.errors.error,
   }));
   const dispatch = useDispatch();

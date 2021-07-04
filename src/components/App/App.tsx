@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
@@ -30,9 +30,16 @@ import {
 } from "../../pages";
 import OrderItem from "../Order/OrderItem";
 
-function App() {
+type TLocation = {
+  state: {
+    backgroundIngredient: any;
+    backgroundOrder: any;
+  };
+};
+
+const App: FC = () => {
   const history = useHistory();
-  let location = useLocation();
+  let location: TLocation = useLocation();
   const action = history.action === "PUSH" || history.action === "REPLACE";
   let backgroundIngredient =
     action && location.state && location.state.backgroundIngredient;
@@ -107,6 +114,6 @@ function App() {
       <ErrorPopup />
     </Router>
   );
-}
+};
 
 export default App;

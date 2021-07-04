@@ -25,7 +25,7 @@ function OrderItem() {
     order.ingredients.map((id) => ingredients.find((item) => item._id === id));
   const orderDate = order && update(order.createdAt, optionsDate);
   const orderPrice =
-    orderIngredients &&
+    orderIngredients && ingredients &&
     orderIngredients.reduce(function (prevValue, item) {
       return prevValue + item.price;
     }, 0);

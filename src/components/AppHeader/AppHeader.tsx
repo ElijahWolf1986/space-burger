@@ -12,13 +12,13 @@ import { showMenu } from "../../services/actions";
 import { Link, useLocation } from "react-router-dom";
 
 function AppHeader() {
-  const [userName, setUserName] = React.useState("");
+  const [userName, setUserName] = React.useState<string | null>("");
   const dispatch = useDispatch();
   const location = useLocation();
   function openMenu() {
     dispatch(showMenu());
   }
-  const { isTooglePopup } = useSelector((store) => ({
+  const { isTooglePopup } = useSelector((store: any) => ({
     isTooglePopup: store.menu.isTooglePopup,
   }));
 
@@ -33,7 +33,7 @@ function AppHeader() {
         <menu className={styles.menu}>
           <ul className={styles.menu_list}>
             <li className={styles.menu_item}>
-              <Link id='main' to="/">
+              <Link id="main" to="/">
                 <BurgerIcon
                   type={location.pathname === "/" ? "primary" : "secondary"}
                 />
@@ -47,7 +47,7 @@ function AppHeader() {
               </Link>
             </li>
             <li className={styles.menu_item}>
-              <Link id='feed' to="/feed">
+              <Link id="feed" to="/feed">
                 <ListIcon
                   type={
                     location.pathname.indexOf("/feed") >= 0

@@ -5,25 +5,40 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions";
 
+type TIngredient = {
+  calories: number;
+  carbohydrates: number;
+  count: number;
+  fat: number;
+  image: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: string;
+  _id: string;
+};
+
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const bunBlock = document.getElementById("bun");
-  const sauceBlock = document.getElementById("sauce");
-  const fillingBlock = document.getElementById("filling");
-  const topBlock = document.getElementById("ingredients");
+  const bunBlock: HTMLElement | null = document.getElementById("bun");
+  const sauceBlock: HTMLElement | null = document.getElementById("sauce");
+  const fillingBlock: HTMLElement | null = document.getElementById("filling");
+  const topBlock: HTMLElement | null = document.getElementById("ingredients");
   const [current, setCurrent] = React.useState("one");
   const { ingredients, clientIngredients, whatIsBun } = useSelector(
-    (store) => ({
+    (store: any) => ({
       ingredients: store.burgerIngredients.ingredients,
       clientIngredients: store.client.clientIngredients,
       whatIsBun: store.client.whatIsBun,
     })
   );
 
+  console.log(ingredients);
+
   const ingredientsWithCount = useMemo(() => {
-    return ingredients.map((ingredient) => {
+    return ingredients.map((ingredient: TIngredient) => {
       ingredient.count = clientIngredients.filter(
-        (item) => item._id === ingredient._id
+        (item: TIngredient) => item._id === ingredient._id
       ).length;
       if (whatIsBun && whatIsBun._id === ingredient._id) ingredient.count += 2;
       return ingredient;
@@ -31,32 +46,50 @@ function BurgerIngredients() {
   }, [ingredients, clientIngredients, whatIsBun]);
 
   const onScrollIngredients = () => {
-    const bunBlockPosition = Math.abs(
-      bunBlock.getBoundingClientRect().top -
-        topBlock.getBoundingClientRect().top
-    );
-    const sauceBlockPosition = Math.abs(
-      sauceBlock.getBoundingClientRect().top -
-        topBlock.getBoundingClientRect().top
-    );
-    const fillingBlockPosition = Math.abs(
-      fillingBlock.getBoundingClientRect().top -
-        topBlock.getBoundingClientRect().top
-    );
+    const bunBlockPosition =
+      bunBlock &&
+      topBlock &&
+      Math.abs(
+        bunBlock.getBoundingClientRect().top -
+          topBlock.getBoundingClientRect().top
+      );
+    const sauceBlockPosition =
+      sauceBlock &&
+      topBlock &&
+      Math.abs(
+        sauceBlock.getBoundingClientRect().top -
+          topBlock.getBoundingClientRect().top
+      );
+    const fillingBlockPosition =
+      fillingBlock &&
+      topBlock &&
+      Math.abs(
+        fillingBlock.getBoundingClientRect().top -
+          topBlock.getBoundingClientRect().top
+      );
 
     if (
+      bunBlockPosition &&
+      sauceBlockPosition &&
+      fillingBlockPosition &&
       bunBlockPosition < sauceBlockPosition &&
       bunBlockPosition < fillingBlockPosition
     ) {
       setCurrent("one");
     }
     if (
+      bunBlockPosition &&
+      sauceBlockPosition &&
+      fillingBlockPosition &&
       sauceBlockPosition < bunBlockPosition &&
       sauceBlockPosition < fillingBlockPosition
     ) {
       setCurrent("two");
     }
     if (
+      bunBlockPosition &&
+      sauceBlockPosition &&
+      fillingBlockPosition &&
       fillingBlockPosition < bunBlockPosition &&
       fillingBlockPosition < sauceBlockPosition
     ) {
@@ -65,13 +98,13 @@ function BurgerIngredients() {
   };
 
   // Сортировка ингредиентов по группам
-  const bunArr = ingredientsWithCount.filter((item) => {
+  const bunArr = ingredientsWithCount.filter((item: TIngredient) => {
     return item.type === "bun";
   });
-  const sauceArr = ingredientsWithCount.filter((item) => {
+  const sauceArr = ingredientsWithCount.filter((item: TIngredient) => {
     return item.type === "sauce";
   });
-  const fillingArr = ingredientsWithCount.filter((item) => {
+  const fillingArr = ingredientsWithCount.filter((item: TIngredient) => {
     return item.type === "main";
   });
   //   ************************************
@@ -89,7 +122,8 @@ function BurgerIngredients() {
           value="one"
           active={current === "one"}
           onClick={() => {
-            bunBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            bunBlock &&
+              bunBlock.scrollIntoView({ block: "start", behavior: "smooth" });
             setCurrent("one");
           }}
         >
@@ -99,7 +133,8 @@ function BurgerIngredients() {
           value="two"
           active={current === "two"}
           onClick={() => {
-            sauceBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            sauceBlock &&
+              sauceBlock.scrollIntoView({ block: "start", behavior: "smooth" });
             setCurrent("two");
           }}
         >
@@ -109,7 +144,11 @@ function BurgerIngredients() {
           value="three"
           active={current === "three"}
           onClick={() => {
-            fillingBlock.scrollIntoView({ block: "start", behavior: "smooth" });
+            fillingBlock &&
+              fillingBlock.scrollIntoView({
+                block: "start",
+                behavior: "smooth",
+              });
             setCurrent("three");
           }}
         >
@@ -126,7 +165,7 @@ function BurgerIngredients() {
         <div id="bun" className={styles.ingredients_bun}>
           <p className={styles.ingredients_title}>Булки</p>
           <div className={styles.ingredients_list}>
-            {bunArr.map((item) => {
+            {bunArr.map((item: TIngredient): JSX.Element => {
               return <Ingredient key={item._id} {...item} />;
             })}
           </div>
@@ -135,7 +174,7 @@ function BurgerIngredients() {
         <div id="sauce" className={styles.ingredients_sauce}>
           <p className={styles.ingredients_title}>Соусы</p>
           <div className={styles.ingredients_list}>
-            {sauceArr.map((item) => {
+            {sauceArr.map((item: TIngredient) => {
               return <Ingredient key={item._id} {...item} />;
             })}
           </div>
@@ -144,7 +183,7 @@ function BurgerIngredients() {
         <div id="filling" className={styles.ingredients_filling}>
           <p className={styles.ingredients_title}>Начинки</p>
           <div className={styles.ingredients_list}>
-            {fillingArr.map((item) => {
+            {fillingArr.map((item: TIngredient) => {
               return <Ingredient key={item._id} {...item} />;
             })}
           </div>
