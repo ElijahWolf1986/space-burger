@@ -33,6 +33,14 @@ import {
   clearClientIngredients,
 } from "./clientIngredientsActions";
 
+import {
+  wsConnectionSuccess,
+  wsGetOrders,
+  wsSendMessage,
+  wsConnectionError,
+  wsConnectionClosed,
+} from "./webSocketActions";
+
 export {
   loginUser,
   createUser,
@@ -58,6 +66,11 @@ export {
   updateUserInfo,
   getSelectedOrder,
   removeSelectedOrder,
+  wsConnectionSuccess,
+  wsGetOrders,
+  wsSendMessage,
+  wsConnectionError,
+  wsConnectionClosed,
 };
 
 export function closeAllPopups(afterClose) {

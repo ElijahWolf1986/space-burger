@@ -6,6 +6,7 @@ import { menuReducer } from "./menuReducer";
 import { getIngredientInfoReducer } from "./ingredientInfoReducer";
 import { putAppErrorsReducer } from "./errorReducer";
 import { getClientIngredientsReducer } from "./clientIngredientsReducer";
+import { wsReducer } from "./wsReduser";
 
 const rootReducer = combineReducers({
   burgerIngredients: putIngredientsListReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   menu: menuReducer,
   client: getClientIngredientsReducer,
   user: userInfoReducer,
+  ws: wsReducer,
 });
 
 export default rootReducer;
