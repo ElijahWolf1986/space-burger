@@ -1,4 +1,4 @@
-import { showError } from "./errorActions";
+import { showError, hideError } from "./errorActions";
 import { clearClientIngredients } from "./clientIngredientsActions";
 import { urlApi } from "../../utils/constants";
 import IngredientsApi from "../../utils/Api";
@@ -17,7 +17,9 @@ export function getOrder(ingredients) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-
+    dispatch(
+      showError({ status: "подождите...", title: "идет загрузка заказа" })
+    );
     burgerApi
       .getOrder(ingredients)
       .then((res) => {
@@ -26,6 +28,7 @@ export function getOrder(ingredients) {
           payload: res,
         });
         dispatch(clearClientIngredients());
+        dispatch(hideError());
       })
       .catch((error) => {
         console.log(error);

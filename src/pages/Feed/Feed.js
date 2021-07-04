@@ -22,7 +22,7 @@ function Feed() {
       payload: "wss://norma.nomoreparties.space/orders/all",
     });
     return () => dispatch({ type: wsActions.wsClose });
-  }, [dispatch]);
+  }, []);
 
   const data = dataOrders && dataOrders.data && dataOrders.data.orders;
   const ReadyOrders = data && data.filter((item) => item.status === "done");

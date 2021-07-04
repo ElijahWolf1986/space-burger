@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import { useHistory } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   CurrencyIcon,
@@ -84,7 +85,7 @@ function BurgerConstructor() {
           <ul className={styles.constructor_list}>
             {clientIngredients.map((item, index) => {
               return (
-                <li className={styles.constructor_item} key={item.ingredientId}>
+                <li className={styles.constructor_item} key={uuidv4()}> 
                   {" "}
                   <div className={`${styles.dragicon} mb-1`}>
                     {" "}
