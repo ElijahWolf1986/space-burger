@@ -103,13 +103,13 @@ function Feed() {
           <div className={styles.order_count}>
             <p className={styles.feed_orders_title}>Выполнено за все время:</p>
             <p className={styles.feed_orders_count}>
-              {dataOrders.data ? dataOrders.data.total : "none"}
+              {dataOrders.data ? dataOrders.data.total - 1: "none"}
             </p>
           </div>
           <div className={styles.order_count}>
             <p className={styles.feed_orders_title}>Выполнено за сегодня:</p>
             <p className={styles.feed_orders_count}>
-              {dataOrders.data ? dataOrders.data.totalToday : "none"}
+              {dataOrders.data ? dataOrders.data.totalToday - 1 : "none"}
             </p>
           </div>
         </div>
