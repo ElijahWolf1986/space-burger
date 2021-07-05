@@ -37,7 +37,7 @@ function Ingredient(item) {
     dispatch(getSelectedIngredient(ingredient));
   };
   return (
-    !isDrag && (
+    !isDrag ? (
       <Link
         className={styles.ingredient_link}
         to={{
@@ -60,7 +60,7 @@ function Ingredient(item) {
           <p className={styles.ingredient_name}>{ingredient.name}</p>
         </section>
       </Link>
-    )
+    ) : null
   );
 }
 

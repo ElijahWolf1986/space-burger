@@ -34,8 +34,22 @@ class IngredientsApi {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("token"),
       },
       body: JSON.stringify({ ingredients: ingredients }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleResponseError);
+  }
+
+  // получение данных конкретного заказа
+  getCurrentOrder(orderNumber) {
+    return fetch(`${this._url}/orders/${orderNumber}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     })
       .then(this._handleResponse)
       .catch(this._handleResponseError);
