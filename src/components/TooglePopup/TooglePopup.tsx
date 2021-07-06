@@ -14,7 +14,7 @@ import {
 
 function TooglePopup() {
   const dispatch = useDispatch();
-  const { isTooglePopup, isTooglePersonal } = useSelector((store) => ({
+  const { isTooglePopup, isTooglePersonal } = useSelector((store: any) => ({
     isTooglePopup: store.menu.isTooglePopup,
     isTooglePersonal: store.menu.isTooglePersonal,
   }));

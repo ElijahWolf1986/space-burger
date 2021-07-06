@@ -33,8 +33,6 @@ function BurgerIngredients() {
     })
   );
 
-  console.log(ingredients);
-
   const ingredientsWithCount = useMemo(() => {
     return ingredients.map((ingredient: TIngredient) => {
       ingredient.count = clientIngredients.filter(

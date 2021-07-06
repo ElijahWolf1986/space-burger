@@ -1,7 +1,7 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, RouteProps } from "react-router-dom";
 
-function ProtectedRoute({ children, ...rest }) {
+const ProtectedRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
   const isToken = localStorage.getItem("refreshToken");
 
   return (
@@ -21,6 +21,6 @@ function ProtectedRoute({ children, ...rest }) {
       }
     />
   );
-}
+};
 
 export default ProtectedRoute;

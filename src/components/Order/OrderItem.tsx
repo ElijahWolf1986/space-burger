@@ -11,22 +11,45 @@ import { getIngredients } from "../../services/actions";
 import Preloader from "../Preloader/Preloader";
 import { showError } from "../../services/actions";
 
+type TItem = {
+  image: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  _id: string;
+  count: number;
+};
+
+type TOrderProps = {
+  order: any;
+  date: number;
+  number: number;
+  name: string;
+  status: string;
+  price: number;
+  ingredients: [string];
+  createdAt: number;
+};
+
 function OrderItem() {
   const dispatch = useDispatch();
   const burgerApi = new IngredientsApi(urlApi);
-  const [order, setOrder] = React.useState();
-  const { id } = useParams();
-  const { ingredients } = useSelector((store) => ({
+  const [order, setOrder] = React.useState<TOrderProps>();
+  const { id } = useParams<{ id?: string }>();
+  const { ingredients } = useSelector((store: any) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
   const orderIngredients =
     ingredients &&
     order &&
-    order.ingredients.map((id) => ingredients.find((item) => item._id === id));
+    order.ingredients.map((id: string) =>
+      ingredients.find((item: TItem) => item._id === id)
+    );
   const orderDate = order && update(order.createdAt, optionsDate);
   const orderPrice =
-    orderIngredients && ingredients &&
-    orderIngredients.reduce(function (prevValue, item) {
+    orderIngredients &&
+    ingredients &&
+    orderIngredients.reduce(function (prevValue: number, item: TItem) {
       return prevValue + item.price;
     }, 0);
 
@@ -58,7 +81,7 @@ function OrderItem() {
       <div className={styles.order_ingredients_container}>
         {order &&
           orderIngredients &&
-          orderIngredients.map((item, index) => {
+          orderIngredients.map((item: TItem, index: number) => {
             return (
               <div className={styles.order_ingredient_item} key={index}>
                 <div className={styles.order_ingredient_container}>
@@ -71,7 +94,7 @@ function OrderItem() {
                 </div>
                 <div className={styles.order_price_container}>
                   <p className={styles.order_price}>1 x {item.price}</p>
-                  <CurrencyIcon />
+                  <CurrencyIcon type="primary" />
                 </div>
               </div>
             );
@@ -81,7 +104,7 @@ function OrderItem() {
         <p className={styles.order_date}>{orderDate}</p>
         <div className={styles.order_price_container}>
           <p className={styles.order_price}>{orderPrice}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </div>
       </div>
     </section>

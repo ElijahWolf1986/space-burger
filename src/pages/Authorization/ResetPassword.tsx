@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,7 +9,7 @@ import { resetUserPassword } from "../../services/actions";
 function ResetPassword() {
   const location = useLocation();
   const history = useHistory();
-  const { message, success } = useSelector((store) => ({
+  const { message, success } = useSelector((store: any) => ({
     message: store.user.message,
     success: store.user.success,
   }));
@@ -18,7 +18,7 @@ function ResetPassword() {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const isToken = localStorage.getItem("refreshToken");
-  const onSubmit = (evt) => {
+  const onSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     if (!code || !password) {
       setError("Нужно заполнить оба поля");
@@ -30,11 +30,13 @@ function ResetPassword() {
     setCode("");
   };
 
-  const changeCode = (evt) => {
-    setCode(evt.target.value);
+  const changeCode = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setCode(target.value);
   };
-  const changePassword = (evt) => {
-    setPassword(evt.target.value);
+  const changePassword = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setPassword(target.value);
   };
 
   if (isToken) {
@@ -72,7 +74,7 @@ function ResetPassword() {
         value={code}
         handleChange={changeCode}
       />
-      <div className={styles.login_button} type="submit">
+      <div className={styles.login_button}>
         <Button type="primary" size="large">
           {" "}
           Сохранить{" "}

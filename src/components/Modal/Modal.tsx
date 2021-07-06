@@ -7,9 +7,9 @@ import { useHistory } from "react-router-dom";
 
 type TPropsType = {
   type: string;
-  isModal: {};
-  header: string;
-  children: {};
+  isModal: any;
+  header?: string;
+  children?: {};
 };
 
 function Modal(props: TPropsType) {

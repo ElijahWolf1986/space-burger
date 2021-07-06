@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import styles from "./Profile.module.css";
 import Input from "../../components/Input/Input";
 import ProfileMenu from "./ProfileMenu";
@@ -7,7 +7,7 @@ import { getUserInfo, updateUserInfo } from "../../services/actions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function Profile() {
-  const { userName, userEmail } = useSelector((store) => ({
+  const { userName, userEmail } = useSelector((store: any) => ({
     userName: store.user.user.name,
     userEmail: store.user.user.email,
   }));
@@ -16,26 +16,29 @@ function Profile() {
   const [password, setPassword] = React.useState("");
   const dispatch = useDispatch();
 
-  const changeName = (evt) => {
-    setName(evt.target.value);
+  const changeName = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setName(target.value);
   };
-  const changeEmail = (evt) => {
-    setEmail(evt.target.value);
+  const changeEmail = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setEmail(target.value);
   };
-  const changePassword = (evt) => {
-    setPassword(evt.target.value);
+  const changePassword = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setPassword(target.value);
   };
 
-  const onSaveNewUserData = (evt) => {
+  const onSaveNewUserData = (evt: FormEvent) => {
     evt.preventDefault();
     dispatch(updateUserInfo(name, email, password));
   };
   const handleCancel = () => {
     setName(userName);
-    setEmail(userEmail); 
+    setEmail(userEmail);
   };
 
-  React.useEffect((evt) => {
+  React.useEffect(() => {
     dispatch(getUserInfo());
   }, []);
 
@@ -73,7 +76,7 @@ function Profile() {
           custom
         />
         <div className={styles.profile_button_container}>
-          <div className={styles.profile_button} type="submit">
+          <div className={styles.profile_button}>
             <Button type="primary" size="large">
               {" "}
               Сохранить{" "}

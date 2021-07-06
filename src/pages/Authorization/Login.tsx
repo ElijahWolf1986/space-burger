@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
@@ -7,20 +7,26 @@ import { Link, Redirect, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
 
+interface LocationState {
+  from: {
+    pathname: string;
+  };
+}
+
 function Login() {
-  const location = useLocation();
-  const { success, userName } = useSelector((store) => ({
+  const location = useLocation<LocationState>();
+  const { success, userName } = useSelector((store: any) => ({
     success: store.user.success,
     userName: store.user.user.name,
   }));
   const dispatch = useDispatch();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [error, setError] = React.useState<string>("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
   const isToken = localStorage.getItem("refreshToken");
 
-  const onLogin = (evt) => {
+  const onLogin = (evt: FormEvent) => {
     evt.preventDefault();
     if (!email || !password) {
       setError("Нужно заполнить оба поля");
@@ -30,19 +36,21 @@ function Login() {
     if (isMailValid === null) {
       setError("Вы ввели неверный адрес почты");
       setTimeout(() => setError(""), 3000);
-      return; 
+      return;
     }
     dispatch(loginUser({ email, password }));
     setEmail("");
     setPassword("");
   };
 
-  const changeEmail = (evt) => {
-    setEmail(evt.target.value);
+  const changeEmail = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setEmail(target.value);
   };
 
-  const changePassword = (evt) => {
-    setPassword(evt.target.value);
+  const changePassword = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setPassword(target.value);
   };
 
   if (isToken) {
@@ -72,7 +80,7 @@ function Login() {
         value={password}
         handleChange={changePassword}
       />
-      <div className={styles.login_button} type="submit">
+      <div className={styles.login_button}>
         <Button type="primary" size="large">
           {" "}
           Войти{" "}

@@ -10,24 +10,26 @@ import {
   moveClientIngredient,
 } from "../../services/actions";
 import styles from "./ConstructorItem.module.css";
-import PropTypes from "prop-types";
 
-ConstructorItem.propTypes = {
-  bunLock: PropTypes.bool,
-  bunLock_top: PropTypes.bool,
-  bunLock_bottom: PropTypes.bool,
-  image: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
+type TItem = {
+  _id: string;
+  image: string;
+  name: string;
+  price: number;
+  index: number;
+  bunLock: boolean;
+  bunLock_top: boolean;
+  bunLock_bottom: boolean;
+  ingredientId: number;
 };
 
-function ConstructorItem(item) {
+function ConstructorItem(item: TItem) {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
   const id = item._id;
   const index = item.index;
-  
-  const moveCard = (dragIndex, hoverIndex) => {
+
+  const moveCard = (dragIndex: number, hoverIndex: number) => {
     dispatch(moveClientIngredient({ dragIndex, hoverIndex }));
   };
 
@@ -38,7 +40,7 @@ function ConstructorItem(item) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item, monitor) {
+    hover(item: TItem, monitor) {
       if (!ref.current) {
         return;
       }
@@ -51,11 +53,20 @@ function ConstructorItem(item) {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      const hoverClientY =
+        clientOffset && clientOffset.y - hoverBoundingRect.top;
+      if (
+        hoverClientY &&
+        dragIndex < hoverIndex &&
+        hoverClientY < hoverMiddleY
+      ) {
         return;
       }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      if (
+        hoverClientY &&
+        dragIndex > hoverIndex &&
+        hoverClientY > hoverMiddleY
+      ) {
         return;
       }
       moveCard(dragIndex, hoverIndex);
@@ -77,7 +88,8 @@ function ConstructorItem(item) {
   drag(drop(ref));
 
   return (
-    <section style={{ opacity }}
+    <section
+      style={{ opacity }}
       className={`${styles.container} p-2 ${
         item.bunLock_top !== undefined && styles.container_bun_top
       } ${item.bunLock_bottom !== undefined && styles.container_bun_bottom} `}
@@ -95,10 +107,10 @@ function ConstructorItem(item) {
 
       <div className={styles.container_ingredient_price}>
         <p className={styles.container_ingredient_price_value}>{item.price}</p>
-        <CurrencyIcon />
+        <CurrencyIcon type="primary" />
         {item.bunLock === undefined ? (
           <button
-          id="delete-button"
+            id="delete-button"
             className={styles.container_button_delete}
             onClick={() => {
               dispatch(removeClientIngredient(item.ingredientId));

@@ -7,17 +7,25 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getIngredients } from "../../services/actions";
 import { useParams, useHistory } from "react-router-dom";
 
-const element = document.getElementById("modal");
+type TItem = {
+  image: string;
+  name: string;
+  price: number;
+  _id: string;
+  count: number;
+};
+
+const element: HTMLElement | null = document.getElementById("modal");
 
 function IngredientDetailsPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { id } = useParams();
-  const { ingredients } = useSelector((store) => ({
+  const { id } = useParams<{ id: string }>();
+  const { ingredients } = useSelector((store: any) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
 
-  const currentIngredient = ingredients.filter(({ _id }) => {
+  const currentIngredient = ingredients.filter(({ _id }: TItem) => {
     return _id === id;
   })[0];
 
@@ -30,7 +38,7 @@ function IngredientDetailsPage() {
   React.useEffect(() => {
     dispatch(getIngredients());
   }, []);
-  return ReactDOM.createPortal(
+  return element && ReactDOM.createPortal(
     <section className={styles.ingredient_section}>
       <div className={styles.ingredient_container}>
         <img
@@ -75,7 +83,7 @@ function IngredientDetailsPage() {
         </div>
       </div>
     </section>,
-    element
+    element 
   );
 }
 

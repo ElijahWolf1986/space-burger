@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
@@ -9,17 +9,17 @@ import { emailPattern } from "../../utils/constants";
 
 function Register() {
   const dispatch = useDispatch();
-  const { success } = useSelector((store) => ({
+  const { success } = useSelector((store: any) => ({
     success: store.user.success,
   }));
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [name, setName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [error, setError] = React.useState<string>("");
   const isMailValid = email ? email.match(emailPattern) : "null";
   const isToken = localStorage.getItem("refreshToken");
 
-  const onRegister = (evt) => {
+  const onRegister = (evt: FormEvent) => {
     evt.preventDefault();
     if (!email || !password || !name) {
       setError("Нужно заполнить все поля");
@@ -37,16 +37,19 @@ function Register() {
     setPassword("");
   };
 
-  const changeName = (evt) => {
-    setName(evt.target.value);
+  const changeName = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setName(target.value);
   };
 
-  const changeEmail = (evt) => {
-    setEmail(evt.target.value);
+  const changeEmail = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setEmail(target.value);
   };
 
-  const changePassword = (evt) => {
-    setPassword(evt.target.value);
+  const changePassword = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setPassword(target.value);
   };
 
   if (isToken) {
@@ -88,7 +91,7 @@ function Register() {
         value={password}
         handleChange={changePassword}
       />
-      <div className={styles.login_button} type="submit">
+      <div className={styles.login_button}>
         <Button type="primary" size="large">
           {" "}
           Зарегистрироваться{" "}

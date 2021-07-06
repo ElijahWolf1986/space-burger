@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
@@ -9,16 +9,16 @@ import { getCodeUserPassword } from "../../services/actions";
 
 function ForgotPassword() {
   const location = useLocation();
-  const { message, success } = useSelector((store) => ({
+  const { message, success } = useSelector((store: any) => ({
     message: store.user.message,
     success: store.user.success,
   }));
   const dispatch = useDispatch();
-  const [email, setEmail] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [email, setEmail] = React.useState<string>("");
+  const [error, setError] = React.useState<string>("");
   const isMailValid = email ? email.match(emailPattern) : "null"; //проводим валидацию введенного email на стороне клиента
   const isToken = localStorage.getItem("refreshToken");
-  const onSubmit = (evt) => {
+  const onSubmit = (evt: FormEvent) => {
     evt.preventDefault();
     if (!email) {
       setError("Нужно ввести почту");
@@ -34,8 +34,9 @@ function ForgotPassword() {
     setEmail("");
   };
 
-  const changeEmail = (evt) => {
-    setEmail(evt.target.value);
+  const changeEmail = (evt: ChangeEvent) => {
+    const target = evt.target as HTMLInputElement;
+    setEmail(target.value);
   };
 
   if (success && message === "Reset email sent") {
@@ -70,7 +71,7 @@ function ForgotPassword() {
         value={email}
         handleChange={changeEmail}
       />
-      <div className={styles.login_button} type="submit">
+      <div className={styles.login_button}>
         <Button type="primary" size="large">
           {" "}
           Восстановить{" "}

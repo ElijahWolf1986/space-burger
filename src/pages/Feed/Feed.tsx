@@ -7,9 +7,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions";
 import { wsActions } from "../../services/store";
 
+type TItem = {
+  image: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  _id: string;
+  count: number;
+  number: number;
+};
+
+type TOrderProps = {
+  order?: any;
+  date?: number;
+  number?: number;
+  name?: string;
+  status?: string;
+  price?: number;
+};
+
 function Feed() {
   const dispatch = useDispatch();
-  const { dataOrders, wsConnected } = useSelector((store) => ({
+  const { dataOrders, wsConnected } = useSelector((store: any) => ({
     dataOrders: store.ws.Data,
     wsConnected: store.ws.wsConnected,
   }));
@@ -21,19 +40,23 @@ function Feed() {
       type: wsActions.wsStart,
       payload: "wss://norma.nomoreparties.space/orders/all",
     });
-    return () => dispatch({ type: wsActions.wsClose });
+    return () => {
+      dispatch({ type: wsActions.wsClose });
+    };
   }, []);
 
   const data = dataOrders && dataOrders.data && dataOrders.data.orders;
-  const ReadyOrders = data && data.filter((item) => item.status === "done");
-  const WorkOrders = data && data.filter((item) => item.status === "pending");
+  const ReadyOrders =
+    data && data.filter((item: TOrderProps) => item.status === "done");
+  const WorkOrders =
+    data && data.filter((item: TOrderProps) => item.status === "pending");
 
   return wsConnected && data ? (
     <section className={styles.feed}>
       <h1 className={styles.feed_title}>Лента заказов</h1>
       <div className={styles.feed_orders}>
         <ul className={styles.feed_orders_list}>
-          {data.map((item) => {
+          {data.map((item: TItem) => {
             return (
               <li className={styles.feed_order} key={item._id}>
                 <Link
@@ -53,7 +76,7 @@ function Feed() {
             <div className={styles.feed_orders_ready}>
               <p className={styles.feed_orders_title}>Готовы:</p>
               <ul className={styles.feed_list}>
-                {ReadyOrders.map((item, index) => {
+                {ReadyOrders.map((item: TItem, index: number) => {
                   if (index < 10) {
                     return (
                       <li
@@ -70,7 +93,7 @@ function Feed() {
             <div className={styles.feed_orders_ready}>
               <p className={styles.feed_orders_title}>Готовы:</p>
               <ul className={styles.feed_list}>
-                {ReadyOrders.map((item, index) => {
+                {ReadyOrders.map((item: TItem, index: number) => {
                   if (index > 9 && index < 20) {
                     return (
                       <li
@@ -87,7 +110,7 @@ function Feed() {
             <div className={styles.feed_orders_work}>
               <p className={styles.feed_orders_title}>В работе:</p>
               <ul className={styles.feed_list}>
-                {WorkOrders.map((item, index) => {
+                {WorkOrders.map((item: TItem, index: number) => {
                   if (index > 10) {
                     return;
                   }
@@ -103,7 +126,7 @@ function Feed() {
           <div className={styles.order_count}>
             <p className={styles.feed_orders_title}>Выполнено за все время:</p>
             <p className={styles.feed_orders_count}>
-              {dataOrders.data ? dataOrders.data.total - 1: "none"}
+              {dataOrders.data ? dataOrders.data.total - 1 : "none"}
             </p>
           </div>
           <div className={styles.order_count}>
