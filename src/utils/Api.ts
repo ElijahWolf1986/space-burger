@@ -31,7 +31,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  getOrder(ingredients: any) {
+  getOrder(ingredients: []) {
     return fetch(`${this._url}/orders`, {
       method: "POST",
       headers: {
@@ -46,7 +46,7 @@ class IngredientsApi {
   }
 
   // получение данных конкретного заказа
-  getCurrentOrder(orderNumber: any) {
+  getCurrentOrder(orderNumber?: string) {
     return fetch(`${this._url}/orders/${orderNumber}`, {
       method: "GET",
       headers: {
