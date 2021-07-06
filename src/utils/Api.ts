@@ -1,14 +1,17 @@
 import { getCookie } from "./func";
 
 class IngredientsApi {
-  constructor(url) {
+  _url: string;
+
+  constructor(url: string) {
     this._url = url;
   }
-  _response(res) {
+
+  _response(res: Response) {
     return res.json();
   }
 
-  _handleResponse(res) {
+  _handleResponse(res: Response) {
     if (res.ok) {
       return res.json();
     } else {
@@ -17,7 +20,7 @@ class IngredientsApi {
     }
   }
 
-  _handleResponseError(err) {
+  _handleResponseError(err: Response) {
     console.log(err);
     return Promise.reject(err);
   }
@@ -28,7 +31,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  getOrder(ingredients) {
+  getOrder(ingredients: any) {
     return fetch(`${this._url}/orders`, {
       method: "POST",
       headers: {
@@ -43,7 +46,7 @@ class IngredientsApi {
   }
 
   // получение данных конкретного заказа
-  getCurrentOrder(orderNumber) {
+  getCurrentOrder(orderNumber: any) {
     return fetch(`${this._url}/orders/${orderNumber}`, {
       method: "GET",
       headers: {
@@ -55,7 +58,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  forgotPassword(email) {
+  forgotPassword(email: string) {
     return fetch(`${this._url}/password-reset`, {
       method: "POST",
       headers: {
@@ -68,7 +71,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  resetPassword(password, code) {
+  resetPassword(password: string, code: string) {
     return fetch(`${this._url}/password-reset/reset`, {
       method: "POST",
       headers: {
@@ -81,7 +84,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  registerUser(email, password, name) {
+  registerUser(email: string, password: string, name: string) {
     return fetch(`${this._url}/auth/register`, {
       method: "POST",
       headers: {
@@ -98,7 +101,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  loginUser(email, password) {
+  loginUser(email: string, password: string) {
     return fetch(`${this._url}/auth/login`, {
       method: "POST",
       headers: {
@@ -114,7 +117,7 @@ class IngredientsApi {
       .catch(this._handleResponseError);
   }
 
-  logout(refreshToken) {
+  logout(refreshToken: string) {
     return fetch(`${this._url}/auth/logout`, {
       method: "POST",
       headers: {
@@ -128,7 +131,7 @@ class IngredientsApi {
       .then(this._handleResponse)
       .catch(this._handleResponseError);
   }
-  refreshToken(refreshToken) {
+  refreshToken(refreshToken: string) {
     return fetch(`${this._url}/auth/token`, {
       method: "POST",
       headers: {
@@ -154,7 +157,7 @@ class IngredientsApi {
       .then((res) => (res.json()))
       .catch(this._handleResponseError);
   }
-  updateUserInfo(name, email, password) {
+  updateUserInfo(name: string, email: string, password: string) {
     return fetch(`${this._url}/auth/user`, {
       method: "PATCH",
       headers: {
