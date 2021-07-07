@@ -4,30 +4,45 @@ import {
   MOVE_CLIENT_INGREDIENT,
   CLEAR_CLIENT_INGREDIENTS,
 } from "../types";
+import {
+  TDnDIndex,
+  TIngredient,
+  IclearClientIngredients,
+  ImoveClientIngredient,
+  IremoveClientIngredient,
+  IaddClientIngredient,
+} from "./actionTypes";
 
-export function moveClientIngredient({ dragIndex, hoverIndex }) {
+export const moveClientIngredient = ({
+  dragIndex,
+  hoverIndex,
+}: TDnDIndex): ImoveClientIngredient => {
   return {
     type: MOVE_CLIENT_INGREDIENT,
     payload: { dragIndex, hoverIndex },
   };
-}
+};
 
-export function removeClientIngredient(ingredientId) {
+export const removeClientIngredient = (
+  ingredientId: string
+): IremoveClientIngredient => {
   return {
     type: REM_CLIENT_INGREDIENT,
     payload: ingredientId,
   };
-}
+};
 
-export function addClientIngredient(ingredient) {
+export const addClientIngredient = (
+  ingredient: TIngredient
+): IaddClientIngredient => {
   return {
     type: PUT_CLIENT_INGREDIENT,
     payload: ingredient,
   };
-}
+};
 
-export function clearClientIngredients() {
+export const clearClientIngredients = (): IclearClientIngredients => {
   return {
     type: CLEAR_CLIENT_INGREDIENTS,
   };
-}
+};

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import { useHistory } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import { TIngredient } from "../../services/actions/actionTypes";
 
 import {
   CurrencyIcon,
@@ -28,7 +28,7 @@ function BurgerConstructor() {
   }));
   const [{ isHover }, dropTarget] = useDrop({
     accept: "dragIngredient",
-    drop(ingredient) {
+    drop(ingredient: TIngredient) {
       dispatch(addClientIngredient(ingredient));
     },
     collect: (monitor) => ({

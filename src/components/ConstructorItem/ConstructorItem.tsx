@@ -20,7 +20,7 @@ type TItem = {
   bunLock: boolean;
   bunLock_top: boolean;
   bunLock_bottom: boolean;
-  ingredientId: number;
+  ingredientId: string;
 };
 
 function ConstructorItem(item: TItem) {

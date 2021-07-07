@@ -1,6 +1,8 @@
 import IngredientsApi from "../../utils/Api";
 import { showError } from "./errorActions";
 import { urlApi } from "../../utils/constants";
+import { AppDispatch, AppThunk } from "../store";
+import { TIngredient, IgetSelectedIngredient, IremoveSelectedIngredient } from "../actions/actionTypes";
 import {
   GET_ITEMS_INGREDIENTS_REQUEST,
   GET_ITEMS_INGREDIENTS_SUCCESS,
@@ -11,8 +13,8 @@ import {
 
 const burgerApi = new IngredientsApi(urlApi);
 
-export function getIngredients() {
-  return (dispatch) => {
+export const getIngredients: AppThunk = () => {
+  return (dispatch: AppDispatch) => {
     dispatch({
       type: GET_ITEMS_INGREDIENTS_REQUEST,
     });
@@ -32,16 +34,16 @@ export function getIngredients() {
         });
       });
   };
-}
+};
 
-export function getSelectedIngredient(ingredient) {
+export const getSelectedIngredient = (ingredient: TIngredient): IgetSelectedIngredient => {
   return {
     type: GET_SELECTED_INGREDIENT_INFO,
     payload: ingredient,
   };
 }
 
-export function removeSelectedIngredient() {
+export const removeSelectedIngredient = (): IremoveSelectedIngredient => {
   return {
     type: REM_SELECTED_INGREDIENT_INFO,
   };

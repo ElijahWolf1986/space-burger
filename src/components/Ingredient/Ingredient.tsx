@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Ingredient.module.css";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
-
+import { TIngredient } from "../../services/actions/actionTypes";
 import {
   Counter,
   CurrencyIcon,
@@ -10,15 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { getSelectedIngredient } from "../../services/actions";
 
-type TItem = {
-  image: string;
-  name: string;
-  price: number;
-  _id: string;
-  count: number;
-};
-
-function Ingredient(item: TItem) {
+function Ingredient(item: TIngredient) {
   const location = useLocation();
   const dispatch = useDispatch();
   const ingredient = item;

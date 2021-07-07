@@ -2,7 +2,7 @@ export const update = (date: number, options: Intl.DateTimeFormatOptions) => {
   return new Date(date).toLocaleDateString("ru-RU", options);
 };
 
-export function setCookie(name: string, value: string, props: any) {
+export function setCookie(name: string, value: string, props?: any) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == "number" && exp) {

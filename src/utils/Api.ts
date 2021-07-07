@@ -131,7 +131,7 @@ class IngredientsApi {
       .then(this._handleResponse)
       .catch(this._handleResponseError);
   }
-  refreshToken(refreshToken: string) {
+  refreshToken(refreshToken: string | null) {
     return fetch(`${this._url}/auth/token`, {
       method: "POST",
       headers: {
