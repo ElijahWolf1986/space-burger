@@ -5,18 +5,18 @@ import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addClientIngredient, closeAllPopups } from "../../services/actions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-const element = document.getElementById("modal");
+const element: HTMLElement | null = document.getElementById("modal");
 
 function IngredientDetails() {
   const dispatch = useDispatch();
-  const { currentIngredient } = useSelector((store) => ({
+  const { currentIngredient } = useSelector((store: any) => ({
     currentIngredient: store.burgerIngredient.currentIngredient,
   }));
   function handleAddIngredient() {
     dispatch(addClientIngredient(currentIngredient));
     dispatch(closeAllPopups(currentIngredient));
   }
-  return ReactDOM.createPortal(
+  return element && ReactDOM.createPortal(
     <Modal
       isModal={currentIngredient}
       header="Детали Ингредиента"

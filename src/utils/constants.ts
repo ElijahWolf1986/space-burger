@@ -5,12 +5,12 @@ export const emailPattern =
 
 export const optionsDate = {
   //оциональный вывод даты
-  weekday: "long",
+  weekday: "long" as const,
   //  year: 'numeric',
   //   month: 'long',
   //    day: 'numeric',
-  hour: "2-digit",
-  minute: "2-digit",
+  hour: "2-digit" as const,
+  minute: "2-digit" as const,
   //   second: '2-digit',
-  timeZoneName: "short",
+  timeZoneName: "short" as const,
 };

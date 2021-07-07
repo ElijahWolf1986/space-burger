@@ -92,7 +92,7 @@ function BurgerConstructor() {
           <ul className={styles.constructor_list}>
             {clientIngredients.map((item: any, index: number) => {
               return (
-                <li className={styles.constructor_item} key={uuidv4()}>
+                <li className={styles.constructor_item} key={item.ingredientId}>
                   {" "}
                   <div className={`${styles.dragicon} mb-1`}>
                     {" "}

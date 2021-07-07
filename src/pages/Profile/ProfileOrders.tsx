@@ -9,12 +9,22 @@ import { getIngredients } from "../../services/actions";
 import { wsActions } from "../../services/store";
 import { getCookie } from "../../utils/func";
 
+type TItem = {
+  image: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  _id: string;
+  count: number;
+  number: number;
+};
+
 function ProfileOrders() {
   const location = useLocation();
   const dispatch = useDispatch();
   const token = getCookie("token");
 
-  const { dataOrders, wsConnected } = useSelector((store) => ({
+  const { dataOrders, wsConnected } = useSelector((store: any) => ({
     dataOrders: store.ws.Data,
     wsConnected: store.ws.wsConnected,
   }));
@@ -26,7 +36,9 @@ function ProfileOrders() {
       type: wsActions.wsStart,
       payload: `wss://norma.nomoreparties.space/orders?token=${token}`,
     });
-    return () => dispatch({ type: wsActions.wsClose });
+    return () => {
+      dispatch({ type: wsActions.wsClose });
+    };
   }, [dispatch]);
 
   return wsConnected && data ? (
@@ -36,7 +48,7 @@ function ProfileOrders() {
       </div>
       <div className={styles.profile_orders}>
         <ul className={styles.profile_orders_list}>
-          {data.map((item, index) => {
+          {data.map((item: TItem, index: number) => {
             return (
               <li className={styles.profile_order} key={index}>
                 <Link

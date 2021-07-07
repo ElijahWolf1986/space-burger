@@ -1,36 +1,48 @@
 import React from "react";
 import styles from "./Order.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 import { update } from "../../utils/func";
 import { optionsDate } from "../../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedOrder } from "../../services/actions";
 
-Order.propTypes = {
-  order: PropTypes.object,
-  date: PropTypes.number,
-  number: PropTypes.number,
-  name: PropTypes.string,
-  status: PropTypes.string,
-  price: PropTypes.number,
+type TItem = {
+  image: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  _id: string;
+  count: number;
 };
 
-function Order(props) {
+type TOrderProps = {
+  order?: any;
+  date?: number;
+  number?: number;
+  name?: string;
+  status?: string;
+  price?: number;
+};
+
+function Order(props: TOrderProps) {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector((store) => ({
+  const { ingredients } = useSelector((store: any) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
   const handleClick = () => {
     dispatch(getSelectedOrder(props.order));
   };
   const orderIngredientsId = props.order.ingredients;
-  const orderIngredients = orderIngredientsId.map((id) =>
-    ingredients.find((item) => item._id === id)
+  const orderIngredients = orderIngredientsId.map((id: string) =>
+    ingredients.find((item: TItem) => item._id === id)
   );
-  const orderPrice = orderIngredients.reduce(function (prevValue, item) {
+  const orderPrice = orderIngredients.reduce(function (
+    prevValue: number,
+    item: any
+  ) {
     return prevValue + item.price;
-  }, 0);
+  },
+  0);
   const orderDate = update(props.order.createdAt, optionsDate);
 
   return (
@@ -49,7 +61,7 @@ function Order(props) {
       </p>
       <div className={styles.order_ingredients}>
         <div className={styles.order_img_container}>
-          {orderIngredients.map((item, index) => {
+          {orderIngredients.map((item: TItem, index: number) => {
             return (
               <img
                 className={`${styles.order_img}`}
@@ -63,7 +75,7 @@ function Order(props) {
         </div>
         <div className={styles.order_price_container}>
           <p className={styles.order_price}>{orderPrice}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type="primary" />
         </div>
       </div>
     </section>
