@@ -22,7 +22,7 @@ const burgerApi = new IngredientsApi(urlApi);
 export const getOrder: AppThunk = (ingredients) => {
   return (dispatch: AppDispatch) => {
     dispatch({
-      type: GET_ORDER_REQUEST,
+      type: GET_ORDER_REQUEST, 
     });
     dispatch(
       showError({ status: "подождите...", title: "идет загрузка заказа" })

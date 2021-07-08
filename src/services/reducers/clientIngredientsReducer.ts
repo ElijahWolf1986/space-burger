@@ -5,16 +5,22 @@ import {
   MOVE_CLIENT_INGREDIENT,
   CLEAR_CLIENT_INGREDIENTS,
 } from "../types";
+import { TIngredients, TIngredient, TApplicationActions } from "../actions/actionTypes";
 
-const initialStateClient = {
+type TinitialStateClient = {
+  clientIngredients: any;
+  whatIsBun: TIngredient | null;
+};
+
+const initialStateClient: TinitialStateClient = {
   clientIngredients: [],
   whatIsBun: null,
 };
 
 export const getClientIngredientsReducer = (
   state = initialStateClient,
-  action
-) => {
+  action: TApplicationActions
+): TinitialStateClient => {
   switch (action.type) {
     case PUT_CLIENT_INGREDIENT: {
       if (action.payload.type === "bun") {
@@ -27,7 +33,7 @@ export const getClientIngredientsReducer = (
         ...state,
         clientIngredients: [
           ...state.clientIngredients,
-          { ...action.payload, ingredientId: uuidv4()},
+          { ...action.payload, ingredientId: uuidv4() },
         ],
       };
     }
@@ -36,7 +42,7 @@ export const getClientIngredientsReducer = (
         ...state,
         clientIngredients: [
           ...state.clientIngredients.filter(
-            (item) => item.ingredientId !== action.payload
+            (item: any) => item.ingredientId !== action.payload
           ),
         ],
       };

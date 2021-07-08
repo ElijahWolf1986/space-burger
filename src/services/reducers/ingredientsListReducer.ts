@@ -3,8 +3,15 @@ import {
   GET_ITEMS_INGREDIENTS_SUCCESS,
   GET_ITEMS_INGREDIENTS_FAILED,
 } from "../types";
+import { TIngredients, TApplicationActions } from "../actions/actionTypes";
 
-const initialStateIngredients = {
+type TinitialStateIngredients = {
+  ingredients: TIngredients;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+};
+
+const initialStateIngredients: TinitialStateIngredients = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
@@ -12,8 +19,8 @@ const initialStateIngredients = {
 
 export const putIngredientsListReducer = (
   state = initialStateIngredients,
-  action
-) => {
+  action: TApplicationActions
+): TinitialStateIngredients => {
   switch (action.type) {
     case GET_ITEMS_INGREDIENTS_REQUEST: {
       return {

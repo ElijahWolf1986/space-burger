@@ -1,5 +1,7 @@
 import { getCookie } from "../utils/func";
 
+type TAction = {type: string, payload?: any};
+
 export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;

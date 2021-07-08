@@ -19,19 +19,39 @@ import {
   WS_SEND_MESSAGE,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_FAILED,
+  RESET_USER_PASSWORD,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAILED,
+  REM_USER_INFO,
+  REFRESH_USER_TOKEN,
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_FAILED,
+  GET_USER_PASSWORD_CODE,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_FAILED,
+  GET_ITEMS_INGREDIENTS_REQUEST,
+  GET_ITEMS_INGREDIENTS_SUCCESS,
+  GET_ITEMS_INGREDIENTS_FAILED,
 } from "../types";
 
 //Типы props
 
 export type TDnDIndex = {
-  //Тип для работы с библиотекой DnD
   dragIndex: number;
   hoverIndex: number;
 };
 export type TIngredients = [];
 
 export type TIngredient = {
-  //Тип ингредиента приходящего с сервера
   calories: number;
   carbohydrates: number;
   count: number;
@@ -56,14 +76,29 @@ export type TOrder = {
   _id: string;
 };
 
-export type TOrders = [];
+export type TOrders = {
+  orders:
+    | [
+        {
+          ingredients: TIngredients;
+          _id: string;
+          status: string;
+          number: number;
+          createdAt: string;
+        }
+      ]
+    | [];
+  total: number;
+  totalToday: number;
+};
 
-//Тип ошибки приходящей с сервера
 export type TError = {
   status?: string;
   title?: string;
   statusText?: string;
 };
+
+type TUser = { email: string; name: string };
 
 //************************* */
 
@@ -86,6 +121,95 @@ export interface IremoveClientIngredient {
 export interface IaddClientIngredient {
   readonly type: typeof PUT_CLIENT_INGREDIENT;
   payload: TIngredient;
+}
+
+//************************* */
+
+//Interfaces userActions
+export interface IgetUserInfo {
+  readonly type:
+    | typeof GET_USER_INFO_REQUEST
+    | typeof GET_USER_INFO_SUCCESS
+    | typeof GET_USER_INFO_FAILED;
+  payload: {
+    success: boolean;
+    user: TUser;
+  };
+}
+
+export interface IupdateUserInfo {
+  readonly type:
+    | typeof UPDATE_USER_INFO_REQUEST
+    | typeof UPDATE_USER_INFO_SUCCESS
+    | typeof UPDATE_USER_INFO_FAILED;
+  payload: {
+    success: boolean;
+    user: TUser;
+  };
+}
+
+export interface IloginUser {
+  //add type Tuser
+  readonly type:
+    | typeof LOGIN_USER_REQUEST
+    | typeof LOGIN_USER_SUCCESS
+    | typeof LOGIN_USER_FAILED;
+  payload: {
+    success: boolean;
+    user: TUser;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
+export interface IcreateUser {
+  readonly type:
+    | typeof CREATE_USER_REQUEST
+    | typeof CREATE_USER_SUCCESS
+    | typeof CREATE_USER_FAILED;
+  payload: {
+    success: boolean;
+    user: TUser;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
+export interface IgetCodeUserPassword {
+  readonly type: typeof GET_USER_PASSWORD_CODE;
+  payload: { success: boolean; message: string };
+}
+
+export interface IresetUserPassword {
+  readonly type: typeof RESET_USER_PASSWORD;
+  payload: { success: boolean; message: string };
+}
+
+export interface Ilogout {
+  readonly type: typeof REM_USER_INFO;
+  payload: { success: boolean; message: string };
+}
+
+export interface IrefreshToken {
+  readonly type: typeof REFRESH_USER_TOKEN;
+  payload: {
+    success: boolean;
+    user: TUser;
+    accessToken: string;
+    refreshToken: string;
+  };
+}
+
+//************************* */
+
+//Interfaces ingredientsListActions
+
+export interface IputIngredientsList {
+  readonly type:
+    | typeof GET_ITEMS_INGREDIENTS_REQUEST
+    | typeof GET_ITEMS_INGREDIENTS_SUCCESS
+    | typeof GET_ITEMS_INGREDIENTS_FAILED;
+  payload: TIngredients;
 }
 
 //************************* */
@@ -131,6 +255,14 @@ export interface IremoveSelectedIngredient {
 //************************* */
 
 //Interfaces orderActions
+export interface IgetOrder {
+  readonly type:
+    | typeof GET_ORDER_REQUEST
+    | typeof GET_ORDER_SUCCESS
+    | typeof GET_ORDER_FAILED;
+  payload: TOrder;
+}
+
 export interface IhideOrder {
   readonly type: typeof REM_ORDER;
 }
@@ -189,4 +321,14 @@ export type TApplicationActions =
   | IwsGetOrders
   | IwsSendMessage
   | IwsConnectionError
-  | IwsConnectionClosed;
+  | IwsConnectionClosed
+  | IgetOrder
+  | IgetUserInfo
+  | IupdateUserInfo
+  | IloginUser
+  | IcreateUser
+  | IresetUserPassword
+  | IgetCodeUserPassword
+  | IrefreshToken
+  | Ilogout
+  | IputIngredientsList;
