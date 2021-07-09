@@ -43,7 +43,10 @@ export const getUserInfo: AppThunk = () => {
       })
       .catch((error) => {
         if (error.message === "jwt expired") {
-          dispatch(refreshToken(getUserInfo()));
+          // dispatch({
+          //   // type: 
+          //   refreshToken(getUserInfo())
+          // });
           console.log(error);
         }
         dispatch({
@@ -72,7 +75,9 @@ export const updateUserInfo: AppThunk = (name, email, password) => {
       })
       .catch((error) => {
         if (error.message === "jwt expired") {
-          dispatch(refreshToken(updateUserInfo(name, email, password)));
+          // dispatch(
+          //   refreshToken(updateUserInfo(name, email, password))
+          // );
           console.log(error);
           dispatch({
             type: UPDATE_USER_INFO_FAILED,
@@ -204,7 +209,7 @@ export const refreshToken: AppThunk = (afterRefresh: () => void) => {
           type: REFRESH_USER_TOKEN,
           payload: res,
         });
-        if (afterRefresh) dispatch(afterRefresh);
+        // if (afterRefresh) dispatch(afterRefresh);
       })
       .catch((error) => {
         console.log(error);

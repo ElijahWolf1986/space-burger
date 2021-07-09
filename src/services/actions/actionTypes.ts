@@ -126,34 +126,48 @@ export interface IaddClientIngredient {
 //************************* */
 
 //Interfaces userActions
+export interface IgetUserInfoRequest {
+  readonly type: typeof GET_USER_INFO_REQUEST;
+}
+// export interface IdispatchRefreshToken {
+//   type: string;
+//   payload: () => void;
+// }
+
 export interface IgetUserInfo {
-  readonly type:
-    | typeof GET_USER_INFO_REQUEST
-    | typeof GET_USER_INFO_SUCCESS
-    | typeof GET_USER_INFO_FAILED;
+  readonly type: typeof GET_USER_INFO_SUCCESS;
   payload: {
     success: boolean;
     user: TUser;
   };
+}
+
+export interface IgetUserInfoFailed {
+  readonly type: typeof GET_USER_INFO_FAILED;
+}
+
+export interface IupdateUserInfoRequest {
+  readonly type: typeof UPDATE_USER_INFO_REQUEST;
 }
 
 export interface IupdateUserInfo {
-  readonly type:
-    | typeof UPDATE_USER_INFO_REQUEST
-    | typeof UPDATE_USER_INFO_SUCCESS
-    | typeof UPDATE_USER_INFO_FAILED;
+  readonly type: typeof UPDATE_USER_INFO_SUCCESS;
   payload: {
     success: boolean;
     user: TUser;
   };
+}
+
+export interface IupdateUserInfoFailed {
+  readonly type: typeof UPDATE_USER_INFO_FAILED;
+}
+
+export interface IloginUserRequest {
+  readonly type: typeof LOGIN_USER_REQUEST;
 }
 
 export interface IloginUser {
-  //add type Tuser
-  readonly type:
-    | typeof LOGIN_USER_REQUEST
-    | typeof LOGIN_USER_SUCCESS
-    | typeof LOGIN_USER_FAILED;
+  readonly type: typeof LOGIN_USER_SUCCESS;
   payload: {
     success: boolean;
     user: TUser;
@@ -162,17 +176,26 @@ export interface IloginUser {
   };
 }
 
+export interface IloginUserFailed {
+  readonly type: typeof LOGIN_USER_FAILED;
+}
+
+export interface IcreateUserRequest {
+  readonly type: typeof CREATE_USER_REQUEST;
+}
+
 export interface IcreateUser {
-  readonly type:
-    | typeof CREATE_USER_REQUEST
-    | typeof CREATE_USER_SUCCESS
-    | typeof CREATE_USER_FAILED;
+  readonly type: typeof CREATE_USER_SUCCESS;
   payload: {
     success: boolean;
     user: TUser;
     accessToken: string;
     refreshToken: string;
   };
+}
+
+export interface IcreateUserFailed {
+  readonly type: typeof CREATE_USER_FAILED;
 }
 
 export interface IgetCodeUserPassword {
@@ -204,12 +227,17 @@ export interface IrefreshToken {
 
 //Interfaces ingredientsListActions
 
+export interface IputIngredientsListRequest {
+  readonly type: typeof GET_ITEMS_INGREDIENTS_REQUEST;
+}
+
 export interface IputIngredientsList {
-  readonly type:
-    | typeof GET_ITEMS_INGREDIENTS_REQUEST
-    | typeof GET_ITEMS_INGREDIENTS_SUCCESS
-    | typeof GET_ITEMS_INGREDIENTS_FAILED;
+  readonly type: typeof GET_ITEMS_INGREDIENTS_SUCCESS;
   payload: TIngredients;
+}
+
+export interface IputIngredientsListFailed {
+  readonly type: typeof GET_ITEMS_INGREDIENTS_FAILED;
 }
 
 //************************* */
@@ -255,12 +283,15 @@ export interface IremoveSelectedIngredient {
 //************************* */
 
 //Interfaces orderActions
+export interface IgetOrderRequest {
+  readonly type: typeof GET_ORDER_REQUEST;
+}
 export interface IgetOrder {
-  readonly type:
-    | typeof GET_ORDER_REQUEST
-    | typeof GET_ORDER_SUCCESS
-    | typeof GET_ORDER_FAILED;
+  readonly type: typeof GET_ORDER_SUCCESS;
   payload: TOrder;
+}
+export interface IgetOrderFailed {
+  readonly type: typeof GET_ORDER_FAILED;
 }
 
 export interface IhideOrder {
@@ -331,4 +362,17 @@ export type TApplicationActions =
   | IgetCodeUserPassword
   | IrefreshToken
   | Ilogout
-  | IputIngredientsList;
+  | IputIngredientsList
+  | IputIngredientsListRequest
+  | IputIngredientsListFailed
+  | IgetUserInfoRequest
+  | IgetUserInfoFailed
+  | IupdateUserInfoRequest
+  | IupdateUserInfoFailed
+  | IgetOrderFailed
+  | IgetOrderRequest
+  | IcreateUserRequest
+  | IcreateUserFailed
+  | IloginUserRequest
+  | IloginUserFailed;
+// | IdispatchRefreshToken;

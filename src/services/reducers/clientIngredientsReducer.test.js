@@ -8,7 +8,7 @@ import { getClientIngredientsReducer } from "./clientIngredientsReducer";
 
 const initialStateClient = {
   clientIngredients: [],
-  whatIsBun: null,
+  whatIsBun: null, 
 };
 const initialStateClientForMove = {
   clientIngredients: [0, 1, 2, 3, 4],
@@ -19,7 +19,7 @@ const initialStateClientForRemove = {
     {
       name: "Хлеб",
       type: "main",
-      ingredientId: 0,
+      ingredientId: 0, 
     },
     {
       name: "Мясо",

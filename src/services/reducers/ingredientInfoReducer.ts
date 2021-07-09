@@ -4,7 +4,7 @@ import {
 } from "../types";
 import { TIngredient, TApplicationActions } from "../actions/actionTypes";
 
-type TinitialStateIngredient = {
+export type TinitialStateIngredient = {
   currentIngredient: TIngredient | null;
 };
 
