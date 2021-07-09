@@ -6,6 +6,8 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { loginUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
+import { RootState } from "../../services/store";
+
 
 interface LocationState {
   from: {

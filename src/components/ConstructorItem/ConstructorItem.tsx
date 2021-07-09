@@ -10,20 +10,9 @@ import {
   moveClientIngredient,
 } from "../../services/actions";
 import styles from "./ConstructorItem.module.css";
+import { TIngredient } from "../../services/actions/actionTypes";
 
-type TItem = {
-  _id: string;
-  image: string;
-  name: string;
-  price: number;
-  index: number;
-  bunLock: boolean;
-  bunLock_top: boolean;
-  bunLock_bottom: boolean;
-  ingredientId: string;
-};
-
-function ConstructorItem(item: TItem) {
+function ConstructorItem(item: TIngredient) {
   const dispatch = useDispatch();
   const ref = useRef<HTMLInputElement>(null);
   const id = item._id;
@@ -40,7 +29,7 @@ function ConstructorItem(item: TItem) {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: TItem, monitor) {
+    hover(item: TIngredient, monitor) {
       if (!ref.current) {
         return;
       }

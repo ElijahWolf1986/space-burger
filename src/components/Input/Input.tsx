@@ -1,14 +1,6 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import styles from "./Input.module.css";
-
-type TInput = {
-  placeholder: string;
-  type: string;
-  isRequired: boolean;
-  value: string;
-  custom?: boolean;
-  handleChange: (evt: ChangeEvent) => void;
-};
+import { TInput } from "../../services/actions/actionTypes";
 
 function Input(props: TInput) {
   const { placeholder, type, value, handleChange, isRequired, custom } = props;

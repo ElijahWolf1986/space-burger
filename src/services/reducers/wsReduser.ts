@@ -5,12 +5,16 @@ import {
   WS_CONNECTION_CLOSED,
 } from "../types";
 
-import { TOrders, TApplicationActions } from "../actions/actionTypes";
+import { TOrder, TApplicationActions } from "../actions/actionTypes";
 
 type TinitialStateWS = {
   wsConnected: boolean;
   wsError: boolean;
-  Data: TOrders;
+  Data: {
+    orders: [TOrder] | [];
+    total: number;
+    totalToday: number;
+  };
 };
 
 const initialStateWS: TinitialStateWS = {

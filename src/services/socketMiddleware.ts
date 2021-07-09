@@ -2,18 +2,21 @@ import { getCookie } from "../utils/func";
 import { RootState } from "./store";
 import { Middleware } from "redux";
 export type WsActions = {
-  wsStart: string,
-  wsSendMessage: string,
-  onOpen: string,
-  onClose: string,
-  onError: string,
-  onGetOrders: string,
-  wsClose: string,
-  wsPingPong: string,
-}
-export const createSocketMiddlware = (wsUrl: string, wsActions: WsActions): Middleware<{}, RootState> => {
-  const socketMiddleware: Middleware<{}, RootState>  = (store) => {
-    let socket: WebSocket | null= null;
+  wsStart: string;
+  wsSendMessage: string;
+  onOpen: string;
+  onClose: string;
+  onError: string;
+  onGetOrders: string;
+  wsClose: string;
+  wsPingPong: string;
+};
+export const createSocketMiddlware = (
+  wsUrl: string,
+  wsActions: WsActions
+): Middleware<{}, RootState> => {
+  const socketMiddleware: Middleware<{}, RootState> = (store) => {
+    let socket: WebSocket | null = null;
     return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload } = action;
@@ -29,7 +32,7 @@ export const createSocketMiddlware = (wsUrl: string, wsActions: WsActions): Midd
       } = wsActions;
       if (type === wsStart) {
         socket = new WebSocket(action.payload);
-        socket.onopen = (event ) => {
+        socket.onopen = (event) => {
           console.log("open session ws");
           console.log(event);
           dispatch({ type: onOpen, payload: event });
@@ -47,7 +50,7 @@ export const createSocketMiddlware = (wsUrl: string, wsActions: WsActions): Midd
           dispatch({
             type: onGetOrders,
             payload: {
-              data: parseData,
+              ...parseData,
               timestamp: new Date().getTime() / 100,
             },
           });
@@ -76,4 +79,4 @@ export const createSocketMiddlware = (wsUrl: string, wsActions: WsActions): Midd
     };
   };
   return socketMiddleware;
-}
+};

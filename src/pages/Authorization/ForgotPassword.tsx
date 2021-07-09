@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
@@ -6,10 +6,12 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import { emailPattern } from "../../utils/constants";
 import { getCodeUserPassword } from "../../services/actions";
+import { RootState } from "../../services/store";
 
-function ForgotPassword() {
+
+const ForgotPassword: FC = () => {
   const location = useLocation();
-  const { message, success } = useSelector((store: any) => ({
+  const { message, success } = useSelector((store: RootState) => ({
     message: store.user.message,
     success: store.user.success,
   }));

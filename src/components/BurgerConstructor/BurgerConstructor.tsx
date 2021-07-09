@@ -3,7 +3,6 @@ import styles from "./BurgerConstructor.module.css";
 import ConstructorItem from "../ConstructorItem/ConstructorItem";
 import { useHistory } from "react-router-dom";
 import { TIngredient } from "../../services/actions/actionTypes";
-
 import {
   CurrencyIcon,
   Button,
@@ -17,12 +16,13 @@ import {
 } from "../../services/actions";
 import hungry from "../../images/hungry.png";
 import { useDrop } from "react-dnd";
+import { RootState } from "../../services/store";
 
-function BurgerConstructor() {
+const BurgerConstructor: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isToken = localStorage.getItem("refreshToken");
-  const { clientIngredients, whatIsBun } = useSelector((store: any) => ({
+  const { clientIngredients, whatIsBun } = useSelector((store: RootState) => ({
     clientIngredients: store.client.clientIngredients,
     whatIsBun: store.client.whatIsBun,
   }));
@@ -42,7 +42,7 @@ function BurgerConstructor() {
   if (clientIngredients && !whatIsBun) {
     totalPrice = clientIngredients.reduce(function (
       prevValue: number,
-      item: any
+      item: TIngredient
     ) {
       return prevValue + item.price;
     },
@@ -50,7 +50,7 @@ function BurgerConstructor() {
   }
   if (clientIngredients && whatIsBun) {
     totalPrice =
-      clientIngredients.reduce(function (prevValue: number, item: any) {
+      clientIngredients.reduce(function (prevValue: number, item: TIngredient) {
         return prevValue + item.price;
       }, 0) +
       whatIsBun.price * 2;
@@ -65,7 +65,7 @@ function BurgerConstructor() {
     if (!whatIsBun && isToken) {
       dispatch(
         showError({
-          status: "Положи-ка булочку в заказ дружок - с ней будет веселее!)",
+          statusText: "Положи-ка булочку в заказ дружок - с ней будет веселее!)",
         })
       );
     }
@@ -90,7 +90,7 @@ function BurgerConstructor() {
         {/* Тут отрисовываем ингредиенты внутри списка */}
         <div className={styles.constructor_ingredients}>
           <ul className={styles.constructor_list}>
-            {clientIngredients.map((item: any, index: number) => {
+            {clientIngredients.map((item: TIngredient, index: number) => {
               return (
                 <li className={styles.constructor_item} key={item.ingredientId}>
                   {" "}
@@ -143,6 +143,6 @@ function BurgerConstructor() {
       </div>
     </section>
   );
-}
+};
 
 export default BurgerConstructor;

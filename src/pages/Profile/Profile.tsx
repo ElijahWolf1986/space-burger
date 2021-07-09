@@ -5,6 +5,8 @@ import ProfileMenu from "./ProfileMenu";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo, updateUserInfo } from "../../services/actions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { RootState } from "../../services/store";
+
 
 function Profile() {
   const { userName, userEmail } = useSelector((store: any) => ({

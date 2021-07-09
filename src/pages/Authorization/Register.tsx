@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
@@ -6,10 +6,11 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
 import { createUser } from "../../services/actions";
 import { emailPattern } from "../../utils/constants";
+import { RootState } from "../../services/store";
 
-function Register() {
+const Register: FC = () => {
   const dispatch = useDispatch();
-  const { success } = useSelector((store: any) => ({
+  const { success } = useSelector((store: RootState) => ({
     success: store.user.success,
   }));
   const [name, setName] = React.useState<string>("");
@@ -102,6 +103,6 @@ function Register() {
       </p>
     </form>
   );
-}
+};
 
 export default Register;

@@ -5,6 +5,8 @@ import successIcon from "../../images/OrderDetails/success_icon.png";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
+
 
 OrderDetails.propTypes = {
   onClose: PropTypes.func,

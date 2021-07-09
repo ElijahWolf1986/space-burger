@@ -1,3 +1,4 @@
+import React, { ChangeEvent } from "react";
 import {
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
@@ -63,11 +64,16 @@ export type TIngredient = {
   proteins: number;
   type: string;
   _id: string;
-  price?: number;
+  price: number;
+  index: number;
+  bunLock: boolean;
+  bunLock_top: boolean;
+  bunLock_bottom: boolean;
+  ingredientId: string;
 };
 
 export type TOrder = {
-  createdAt: string;
+  createdAt: number;
   ingredients: TIngredients;
   name: string;
   number: number;
@@ -88,18 +94,43 @@ export type TOrders = {
         }
       ]
     | [];
-  total: number;
-  totalToday: number;
+  // total: number;
+  // totalToday: number;
 };
 
+
 export type TError = {
-  status?: string;
+  status?: number;
   title?: string;
   statusText?: string;
 };
 
 type TUser = { email: string; name: string };
 
+
+export type TInput = {
+  placeholder: string;
+  type: string;
+  isRequired: boolean;
+  value: string;
+  custom?: boolean;
+  handleChange: (evt: ChangeEvent) => void;
+};
+
+export type TModalPropsType = {
+  type: string;
+  isModal: any;
+  header?: string;
+  children?: {};
+};
+
+export type WSData = {
+  orders: [TOrder];
+  success: boolean;
+  timestamp: number;
+  total: number;
+  totalToday: number;
+}
 //************************* */
 
 //Interfaces clientIngredientctions
@@ -129,10 +160,6 @@ export interface IaddClientIngredient {
 export interface IgetUserInfoRequest {
   readonly type: typeof GET_USER_INFO_REQUEST;
 }
-// export interface IdispatchRefreshToken {
-//   type: string;
-//   payload: () => void;
-// }
 
 export interface IgetUserInfo {
   readonly type: typeof GET_USER_INFO_SUCCESS;
@@ -315,7 +342,7 @@ export interface IwsConnectionSuccess {
 }
 export interface IwsGetOrders {
   readonly type: typeof WS_GET_ORDERS;
-  payload: TOrders;
+  payload: WSData;
 }
 export interface IwsSendMessage {
   readonly type: typeof WS_SEND_MESSAGE;
@@ -375,4 +402,3 @@ export type TApplicationActions =
   | IcreateUserFailed
   | IloginUserRequest
   | IloginUserFailed;
-// | IdispatchRefreshToken;

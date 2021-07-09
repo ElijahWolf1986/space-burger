@@ -11,13 +11,16 @@ import {
   hidePersonalMenu,
   closeAllPopups,
 } from "../../services/actions";
+import { RootState } from "../../services/store";
 
-function TooglePopup() {
+const TooglePopup: React.FC = () => {
   const dispatch = useDispatch();
-  const { isTooglePopup, isTooglePersonal } = useSelector((store: any) => ({
-    isTooglePopup: store.menu.isTooglePopup,
-    isTooglePersonal: store.menu.isTooglePersonal,
-  }));
+  const { isTooglePopup, isTooglePersonal } = useSelector(
+    (store: RootState) => ({
+      isTooglePopup: store.menu.isTooglePopup,
+      isTooglePersonal: store.menu.isTooglePersonal,
+    })
+  );
   function onClose() {
     if (isTooglePopup) {
       dispatch(closeAllPopups());
@@ -86,6 +89,6 @@ function TooglePopup() {
       </menu>
     </section>
   );
-}
+};
 
 export default TooglePopup;

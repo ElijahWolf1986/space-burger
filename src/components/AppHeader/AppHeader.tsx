@@ -10,15 +10,16 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { showMenu } from "../../services/actions";
 import { Link, useLocation } from "react-router-dom";
+import { RootState } from "../../services/store";
 
-function AppHeader() {
+const AppHeader: React.FC = ()  => {
   const [userName, setUserName] = React.useState<string | null>("");
   const dispatch = useDispatch();
   const location = useLocation();
   function openMenu() {
     dispatch(showMenu());
   }
-  const { isTooglePopup } = useSelector((store: any) => ({
+  const { isTooglePopup } = useSelector((store: RootState) => ({
     isTooglePopup: store.menu.isTooglePopup,
   }));
 

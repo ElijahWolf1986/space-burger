@@ -36,7 +36,7 @@ function Order(props: TOrderProps) {
   const orderIngredients = orderIngredientsId.map((id: string) =>
     ingredients.find((item: TItem) => item._id === id)
   );
-  const orderPrice = orderIngredients.reduce(function (
+  const orderPrice = orderIngredients && orderIngredients.reduce(function (
     prevValue: number,
     item: any
   ) {

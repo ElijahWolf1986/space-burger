@@ -7,7 +7,7 @@ import {
 } from "../types";
 
 import {
-  TOrders,
+  WSData,
   IwsConnectionSuccess,
   IwsGetOrders,
   IwsSendMessage,
@@ -21,7 +21,7 @@ export const wsConnectionSuccess = (): IwsConnectionSuccess => {
   };
 };
 
-export const wsGetOrders = (orders: TOrders): IwsGetOrders => {
+export const wsGetOrders = (orders: WSData): IwsGetOrders => {
   return {
     type: WS_GET_ORDERS,
     payload: orders,
