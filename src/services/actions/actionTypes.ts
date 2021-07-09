@@ -98,15 +98,13 @@ export type TOrders = {
   // totalToday: number;
 };
 
-
 export type TError = {
   status?: number;
   title?: string;
   statusText?: string;
 };
 
-type TUser = { email: string; name: string };
-
+export type TUser = { email: string; name: string; password: string };
 
 export type TInput = {
   placeholder: string;
@@ -130,7 +128,7 @@ export type WSData = {
   timestamp: number;
   total: number;
   totalToday: number;
-}
+};
 //************************* */
 
 //Interfaces clientIngredientctions

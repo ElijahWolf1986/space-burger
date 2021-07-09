@@ -26,7 +26,7 @@ import {
 const burgerApi = new IngredientsApi(urlApi);
 
 export const getUserInfo: AppThunk = () => {
-  return (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch | AppThunk) => {
     dispatch({
       type: GET_USER_INFO_REQUEST,
     });
@@ -43,10 +43,9 @@ export const getUserInfo: AppThunk = () => {
       })
       .catch((error) => {
         if (error.message === "jwt expired") {
-          // dispatch({
-          //   // type: 
-          //   refreshToken(getUserInfo())
-          // });
+          dispatch({
+            type: refreshToken(getUserInfo()),
+          });
           console.log(error);
         }
         dispatch({
@@ -57,7 +56,7 @@ export const getUserInfo: AppThunk = () => {
 };
 
 export const updateUserInfo: AppThunk = (name, email, password) => {
-  return (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch | AppThunk) => {
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
     });
@@ -75,9 +74,7 @@ export const updateUserInfo: AppThunk = (name, email, password) => {
       })
       .catch((error) => {
         if (error.message === "jwt expired") {
-          // dispatch(
-          //   refreshToken(updateUserInfo(name, email, password))
-          // );
+          dispatch(refreshToken(updateUserInfo(name, email, password)));
           console.log(error);
           dispatch({
             type: UPDATE_USER_INFO_FAILED,
@@ -197,7 +194,7 @@ export const logout: AppThunk = (refreshToken) => {
 };
 
 export const refreshToken: AppThunk = (afterRefresh: () => void) => {
-  return (dispatch: AppDispatch) => {
+  return (dispatch: AppDispatch | AppThunk) => {
     burgerApi
       .refreshToken(localStorage.getItem("refreshToken"))
       .then((res) => {
@@ -209,7 +206,7 @@ export const refreshToken: AppThunk = (afterRefresh: () => void) => {
           type: REFRESH_USER_TOKEN,
           payload: res,
         });
-        // if (afterRefresh) dispatch(afterRefresh);
+        if (afterRefresh) dispatch(afterRefresh);
       })
       .catch((error) => {
         console.log(error);

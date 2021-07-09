@@ -16,10 +16,10 @@ import {
   UPDATE_USER_INFO_SUCCESS,
   UPDATE_USER_INFO_FAILED,
 } from "../types";
-import { TApplicationActions } from "../actions/actionTypes";
+import { TApplicationActions, TUser } from "../actions/actionTypes";
 
 type TinitialUserInfo = {
-  user: {email: string, password: string, name: string} | {};
+  user: TUser;
   success: boolean;
   accessToken: string | null;
   refreshToken: string | null;
@@ -28,7 +28,7 @@ type TinitialUserInfo = {
   userRequestFail: boolean;
 };
 const initialUserInfo: TinitialUserInfo = {
-  user: {},
+  user: { email: "", password: "", name: "" },
   success: false,
   accessToken: null,
   refreshToken: null,
@@ -37,7 +37,10 @@ const initialUserInfo: TinitialUserInfo = {
   userRequestFail: false,
 };
 
-export const userInfoReducer = (state = initialUserInfo, action: TApplicationActions): TinitialUserInfo => {
+export const userInfoReducer = (
+  state = initialUserInfo,
+  action: TApplicationActions
+): TinitialUserInfo => {
   switch (action.type) {
     case CREATE_USER_REQUEST: {
       return {
@@ -134,7 +137,7 @@ export const userInfoReducer = (state = initialUserInfo, action: TApplicationAct
       const { success, message } = action.payload;
       return {
         ...state,
-        user: {},
+        user: { email: "", password: "", name: "" },
         success: success,
         accessToken: null,
         refreshToken: null,

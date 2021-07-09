@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FormEvent, FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Input from "../../components/Input/Input";
 import styles from "./Authorization.module.css";
@@ -15,12 +15,13 @@ interface LocationState {
   };
 }
 
-function Login() {
+const Login: FC = () =>{
   const location = useLocation<LocationState>();
-  const { success, userName } = useSelector((store: any) => ({
+  const { success, userName } = useSelector((store: RootState) => ({
     success: store.user.success,
     userName: store.user.user.name,
   }));
+
   const dispatch = useDispatch();
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");

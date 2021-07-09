@@ -7,9 +7,8 @@ import { getUserInfo, updateUserInfo } from "../../services/actions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { RootState } from "../../services/store";
 
-
 function Profile() {
-  const { userName, userEmail } = useSelector((store: any) => ({
+  const { userName, userEmail } = useSelector((store: RootState) => ({
     userName: store.user.user.name,
     userEmail: store.user.user.email,
   }));
