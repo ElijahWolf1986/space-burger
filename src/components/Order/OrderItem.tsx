@@ -10,46 +10,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions";
 import Preloader from "../Preloader/Preloader";
 import { showError } from "../../services/actions";
-
-type TItem = {
-  image: string;
-  image_mobile: string;
-  name: string;
-  price: number;
-  _id: string;
-  count: number;
-};
-
-type TOrderProps = {
-  order: any;
-  date: number;
-  number: number;
-  name: string;
-  status: string;
-  price: number;
-  ingredients: [string];
-  createdAt: number;
-};
+import { RootState } from "../../services/store";
+import { TIngredient, TOrder } from "../../services/actions/actionTypes";
 
 function OrderItem() {
   const dispatch = useDispatch();
   const burgerApi = new IngredientsApi(urlApi);
-  const [order, setOrder] = React.useState<TOrderProps>();
+  const [order, setOrder] = React.useState<TOrder>();
   const { id } = useParams<{ id?: string }>();
-  const { ingredients } = useSelector((store: any) => ({
+  const { ingredients } = useSelector((store: RootState) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
-  const orderIngredients =
+  const orderIngredients: any =
     ingredients &&
     order &&
     order.ingredients.map((id: string) =>
-      ingredients.find((item: TItem) => item._id === id)
+      ingredients.find((item: TIngredient) => item._id === id)
     );
   const orderDate = order && update(order.createdAt, optionsDate);
-  const orderPrice =
+  const orderPrice=
     orderIngredients &&
     ingredients &&
-    orderIngredients.reduce(function (prevValue: number, item: TItem) {
+    orderIngredients.reduce(function (prevValue: number, item: TIngredient) {
       return prevValue + item.price;
     }, 0);
 
@@ -81,7 +63,7 @@ function OrderItem() {
       <div className={styles.order_ingredients_container}>
         {order &&
           orderIngredients &&
-          orderIngredients.map((item: TItem, index: number) => {
+          orderIngredients.map((item: TIngredient, index: number) => {
             return (
               <div className={styles.order_ingredient_item} key={index}>
                 <div className={styles.order_ingredient_container}>

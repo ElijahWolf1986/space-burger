@@ -3,9 +3,9 @@ import {
   PUT_CLIENT_INGREDIENT,
   REM_CLIENT_INGREDIENT,
   MOVE_CLIENT_INGREDIENT,
-  CLEAR_CLIENT_INGREDIENTS, 
+  CLEAR_CLIENT_INGREDIENTS,
 } from "../types";
-import { TIngredients, TIngredient, TApplicationActions } from "../actions/actionTypes";
+import { TIngredient, TApplicationActions } from "../actions/actionTypes";
 
 export type TinitialStateClient = {
   clientIngredients: any;

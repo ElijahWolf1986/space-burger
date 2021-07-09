@@ -20,14 +20,11 @@ const IngredientDetails: React.FC = () => {
       dispatch(closeAllPopups(currentIngredient));
     }
   }
+  const isModal = currentIngredient ? true : false;
   return (
     element &&
     ReactDOM.createPortal(
-      <Modal
-        isModal={currentIngredient}
-        header="Детали Ингредиента"
-        type="goBack"
-      >
+      <Modal isModal={isModal} header="Детали Ингредиента" type="goBack">
         <div className={styles.ingredient_container}>
           <img
             src={currentIngredient ? currentIngredient.image : "#"}

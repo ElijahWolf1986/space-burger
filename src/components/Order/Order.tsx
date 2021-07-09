@@ -5,63 +5,50 @@ import { update } from "../../utils/func";
 import { optionsDate } from "../../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
 import { getSelectedOrder } from "../../services/actions";
-
-type TItem = {
-  image: string;
-  image_mobile: string;
-  name: string;
-  price: number;
-  _id: string;
-  count: number;
-};
+import { RootState } from "../../services/store";
+import { TIngredient, TOrder } from "../../services/actions/actionTypes";
 
 type TOrderProps = {
-  order?: any;
-  date?: number;
-  number?: number;
-  name?: string;
-  status?: string;
-  price?: number;
+  order: TOrder;
 };
 
 function Order(props: TOrderProps) {
+  const order: TOrder = props.order;
   const dispatch = useDispatch();
-  const { ingredients } = useSelector((store: any) => ({
+  const { ingredients } = useSelector((store: RootState) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
   const handleClick = () => {
-    dispatch(getSelectedOrder(props.order));
+    dispatch(getSelectedOrder(order));
   };
-  const orderIngredientsId = props.order.ingredients;
-  const orderIngredients = orderIngredientsId.map((id: string) =>
-    ingredients.find((item: TItem) => item._id === id)
+  const orderIngredientsId = order.ingredients;
+  const orderIngredients: any = orderIngredientsId.map((id: string) =>
+    ingredients.find((item: TIngredient) => item._id === id)
   );
-  const orderPrice = orderIngredients && orderIngredients.reduce(function (
-    prevValue: number,
-    item: any
-  ) {
-    return prevValue + item.price;
-  },
-  0);
-  const orderDate = update(props.order.createdAt, optionsDate);
+  const orderPrice =
+    orderIngredients &&
+    orderIngredients.reduce(function (prevValue: number, item: TIngredient) {
+      return prevValue + item.price;
+    }, 0);
+  const orderDate = update(order.createdAt, optionsDate);
 
   return (
     <section className={styles.order} onClick={handleClick}>
       <div className={styles.order_header}>
-        <p className={styles.order_number}>#{props.order.number}</p>
+        <p className={styles.order_number}>#{order.number}</p>
         <p className={styles.order_date}>{orderDate}</p>
       </div>
-      <p className={styles.order_name}>{props.order.name}</p>
+      <p className={styles.order_name}>{order.name}</p>
       <p
         className={`${styles.order_status} ${
-          props.order.status === "done" && styles.order_status_finished
-        } ${props.order.status === "pending" && styles.order_status_cancelled}`}
+          order.status === "done" && styles.order_status_finished
+        } ${order.status === "pending" && styles.order_status_cancelled}`}
       >
-        {props.order.status === "done" ? "Выполнен" : "Готовится"}
+        {order.status === "done" ? "Выполнен" : "Готовится"}
       </p>
       <div className={styles.order_ingredients}>
         <div className={styles.order_img_container}>
-          {orderIngredients.map((item: TItem, index: number) => {
+          {orderIngredients.map((item: TIngredient, index: number) => {
             return (
               <img
                 className={`${styles.order_img}`}

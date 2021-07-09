@@ -30,8 +30,26 @@ import {
 } from "../../pages";
 import OrderItem from "../Order/OrderItem";
 
+// type TbackgroundOrder = {
+// hash: string;
+// key: string;
+// pathname: string;
+// search: string;
+// state: {} | undefined
+// }
+
+// type TbackgroundIngredient = {
+//   hash: string;
+//   key: string;
+//   pathname: string;
+//   search: string;
+//   state: {} | undefined
+//   }
+
 type TLocation = {
   state: {
+    // backgroundIngredient: TbackgroundIngredient;
+    // backgroundOrder: TbackgroundOrder;
     backgroundIngredient: any;
     backgroundOrder: any;
   };

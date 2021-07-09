@@ -6,10 +6,14 @@ import {
   GET_SELECTED_ORDER,
   REM_SELECTED_ORDER,
 } from "../types";
-import { TOrder, TApplicationActions } from "../actions/actionTypes";
+import {
+  TOrder,
+  TApplicationActions,
+  TgetOrderSuccess,
+} from "../actions/actionTypes";
 
 type TinitialStateOrder = {
-  order: TOrder | null;
+  order: TgetOrderSuccess | null;
   isOrderPopup: boolean;
   orderRequest: boolean;
   orderFailed: boolean;

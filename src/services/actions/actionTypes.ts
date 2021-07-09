@@ -94,8 +94,6 @@ export type TOrders = {
         }
       ]
     | [];
-  // total: number;
-  // totalToday: number;
 };
 
 export type TError = {
@@ -117,7 +115,7 @@ export type TInput = {
 
 export type TModalPropsType = {
   type: string;
-  isModal: any;
+  isModal: boolean;
   header?: string;
   children?: {};
 };
@@ -311,9 +309,15 @@ export interface IremoveSelectedIngredient {
 export interface IgetOrderRequest {
   readonly type: typeof GET_ORDER_REQUEST;
 }
+export type TgetOrderSuccess = {
+  name: string;
+  order: TOrder;
+  success: string;
+};
+
 export interface IgetOrder {
   readonly type: typeof GET_ORDER_SUCCESS;
-  payload: TOrder;
+  payload: TgetOrderSuccess;
 }
 export interface IgetOrderFailed {
   readonly type: typeof GET_ORDER_FAILED;
