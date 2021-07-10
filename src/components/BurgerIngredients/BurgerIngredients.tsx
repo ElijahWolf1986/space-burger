@@ -1,24 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo, FC } from "react";
 import styles from "./BurgerIngredients.module.css";
 import Ingredient from "../Ingredient/Ingredient";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions";
+import { TIngredient } from "../../services/actions/actionTypes";
+import { RootState } from "../../services/store";
 
-type TIngredient = {
-  calories: number;
-  carbohydrates: number;
-  count: number;
-  fat: number;
-  image: string;
-  name: string;
-  price: number;
-  proteins: number;
-  type: string;
-  _id: string;
-};
-
-function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
   const bunBlock: HTMLElement | null = document.getElementById("bun");
   const sauceBlock: HTMLElement | null = document.getElementById("sauce");
@@ -26,7 +15,7 @@ function BurgerIngredients() {
   const topBlock: HTMLElement | null = document.getElementById("ingredients");
   const [current, setCurrent] = React.useState("one");
   const { ingredients, clientIngredients, whatIsBun } = useSelector(
-    (store: any) => ({
+    (store: RootState) => ({
       ingredients: store.burgerIngredients.ingredients,
       clientIngredients: store.client.clientIngredients,
       whatIsBun: store.client.whatIsBun,
@@ -189,6 +178,6 @@ function BurgerIngredients() {
       </section>
     </section>
   );
-}
+};
 
 export default BurgerIngredients;

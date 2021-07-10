@@ -5,6 +5,7 @@ import successIcon from "../../images/OrderDetails/success_icon.png";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
 
 OrderDetails.propTypes = {
   onClose: PropTypes.func,
@@ -12,18 +13,17 @@ OrderDetails.propTypes = {
 const element: HTMLElement | null = document.getElementById("modal");
 
 function OrderDetails() {
-  const { order } = useSelector((store: any) => ({
+  const { order } = useSelector((store: RootState) => ({
     order: store.order.order,
   }));
-
+  const orderNumber = order && order.order.number;
+  const isModal = order ? true : false;
   return (
     element &&
     ReactDOM.createPortal(
-      <Modal isModal={order} type="order">
+      <Modal isModal={isModal} type="order">
         <div className={styles.order_container}>
-          <p className={styles.order_number}>
-            {order ? order.order.number : ""}
-          </p>
+          <p className={styles.order_number}>{order ? orderNumber : ""}</p>
           <p className={styles.order_title}>Идентификатор заказа</p>
           <img
             src={successIcon}

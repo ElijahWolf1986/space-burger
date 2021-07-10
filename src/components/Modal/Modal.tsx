@@ -4,15 +4,9 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { useDispatch } from "react-redux";
 import { closeAllPopups } from "../../services/actions";
 import { useHistory } from "react-router-dom";
+import { TModalPropsType } from "../../services/actions/actionTypes";
 
-type TPropsType = {
-  type: string;
-  isModal: any;
-  header?: string;
-  children?: {};
-};
-
-function Modal(props: TPropsType) {
+function Modal(props: TModalPropsType) {
   const history = useHistory();
   const dispatch = useDispatch();
   const goBack = () => {
@@ -27,8 +21,9 @@ function Modal(props: TPropsType) {
   }
 
   React.useEffect(() => {
-    function closeByEsc(evt: any) {
-      if (evt.keyCode === 27) {
+    function closeByEsc(evt: KeyboardEvent) {
+      const keyCode = evt.keyCode as number;
+      if (keyCode === 27) {
         onClose();
       }
     }

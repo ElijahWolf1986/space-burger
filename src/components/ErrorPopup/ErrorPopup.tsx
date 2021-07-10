@@ -3,9 +3,10 @@ import styles from "./ErrorPopup.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import { useSelector, useDispatch } from "react-redux";
 import { closeAllPopups } from "../../services/actions";
+import { RootState } from "../../services/store";
 
-function ErrorPopup() {
-  const { error } = useSelector((store: any) => ({
+const ErrorPopup: React.FC = () => {
+  const { error } = useSelector((store: RootState) => ({
     error: store.errors.error,
   }));
   const dispatch = useDispatch();
@@ -42,6 +43,6 @@ function ErrorPopup() {
       </div>
     </section>
   );
-}
+};
 
 export default ErrorPopup;

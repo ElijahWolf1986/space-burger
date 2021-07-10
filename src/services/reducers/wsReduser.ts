@@ -5,7 +5,19 @@ import {
   WS_CONNECTION_CLOSED,
 } from "../types";
 
-const initialStateWS = {
+import { TOrder, TApplicationActions } from "../actions/actionTypes";
+
+type TinitialStateWS = {
+  wsConnected: boolean;
+  wsError: boolean;
+  Data: {
+    orders: [TOrder] | [];
+    total: number;
+    totalToday: number;
+  };
+};
+
+const initialStateWS: TinitialStateWS = {
   wsConnected: false,
   wsError: false,
   Data: {
@@ -15,7 +27,10 @@ const initialStateWS = {
   },
 };
 
-export const wsReducer = (state = initialStateWS, action) => {
+export const wsReducer = (
+  state = initialStateWS,
+  action: TApplicationActions
+): TinitialStateWS => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

@@ -40,6 +40,8 @@ import {
   wsConnectionError,
   wsConnectionClosed,
 } from "./webSocketActions";
+import { AppDispatch, AppThunk } from "../store";
+
 
 export {
   loginUser,
@@ -73,8 +75,8 @@ export {
   wsConnectionClosed,
 };
 
-export function closeAllPopups(afterClose) {
-  return (dispatch) => {
+export const closeAllPopups: AppThunk = (afterClose) => {
+  return (dispatch: AppDispatch) => {
     dispatch(hideError());
     dispatch(removeSelectedIngredient());
     dispatch(hideOrder());

@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./ModalOverlay.module.css";
-import PropTypes from "prop-types";
 
 type TPropTypes = {
   onClose: () => void;

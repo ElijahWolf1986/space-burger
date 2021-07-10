@@ -6,16 +6,32 @@ import {
   GET_SELECTED_ORDER,
   REM_SELECTED_ORDER,
 } from "../types";
+import {
+  TOrder,
+  TApplicationActions,
+  TgetOrderSuccess,
+} from "../actions/actionTypes";
 
-const initialStateOrder = {
+type TinitialStateOrder = {
+  order: TgetOrderSuccess | null;
+  isOrderPopup: boolean;
+  orderRequest: boolean;
+  orderFailed: boolean;
+  currentOrder: TOrder | null;
+};
+
+const initialStateOrder: TinitialStateOrder = {
   order: null,
-  isOrderPopup: false, 
+  isOrderPopup: false,
   orderRequest: false,
   orderFailed: false,
   currentOrder: null,
 };
 
-export const getOrderReducer = (state = initialStateOrder, action) => {
+export const getOrderReducer = (
+  state = initialStateOrder,
+  action: TApplicationActions
+): TinitialStateOrder => {
   switch (action.type) {
     case GET_ORDER_REQUEST: {
       return {
@@ -30,7 +46,7 @@ export const getOrderReducer = (state = initialStateOrder, action) => {
         order: action.payload,
         orderRequest: false,
         isOrderPopup: true,
-      }; 
+      };
     }
     case GET_ORDER_FAILED: {
       return {

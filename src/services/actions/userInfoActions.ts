@@ -2,6 +2,8 @@ import { urlApi } from "../../utils/constants";
 import IngredientsApi from "../../utils/Api";
 import { showError } from "./errorActions";
 import { setCookie } from "../../utils/func";
+import { AppDispatch, AppThunk } from "../store";
+
 import {
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
@@ -23,8 +25,8 @@ import {
 
 const burgerApi = new IngredientsApi(urlApi);
 
-export function getUserInfo() {
-  return (dispatch) => {
+export const getUserInfo: AppThunk = () => {
+  return (dispatch: AppDispatch | AppThunk) => {
     dispatch({
       type: GET_USER_INFO_REQUEST,
     });
@@ -49,10 +51,10 @@ export function getUserInfo() {
         });
       });
   };
-}
+};
 
-export function updateUserInfo(name, email, password) {
-  return (dispatch) => {
+export const updateUserInfo: AppThunk = (name, email, password) => {
+  return (dispatch: AppDispatch | AppThunk) => {
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
     });
@@ -78,10 +80,10 @@ export function updateUserInfo(name, email, password) {
         }
       });
   };
-}
+};
 
-export function loginUser({ email, password }) {
-  return (dispatch) => {
+export const loginUser: AppThunk = ({ email, password }) => {
+  return (dispatch: AppDispatch) => {
     dispatch({
       type: LOGIN_USER_REQUEST,
     });
@@ -106,10 +108,10 @@ export function loginUser({ email, password }) {
         });
       });
   };
-}
+};
 
-export function createUser({ email, password, name }) {
-  return (dispatch) => {
+export const createUser: AppThunk = ({ email, password, name }) => {
+  return (dispatch: AppDispatch) => {
     dispatch({
       type: CREATE_USER_REQUEST,
     });
@@ -134,9 +136,9 @@ export function createUser({ email, password, name }) {
         });
       });
   };
-}
-export function getCodeUserPassword(email) {
-  return (dispatch) => {
+};
+export const getCodeUserPassword: AppThunk = (email) => {
+  return (dispatch: AppDispatch) => {
     burgerApi
       .forgotPassword(email)
       .then((res) => {
@@ -150,10 +152,10 @@ export function getCodeUserPassword(email) {
         dispatch(showError(error));
       });
   };
-}
+};
 
-export function resetUserPassword(password, code) {
-  return (dispatch) => {
+export const resetUserPassword: AppThunk = (password, code) => {
+  return (dispatch: AppDispatch) => {
     burgerApi
       .resetPassword(password, code)
       .then((res) => {
@@ -167,10 +169,10 @@ export function resetUserPassword(password, code) {
         dispatch(showError(error));
       });
   };
-}
+};
 
-export function logout(refreshToken) {
-  return (dispatch) => {
+export const logout: AppThunk = (refreshToken) => {
+  return (dispatch: AppDispatch) => {
     burgerApi
       .logout(refreshToken)
       .then((res) => {
@@ -178,7 +180,7 @@ export function logout(refreshToken) {
           type: REM_USER_INFO,
           payload: res,
         });
-        setCookie("token", null);
+        setCookie("token", "");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("userName");
       })
@@ -187,10 +189,10 @@ export function logout(refreshToken) {
         dispatch(showError(error));
       });
   };
-}
+};
 
-export function refreshToken(afterRefresh) {
-  return (dispatch) => {
+export const refreshToken: AppThunk = (afterRefresh: () => void) => {
+  return (dispatch: AppDispatch | AppThunk) => {
     burgerApi
       .refreshToken(localStorage.getItem("refreshToken"))
       .then((res) => {
@@ -209,4 +211,4 @@ export function refreshToken(afterRefresh) {
         dispatch(showError(error));
       });
   };
-}
+};

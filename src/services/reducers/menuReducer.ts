@@ -4,13 +4,22 @@ import {
   SHOW_PERSONAL_MENU,
   HIDE_PERSONAL_MENU,
 } from "../types";
+import { TApplicationActions } from "../actions/actionTypes";
 
-const initialStateMenu = {
+type TinitialStateMenu = {
+  isTooglePopup: Boolean;
+  isTooglePersonal: Boolean;
+};
+
+const initialStateMenu: TinitialStateMenu = {
   isTooglePopup: false,
   isTooglePersonal: false,
 };
 
-export const menuReducer = (state = initialStateMenu, action) => {
+export const menuReducer = (
+  state = initialStateMenu,
+  action: TApplicationActions
+): TinitialStateMenu => {
   switch (action.type) {
     case SHOW_MENU: {
       return {

@@ -8,27 +8,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions";
 import { wsActions } from "../../services/store";
 import { getCookie } from "../../utils/func";
+import { RootState } from "../../services/store";
+import { TOrder } from "../../services/actions/actionTypes";
 
-type TItem = {
-  image: string;
-  image_mobile: string;
-  name: string;
-  price: number;
-  _id: string;
-  count: number;
-  number: number;
-};
-
-function ProfileOrders() {
+const ProfileOrders: React.FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const token = getCookie("token");
+  const token = getCookie("token"); 
 
-  const { dataOrders, wsConnected } = useSelector((store: any) => ({
+  const { dataOrders, wsConnected } = useSelector((store: RootState) => ({
     dataOrders: store.ws.Data,
     wsConnected: store.ws.wsConnected,
   }));
-  const data = dataOrders && dataOrders.data && dataOrders.data.orders;
+  const data = dataOrders && dataOrders.orders;
 
   React.useEffect(() => {
     dispatch(getIngredients());
@@ -48,7 +40,7 @@ function ProfileOrders() {
       </div>
       <div className={styles.profile_orders}>
         <ul className={styles.profile_orders_list}>
-          {data.map((item: TItem, index: number) => {
+          {data.map((item: TOrder, index: number) => {
             return (
               <li className={styles.profile_order} key={index}>
                 <Link

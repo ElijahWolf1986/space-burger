@@ -15,11 +15,20 @@ import {
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS,
   UPDATE_USER_INFO_FAILED,
-
 } from "../types";
+import { TApplicationActions, TUser } from "../actions/actionTypes";
 
-const initialUserInfo = {
-  user: {},
+type TinitialUserInfo = {
+  user: TUser;
+  success: boolean;
+  accessToken: string | null;
+  refreshToken: string | null;
+  message: string | null;
+  userRequest: boolean;
+  userRequestFail: boolean;
+};
+const initialUserInfo: TinitialUserInfo = {
+  user: { email: "", password: "", name: "" },
   success: false,
   accessToken: null,
   refreshToken: null,
@@ -28,7 +37,10 @@ const initialUserInfo = {
   userRequestFail: false,
 };
 
-export const userInfoReducer = (state = initialUserInfo, action) => {
+export const userInfoReducer = (
+  state = initialUserInfo,
+  action: TApplicationActions
+): TinitialUserInfo => {
   switch (action.type) {
     case CREATE_USER_REQUEST: {
       return {
@@ -125,7 +137,7 @@ export const userInfoReducer = (state = initialUserInfo, action) => {
       const { success, message } = action.payload;
       return {
         ...state,
-        user: {},
+        user: { email: "", password: "", name: "" },
         success: success,
         accessToken: null,
         refreshToken: null,
@@ -135,39 +147,39 @@ export const userInfoReducer = (state = initialUserInfo, action) => {
       };
     }
     case REFRESH_USER_TOKEN: {
-        const { success, accessToken, refreshToken } = action.payload;
-        return {
-          ...state,
-          success: success,
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-          userRequest: false,
-          userRequestFail: false,
-        };
-      }
-      case UPDATE_USER_INFO_REQUEST: {
-        return {
-          ...state,
-          userRequest: true,
-        };
-      }
-      case UPDATE_USER_INFO_SUCCESS: {
-        const { success, user } = action.payload;
-        return {
-          ...state,
-          success: success,
-          user: user,
-          userRequest: false,
-          userRequestFail: false,
-        };
-      }
-      case UPDATE_USER_INFO_FAILED: {
-        return {
-          ...state,
-          userRequest: false,
-          userRequestFail: true,
-        };
-      }
+      const { success, accessToken, refreshToken } = action.payload;
+      return {
+        ...state,
+        success: success,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        userRequest: false,
+        userRequestFail: false,
+      };
+    }
+    case UPDATE_USER_INFO_REQUEST: {
+      return {
+        ...state,
+        userRequest: true,
+      };
+    }
+    case UPDATE_USER_INFO_SUCCESS: {
+      const { success, user } = action.payload;
+      return {
+        ...state,
+        success: success,
+        user: user,
+        userRequest: false,
+        userRequestFail: false,
+      };
+    }
+    case UPDATE_USER_INFO_FAILED: {
+      return {
+        ...state,
+        userRequest: false,
+        userRequestFail: true,
+      };
+    }
 
     default: {
       return {
